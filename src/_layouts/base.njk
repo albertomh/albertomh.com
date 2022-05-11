@@ -3,7 +3,25 @@
 
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- SEO & Social -->
+        <meta name="description" content="{{ blurb or metadata.blurb }}">
+        <meta name="robots" content="follow">
+        <link rel="canonical" href=https://www.albertomh.com{{ page.url }}>
+
+        <meta property="og:title" content="Alberto MH" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.albertomh.com{{ page.url }}" />
+        <meta property="og:image" content="https://www.albertomh.com/assets/img/opengraph{{ page.url | trim('/') }}.png" />
+        <meta property="og:description" content="{{ blurb or metadata.blurb }}" />
+
+        <meta name="twitter:card" content="summary">
+        <meta property="twitter:domain" content="albertomh.com">
+        <meta property="twitter:url" content="https://www.albertomh.com{{ page.url }}">
+        <meta name="twitter:title" content="Alberto MH">
+        <meta name="twitter:image" content="https://www.albertomh.com/assets/img/opengraph{{ page.url | trim('/') }}.png">
+        <meta name="twitter:description" content="{{ blurb or metadata.blurb }}">
 
         {% if title %}
             <title>{{ title }} | {{ metadata.title }}</title>

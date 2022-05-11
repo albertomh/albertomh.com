@@ -100,6 +100,22 @@ footer * {
 
 //  Reusable structural elements ───────────────────────────────────────────────
 
+// Navbar
+.navbar-brand {
+    font-size: 1.6rem !important;
+}
+@include media-breakpoint-up(md) {
+    .navbar-brand {
+        font-size: 1.25rem !important;
+    }
+}
+.navbar-toggler-icon {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><path stroke="rgba(0, 0, 0, 1)" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"/></svg>') !important;
+    &--open {
+        background-image: url('data:image/svg+xml;utf8,<svg version="1.1" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"><g transform="matrix(0.03906185,0,0,0.03906185,5.0002129,5.0001611)"><path d="M 284.29,256 506.15,34.14 c 7.811,-7.811 7.811,-20.475 0,-28.285 -7.811,-7.81 -20.475,-7.811 -28.285,0 L 256.005,227.715 34.145,5.855 c -7.811,-7.811 -20.475,-7.811 -28.285,0 -7.81,7.811 -7.811,20.475 0,28.285 L 227.72,256 5.86,477.86 c -7.811,7.811 -7.811,20.475 0,28.285 3.905,3.905 9.024,5.857 14.143,5.857 5.119,0 10.237,-1.952 14.143,-5.857 l 221.86,-221.86 221.86,221.86 c 3.905,3.905 9.024,5.857 14.143,5.857 5.119,0 10.237,-1.952 14.143,-5.857 7.811,-7.811 7.811,-20.475 0,-28.285 z" fill="rgba(0, 0, 0, 1)"/></g></svg>') !important;
+    }
+}
+
 // Post listings
 .post {
     margin-bottom: 1rem;

@@ -3,6 +3,10 @@ module.exports = function(eleventyConfig) {
     eleventyConfig.addPassthroughCopy("src/assets/video");
     eleventyConfig.addPassthroughCopy("src/assets/pdf");
 
+    eleventyConfig.addNunjucksFilter('trim', function trimFilter(text, char) {
+        return text.endsWith(char) ? text.slice(0, -1) : text;
+    });
+
     return {
 
         dir: {
