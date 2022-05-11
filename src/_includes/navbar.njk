@@ -1,0 +1,48 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <div class="container-md">
+
+        <div class="d-flex align-items-center me-sm-3" style="cursor: pointer;" onclick="navigateToHomepage()">
+            <img src="/assets/img/favicon.svg" alt="" width="32">
+            <a class="navbar-brand ms-2" href="/">Alberto MH</a>
+        </div>
+
+        <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-between ps-2 ps-lg-0" id="navbarContent">
+            <ul class="navbar-nav mt-2 mt-sm-0">
+                <!--li class="nav-item me-sm-2">
+                    <a class="nav-link" [class.active]="url === '/tag' && queryParams === 's=blog'" [routerLink]="['/tag']" [queryParams]="{s: 'blog'}">
+                        <i class="bi bi-square me-2 me-lg-1 d-lg-none text-white"></i>Blog
+                    </a>
+                </li-->
+                <li class="nav-item me-sm-2">
+                    <a class="nav-link {% if '/projects' in page.url %}active{% endif %}" href="/projects">
+                        <i class="bi bi-square me-2 me-lg-1 d-lg-none text-white"></i>Projects
+                    </a>
+                </li>
+                <li class="nav-item me-sm-2">
+                    <a class="nav-link {% if '/about' in page.url %}active{% endif %}" href="/about">
+                        <i class="bi bi-square me-2 me-lg-1 d-lg-none text-white"></i>About
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav mt-2 mt-sm-0">
+                <li class="nav-item me-sm-2">
+                    <a class="nav-link" href="https://github.com/albertomh/" target="_blank">
+                        <i class="bi bi-github github me-2 me-lg-1"></i>GitHub
+                    </a>
+                </li>
+                <li class="nav-item me-sm-2">
+                    <a class="nav-link" href="https://www.linkedin.com/in/albertomoronh/" target="_blank">
+                        <i class="bi bi-linkedin linkedin me-2 me-lg-1"></i>LinkedIn
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</nav>
