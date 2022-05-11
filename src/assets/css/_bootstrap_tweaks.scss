@@ -1,0 +1,33 @@
+nav {
+    border-bottom: 4px solid black;
+
+    .navbar-brand {
+        @include font-serif;
+        color: rgb(var(--bs-black-rgb)) !important;
+    }
+
+    .nav-link {
+        color: blue;
+        text-decoration: underline;
+    }
+}
+.navbar-light .navbar-nav .nav-link {
+    color: blue;
+
+    &.active {
+        color: rgb(var(--bs-black-rgb)) !important;
+        text-decoration: none;
+    }
+
+    &:hover,
+    &:focus {
+        color: $blue-600;
+    }
+}
+
+
+.card {
+    border-color: black;
+    border-width: 2px;
+    border-radius: 0;
+}

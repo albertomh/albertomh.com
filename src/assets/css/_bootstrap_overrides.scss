@@ -1,0 +1,50 @@
+//  Custom palette ─────────────────────────────────────────────────────────────
+$muted: #6C757D;
+$pulp: #FBFBF8;
+$cyan: #0DCAF0;
+$lime: #1AF636;
+$pink: #D63384;
+$indigo: #A370f7;
+$github: #333333;
+$linkedin: #0A66C2;
+
+// Place variables on the document root to access them from Angular Component scss files.
+// Do not use scss $variables here, hex values must be hard-coded.
+:root {
+    --muted: #6C757D;
+    --pulp: #FBFBF8;
+    --cyan: #0DCAF0;
+    --lime: #1AF636;
+    --pink: #D63384;
+    --indigo: #A370f7;
+    --github: #333333;
+    --linkedin: #0A66C2;
+
+    --font-size: 18px;
+    --blue-600: #0A58CA;
+}
+
+.cyan {
+    color: $cyan;
+}
+.lime {
+    color: $lime;
+}
+.pink {
+    color: $pink;
+}
+.indigo {
+    color: $indigo;
+}
+
+.github {
+    color: $github;
+}
+.linkedin {
+    color: $linkedin;
+}
+
+
+//  Bootstrap variable overrides ───────────────────────────────────────────────
+// [github.com/twbs/bootstrap/blob/main/scss/_variables.scss]
+$body-color: black;

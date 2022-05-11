@@ -1,0 +1,41 @@
+//  Post-specific dropcaps ─────────────────────────────────────────────────────
+// [stackoverflow.com/a/70899698]
+
+.dropcap::first-letter {
+    font-family: monospace;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-center: center center;
+    float: left;
+    font-size: 5.2em;
+    line-height: 0.85;
+    color: transparent;
+    margin-right: 0.05em;
+    margin-top: 0.05em;
+}
+
+
+/*
+// Create a new dropcap-- class using the following template:
+p.dropcap--template::first-letter {
+    background-image: url('/assets/img/dropcap/_dropcap_template.svg');
+}
+
+// Then simply add the relevant `.dropcap .dropcap--<id>` classes to a `p.content` tag.
+*/
+
+p.dropcap--about::first-letter {
+    background-image: url('../../assets/img/dropcap/about.svg');
+}
+
+p.dropcap--2021-squeezecompass::first-letter {
+    background-image: url('../../assets/img/dropcap/2021/squeezecompass.svg');
+}
+
+p.dropcap--2021-lightsail::first-letter {
+    background-image: url('../../assets/img/dropcap/2021/lightsail.svg');
+}
+
+p.dropcap--2022-nacar::first-letter {
+    background-image: url('../../assets/img/dropcap/2022/nacar.svg');
+}
