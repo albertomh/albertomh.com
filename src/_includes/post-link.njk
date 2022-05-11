@@ -1,11 +1,11 @@
-<div class="row post-link" onclick="navigateToPost()">
+<div class="row post-link position-relative">
 
     <!-- Mobile title. -->
     <div class="col-12 mt-1 d-md-none">
         <span class="font-monospace text-muted small">{{ post.data.updatedAt }}</span>
     </div>
     <div class="col-12 mb-2 d-md-none">
-        <a href="{{ post.data.path }}" class="h1">{{ post.data.title }}</a>
+        <a href="{{ post.data.path }}" class="h1 stretched-link">{{ post.data.title }}</a>
     </div>
 
     <div class="col-12 ms-md-3">
@@ -23,7 +23,7 @@
             <div class="col-12 col-md ms-md-3 d-none d-md-block">
                 <div class="row">
                     <div class="col-12"><span class="font-monospace text-muted small">{{ post.data.updatedAt }}</span></div>
-                    <div class="col-12 mb-1"><a href="{{ post.data.path }}" class="h2">{{ post.data.title }}</a></div>
+                    <div class="col-12 mb-1"><a href="{{ post.data.path }}" class="h2 stretched-link">{{ post.data.title }}</a></div>
                     <div class="col-12 pb-2"><p>{{ post.data.blurb }}</p></div>
                 </div>
             </div>

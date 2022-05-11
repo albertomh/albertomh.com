@@ -1,9 +1,9 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white">
     <div class="container-md">
 
-        <div class="d-flex align-items-center me-sm-3" style="cursor: pointer;" onclick="navigateToHomepage()">
+        <div class="d-flex align-items-center me-sm-3 position-relative" style="cursor: pointer;">
             <img src="/assets/img/favicon.svg" alt="" width="32">
-            <a class="navbar-brand ms-2" href="/">Alberto MH</a>
+            <a class="navbar-brand ms-2 stretched-link" href="/">Alberto MH</a>
         </div>
 
         <button class="navbar-toggler" type="button"
@@ -20,7 +20,7 @@
                     </a>
                 </li-->
                 <li class="nav-item me-sm-2">
-                    <a class="nav-link {% if '/blog' in page.url %}active{% endif %}" href="/">
+                    <a class="nav-link {% if page.url == '/' %}active{% endif %}" href="/">
                         <i class="bi bi-square me-2 me-lg-1 d-lg-none text-white"></i>Blog
                     </a>
                 </li>
