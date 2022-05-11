@@ -1,6 +1,6 @@
 # <a href="https://www.albertomh.com" target="_blank">albertomh.com</a>
 
-My personal site - an Angular application deployed as a static site on Cloudflare Pages.
+My personal site - an 11ty static site deployed on Cloudflare Pages.
 
 
 ## Develop
