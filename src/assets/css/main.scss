@@ -183,6 +183,54 @@ p.end-acorn::after {
 }
 
 //  Page-specific selectors ────────────────────────────────────────────────────
+
+//  About page ─────────────────────────
+.about__profile-picture {
+    height: 176px;
+    border: 4px solid black;
+}
+
+.fs-5 {
+    @include media-breakpoint-down(sm) {
+        font-size: var(--font-size) !important;
+    }
+}
+
+.timeline__time {
+    position: relative;
+
+    > i:last-child {
+        position: absolute;
+        top: 0;
+        right: calc((var(--font-size) / 2 * -1) + 2px);
+    }
+    > i:first-child {
+        position: absolute;
+        top: 0;
+        left: calc((var(--font-size) / 2 * -1) + 2px);
+    }
+
+    @include media-breakpoint-up(md) {
+        > i:last-child {
+            right: calc((var(--font-size) / 2 * -1) - 2px);
+        }
+        > i:first-child {
+            left: calc((var(--font-size) / 2 * -1) - 2px);
+        }
+    }
+}
+
+.timeline__content {
+    @include media-breakpoint-down(sm) {
+        font-size: calc(var(--font-size) * 0.85) !important;
+    }
+
+    p > p {
+        margin-bottom: 0.4rem;
+    }
+}
+
+//  404 page  ──────────────────────────
 .card--404 {
     border-top: 8px solid black;
     border-left-style: double;

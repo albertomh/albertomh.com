@@ -3,11 +3,11 @@
     "version": "0.0.1",
     "description": "",
     "scripts": {
-        "build": "npm run prod:eleventy && npm run prod:parcel && npm run minifyHTML",
+        "build": "rm -rf ./dist/ && npm run prod:eleventy && npm run prod:parcel && npm run minifyHTML",
         "dev": "npm run build && python3 -m http.server --directory dist/",
         "minifyHTML": "html-minifier --input-dir ./dist --output-dir ./dist --collapse-whitespace --file-ext html",
         "prod:eleventy": "npx @11ty/eleventy --quiet",
-        "prod:parcel": "npx parcel build src/assets/js/main.js --dist-dir ./dist/tmp/assets && npm run prod:css && npm run prod:js && rm -rf ./dist/tmp",
+        "prod:parcel": "npx parcel build src/assets/js/main.js --dist-dir ./dist/tmp/assets --no-content-hash && npm run prod:css && npm run prod:js && cp -r ./dist/tmp/assets/. ./dist/assets && rm -rf ./dist/tmp",
         "prod:css": "mkdir -p ./dist/assets/css && cp ./dist/tmp/assets/main.css ./dist/assets/css/",
         "prod:js": "mkdir -p ./dist/assets/js && cp ./dist/tmp/assets/main.js ./dist/assets/js/"
     },
