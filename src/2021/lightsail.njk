@@ -145,7 +145,7 @@ tags: ['post', 'project']
                 <pre class="mb-2"><code class="hljs">aws lightsail get-container-services \<br>    --service-name=<span class="text-warning">&lt;YOUR-PROJECT&gt;</span> | grep "\"state\":"</code></pre>
 
                 <p class="content">
-                    The deployment is done once the Container Service reports the state of the container as <code>RUNNING</code>.<br>This last command will also report a URL that is a subdomain of <code class="inline-code text-white">.&lt;AWS-REGION&gt;.cs.amazonlightsail.com</code>. Open it in a browser and you will see whatever the container is serving on port 8080 (or whichever ports you specified in the port mapping in  <code class="inline-code"><span class="pink">&lt;CONTAINER-JSON&gt;</span></code>).
+                    The deployment is done once the Container Service reports the state of the container as <code>RUNNING</code>.<br>This last command will also report a URL that is a subdomain of <code class="inline-code text-white">.&lt;AWS-REGION&gt;<wbr>.cs.amazonlightsail.com</code>. Open it in a browser and you will see whatever the container is serving on port 8080 (or whichever ports you specified in the port mapping in  <code class="inline-code"><span class="pink">&lt;CONTAINER-JSON&gt;</span></code>).
                 </p>
 
                 <h2 id="custom-domain" class="mt-5">Serving from a custom domain</h2>
@@ -176,7 +176,7 @@ tags: ['post', 'project']
                 </p>
 
                 <p class="content">
-                    Return one last time to Cloudflare's DNS control panel. Add another CNAME record with a Name of <code>api</code> (or whichever subdomain you wish to serve responses from) and a Value that is the <code class="inline-code text-white">.&lt;AWS-REGION&gt;.cs.amazonlightsail.com</code> subdomain reported by the Container Service when we spun up our container earlier. Switch the 'orange cloud' toggle for this record on, proxying requests to <code>api.example.com</code> through Cloudflare.
+                    Return one last time to Cloudflare's DNS control panel. Add another CNAME record with a Name of <code>api</code> (or whichever subdomain you wish to serve responses from) and a Value that is the <code class="inline-code text-white">.&lt;AWS-REGION&gt;<wbr>.cs.amazonlightsail.com</code> subdomain reported by the Container Service when we spun up our container earlier. Switch the 'orange cloud' toggle for this record on, proxying requests to <code>api.example.com</code> through Cloudflare.
                 </p>
                 <p class="content">
                     Finally, navigate to the 'SSL/TLS' console for your domain on Cloudflare and set the mode to <strong>Full</strong> or <strong>Full (strict)</strong>. This ensures our API is always served over https and helps us avoid the <code>TOO_MANY_REDIRECTS</code> misconfiguration error.

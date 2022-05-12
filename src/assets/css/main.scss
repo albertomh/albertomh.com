@@ -14,6 +14,9 @@
 //  Dropcaps ───────────────────────────────────────────────────────────────────
 @import '_dropcaps';
 
+//  Syntax highlighting ────────────────────────────────────────────────────────
+@import '../../../node_modules/highlight.js/scss/monokai-sublime';
+
 
 //  Variables ──────────────────────────────────────────────────────────────────
 $font-size: 18px;
