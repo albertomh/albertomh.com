@@ -1,0 +1,74 @@
+---
+layout: post
+title: Where does the SqueezeCompass point?
+blurb: In the wake of the early 2021 $GME short squeeze frenzy I created SqueezeCompass to rank, filter, and visualise S&P500 stocks based on metrics such as short interest.
+createdAt: '2021-02-17'
+updatedAt: '2021-02-17'
+path: /2021/squeezecompass
+tags: ['post', 'project']
+---
+<div class="row pb-4">
+    <article class="col ms-2 ms-lg-0 pt-1 pt-md-3 ps-md-4 ps-lg-5">
+
+        <div class="row">
+            <div class="col-12 col-lg-10 mt-2 mt-md-0">
+                <h1 class="display-2 mb-2">Where does the SqueezeCompass point?</h1>
+                <p class="text-muted">Published on <span class="font-monospace">{{ updatedAt }}</span></p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8">
+
+                <div class="alert alert-primary bg-white mb-4" role="alert">
+                    <p class="h4"><i class="bi bi-compass-fill me-1"></i> Summary</p>
+                    <p class="content m-0"><a href="https://sc.albertomh.com/SqueezeCompass/" class="alert-link">SqueezeCompass <i class="bi bi-arrow-up-right-square-fill"></i></a> is a tool I have developed to visualise key indicators of a short squeeze for the stocks that make up the S&P500.</p>
+                </div>
+
+                <p class="content dropcap" style="--dropcap-url: url('/assets/img/dropcap/2021/squeezecompass.svg');">
+                    SqueezeCompass ranks, filters, and visualises S&P500 stocks based on metrics such as short interest. The project emerges in the wake of the <code>$GME</code> bubble of early 2021. It is an attempt to delve into the fundamentals of a short squeeze by tracking and visualising its indicators, as well as an opportunity to explore Python type annotations and Angular 11.
+                </p>
+
+                <p class="d-flex justify-content-center mb-4"><img src="/assets/img/post/2021/squeezecompass.gif" height="360" class="img-fluid" alt="SqueezeCompass: a grid of S&P500 stocks colour-coded to show information about each."></p>
+
+                <p class="content mb-2">
+                    SqueezeCompass consists of two modules:
+                </p>
+                <ul class="content">
+                    <li>A Python data fetcher that stores snapshots of the make up of the S&P 500 and key financial data for these constituents on a given day.</li>
+                    <li>An Angular application with which to display, filter, and browse the indicators aggregated in the daily snapshot.</li>
+                </ul>
+
+                <h2 class="mt-5 mb-3">Fetching financial data</h2>
+                <p class="content">
+                    Data is fetched on a daily basis from Yahoo Finance and stored in a SQLite database using the SQLAlchemy ORM. Written in Python, this section of the project gave me the opportunity to try out Type Annotations. As much as I enjoy the flexibility of Python's duck typing when putting together prototypes, the discipline & consistency encouraged by annotations was refreshing and helped me catch bugs where I tried to munge the wrong figures into a database field.
+                </p>
+                <p class="content">
+                    S&P 500 constituents are rebalanced on a quarterly basis on the third Friday of March, June, September and December. Every time the data fetcher runs it verifies whether the existing list of constituents is stale and, if so, assembles a fresh one. Daily data snapshots are exported to JSON, ready to be ingested by the web app that displays them and makes them interactive.
+                </p>
+
+                <h2 class="mt-5 mb-3">Bringing indicators to life</h2>
+                <p class="content">
+                    This is the first substantial side-project where I have had the pleasure to use modern Angular (11). It is a joy to actively develop in, and is somehow made even better when Bootstrap 5 (in beta at the time of writing) is introduced to the mix. After years writing JavaScript, becoming acquainted with TypeScript has introduced a much-appreciated degree of structure and clarity to my frontend code.
+                </p>
+                <p class="content">
+                    Angular's inbuilt reactivity and event flow handling is particularly suited for a data-rich application such as this one. It provides the perfect building blocks for being able to fluidly toggle between metrics or indicator visualisationS, and to dynamically filter a dataset with no stutter or superfluous reloads.
+                </p>
+
+                <p class="content end-acorn mt-5">
+                    Turmoil in some sections of the market as a consequence of this frenzy notwithstanding, this has been a great opportunity to &ndash; in a short amount of time &ndash; try out technologies that had been beckoning for a while.
+                    <br><a href="https://sc.albertomh.com/SqueezeCompass/">Give SqueezeCompass a spin</a> <span class="small">(dataset frozen to late February 2021).</span>
+                </p>
+
+                <hr>
+                <p class="text-muted small">
+                    Main image made by remixing <a href="https://icons.getbootstrap.com/" target="_blank">Bootstrap Icons</a> (MIT license).
+                    <br>
+                    Dropcap background: <a href="https://www.rawpixel.com/image/2476058" target="_blank"><em>Vine</em> (1873)</a> by William Morris, licensed under CC0.
+                </p>
+
+            </div>
+        </div>
+
+    </article>
+</div>

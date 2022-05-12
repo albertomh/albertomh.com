@@ -7,6 +7,11 @@ module.exports = function(eleventyConfig) {
         return text.endsWith(char) ? text.slice(0, -1) : text;
     });
 
+    eleventyConfig.addFilter('byCreatedAt', function sortByOrder(values) {
+        let vals = [...values];
+        return vals.sort((a, b) => new Date(b.data.createdAt) - new Date(a.data.createdAt));
+    });
+
     return {
 
         dir: {

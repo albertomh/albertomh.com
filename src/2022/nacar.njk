@@ -1,0 +1,98 @@
+---
+layout: post
+title: Smoothing out the shell with Nacar
+blurb: Introducing Nacar, an open-source tool to create interactive text-based interfaces from simple YAML blueprints. An exercise in generative metaprogramming and creating UIs using pure Bash.
+createdAt: '2022-04-29'
+updatedAt: '2022-04-29'
+path: /2022/nacar
+tags: ['post', 'project']
+---
+<div class="row pb-4">
+    <article class="col ms-2 ms-lg-0 pt-1 pt-md-3 ps-md-4 ps-lg-5">
+
+        <div class="row">
+            <div class="col-12 col-lg-10 mt-2 mt-md-0">
+                <h1 class="display-2 mb-2">Smoothing out the shell with Nacar</h1>
+                <p class="text-muted">Published on <span class="font-monospace">{{ updatedAt }}</span></p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8">
+
+                <div class="alert alert-primary bg-white mb-4" role="alert">
+                    <p class="h4"><i class="bi bi-terminal-fill me-1"></i> Summary</p>
+                    <p class="content m-0">Nacar is a tool I have developed to quickly create text-based interfaces for the shell. <a href="https://github.com/albertomh/Nacar" class="alert-link">Check Nacar out on GitHub <i class="bi bi-arrow-up-right-square-fill"></i></a></p>
+                </div>
+
+                <p class="content dropcap" style="--dropcap-url: url('/assets/img/dropcap/2022/nacar.svg');">
+                    Laying the foundations for my umpteenth three-tier web application, I worked my way through the shibboleths of a modern app &mdash; containerisation, a decoupled frontend, secrets stored in the environment. These best practices offered reassurance that I was doing the Right Thing&trade;; that any eventual business logic would sit atop a base of concrete reinforced by steel rods forged in the fires of thousands of botched migration rollbacks, endpoint outages, and cache invalidation woes.
+                </p>
+                <p class="content">
+                    As glad as I was for these conventions, once I started to write application code I found the ergonomics of regularly interacting with this digital bedrock lacking. In the early, iterative stage of such a project it quickly becomes tiresome to recall the same management  commands over and over.
+                </p>
+                <p class="content">
+                    In parallel to this I was introducing two new colleagues to a slew of systems. To ease them into these I cobbled together a Bash script that displayed a helpful set of management commands for a given project and, listening for the relevant shortcut, executed them. This provided a quick introduction to common tasks and avoided overwhelming them with the specifics and myriad flags of the tools such systems are built on.
+                </p>
+                <p class="content">
+                    Turning my attention back to the greenfield project, inspiration struck.
+                </p>
+
+                <p class="content">Surely it would make more sense to build for the general case? These were common scenarios scores of developers faced, that I myself would keep facing. I could create a tool that could both alleviate the tedium of invoking recurrent tasks and also offer guardrails to newcomers, removing some of the anxiety surrounding joining a project.
+                </p>
+
+                <p class="content">
+                    <a href="https://github.com/albertomh/Nacar">Nacar</a> is the answer that I have built to the above question. It is a tool that accepts simple YAML blueprints anyone can write and spits out lightweight Bash scripts that produce keyboard-navigable text interfaces.
+                    <br>
+                    I find myself putting the resulting Nacar apps in the root of web application projects and using them as a control surface, an accessible starting point where common tasks are but a keystroke away.
+                </p>
+
+                <div class="alert alert-primary bg-white mb-5" role="alert">
+                    <p class="h5"><i class="bi bi-info-circle-fill me-1"></i> What's in a name?</p>
+                    <p class="m-0"><em>Nácar</em> means 'mother of pearl' in Spanish, reflecting the tool's aim to make interacting with the shell smoother and more beautiful.</p>
+                </div>
+
+                <p class="d-flex justify-content-center"><img src="/assets/img/post/2022/nacar-showcase.gif" height="360" alt="Nacar showcase" class="img-fluid"></p>
+                <p class="mx-3 mx-md-5 mb-4"><strong>A YAML blueprint (left) and the resulting Bash Nacar app running in the terminal (right).</strong></p>
+
+                <p class="content">
+                    A blueprint for a Nacar app is a simple YAML file that defines a hierarchy of screens, the links between said screens, and the commands available for invocation from a given screen. For instance, you might define a top-level 'Test' screen under which you group related commands (such as running unit tests, Selenium tests, generating a report, etc.).
+                </p>
+
+                <p class="content mt-2 mb-3">Nacar is comprised of the following modules:</p>
+                <dl class="content">
+                    <dt><i class="fs-4 bi bi-funnel me-1"></i> File I/O</dt>
+                    <dd>Parses YAML files as input and writes in-memory representations of Nacar apps out as executable files. It is responsible for interacting with the filesystem, setting permissions on resulting apps, and handling any I/O exceptions.</dd>
+
+                    <dt class="mt-3"><i class="fs-4 bi bi-layout-wtf me-1"></i> Blueprint schema</dt>
+                    <dd>The <code>schema</code> module defines the rules a parsed blueprints must adhere to before it can be accepted by a translator. Schemas are JSON-like objects that define the hierarchy and rules of an acceptable blueprint. Sub-schemas are modular objects used in a composable manner in the main schema to validate recurring entities such as <code>screens</code> or <code>screen links</code>.</dd>
+
+                    <dt class="mt-3"><i class="fs-4 bi bi-clipboard2-check me-1"></i> Validator</dt>
+                    <dd>Nacar's <code>validator</code> is built on top of the Cerberus validator and checks for issues which would make the translator's job impossible, such as duplicates in the screen namespace or recursive screen linkage. It does this by accepting the rules defined in the JSON-like schema, plus more complex ones expressed as small functions.</dd>
+
+                    <dt class="mt-3"><i class="fs-4 bi bi-arrow-left-right me-1"></i> Translators</dt>
+                    <dd>Translators take an in-memory representation of a blueprint and turn it into a Nacar application written in a target language. The <code>itranslator.py</code> interface defines the methods a translator should implement, making it easy to create new ones that will output Nacar apps in a language different to that of the canonical translator, which produces Bash scripts.</dd>
+
+                    <!--dt class="mt-3"><i class="fs-4 bi bi-signpost me-1"></i> Entrypoint</dt>
+                    <dd>The <code>main.py</code> module is responsible for running initial checks and orchestrating the core functionalities such as reading YAML blueprints, parsing them into an in-memory representation, validating the blueprint, translating to the target language, and persisting the result to a file.</dd-->
+                </dl>
+
+                <p class="content">
+                    Nacar is a response to a need, and it is an exercise in metaprogramming, being a program that generates other programs. Building Nacar has given me a new perspective in my approach to code, particularly with regard to the importance of clean, modular design. Future posts will delve into the specifics of what writing the modules listed above has taught me.
+                </p>
+                <p class="content end-acorn mb-5">
+                    You are welcome to <a href="https://github.com/albertomh/Nacar" class="alert-link">try Nacar out</a> &mdash; any and all feedback is appreciated.
+                </p>
+
+                <hr>
+                <p class="text-muted small">
+                    Main image made by remixing <a href="https://icons.getbootstrap.com/" target="_blank">Bootstrap Icons</a> (MIT license).
+                    <br>
+                    Dropcap background: <a href="https://www.rawpixel.com/image/2478164/free-illustration-image-pattern-texture-floral" target="_blank"><em>Venetian pattern</em> (ca. 1868-70)</a> by William Morris, licensed under CC0.
+                </p>
+
+            </div>
+        </div>
+
+    </article>
+</div>

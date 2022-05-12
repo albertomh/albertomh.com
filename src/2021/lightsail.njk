@@ -1,0 +1,211 @@
+---
+layout: post
+title: The lazy Sunday guide to sailing the serverless seas
+blurb: Quickly deploy APIs without leaving the comfort of the command line. Containerise your application, deploy to AWS, and route via a custom domain proxied over Cloudflare without breaking a sweat.
+createdAt: '2021-11-14'
+updatedAt: '2021-11-14'
+path: /2021/lightsail
+tags: ['post', 'project']
+---
+<div class="row pb-4">
+    <article class="col ms-2 ms-lg-0 pt-1 pt-md-3 ps-md-4 ps-lg-5">
+
+        <div class="row">
+            <div class="col-12 col-lg-10 mt-2 mt-md-0">
+                <h1 class="display-2 mb-2">The lazy Sunday guide to sailing the serverless seas</h1>
+                <p class="text-muted">Published on <span class="font-monospace">{{ updatedAt }}</span></p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8">
+
+                <div class="alert alert-primary bg-white mb-4" role="alert">
+                    <p class="h4"><i class="bi bi-clouds-fill me-1"></i> Summary</p>
+                    <ul class="content">
+                        <li>Learn to harness Jib to quickly create container images.</li>
+                        <li>Deploy these to Lightsail (AWS' serverless solution) straight from the command line.</li>
+                        <li>Serve your API from a custom domain, over https.</li>
+                        <li>Wrap everything in the DDoS-proof bubblewrap Cloudflare offers.</li>
+                    </ul>
+                </div>
+
+                <p class="content mb-3 dropcap" style="--dropcap-url: url('/assets/img/dropcap/2021/lightsail.svg');">
+                    Serverless solutions ought to be stocked on chemists' shelves, nestled between industrial tubs of aspirin and 1000-count packs of paracetamol &ndash; such is their power to prevent headaches. Before I further extoll the virtues of serverless allow me to preface this guide with the following caveats:
+                </p>
+                <ul class="content">
+                    <li>If you're taking your first steps with web applications or devops, you're better off starting out with a VPS and learning the ropes that way.</li>
+                    <li>This guide is not one-size-fits-all. I have found success using these methods & technologies for prototypes and side projects. You may have to adapt these steps for your usecase.</li>
+                </ul>
+
+                <div class="alert alert-primary bg-white mb-3" role="alert">
+                    <p class="h5"><i class="bi bi-list-stars me-1"></i> Contents</p>
+                    <ul class="content no-bullet m-0">
+                        <li>Prerequisites</li>
+                        <li>Initial setup</li>
+                        <li>Lightsail's Container Service</li>
+                        <li>Create the container image</li>
+                        <li>Spin up a container</li>
+                        <li>Serving from a custom domain (optional)</li>
+                    </ul>
+                </div>
+
+                <h2 id="prerequisites" class="mt-5">Prerequisites</h2>
+                <p class="content mb-2">
+                    The following prerequisites should be fulfilled. Walking through them is beyond the scope of this document.
+                </p>
+                <ul class="content">
+                    <li>You must have an Amazon Web Services account. A Cloudflare account is necessary if you wish to complete the optional step at the end of the guide.</li>
+                    <li>A basic RESTful API you wish to deploy. You may use any language or technology, but this tutorial assumes a Java project using Maven.</li>
+                </ul>
+
+                <h2 id="setup" class="mt-5">Initial setup</h2>
+                <p class="content">
+                    First, install the <a href="https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html" target="_blank">AWS CLI v2 <i class="bi bi-arrow-up-right-square-fill"></i></a>. Configure your access key ID, secret key, and region by following <a href="https://docs.aws.amazon.com/cli/latest/userguide/getting-started-quickstart.html" target="_blank">these instructions <i class="bi bi-arrow-up-right-square-fill"></i></a>. You will then want to install the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-install-software#install-lightsailctl-on-linux" target="_blank">lightsailctl <i class="bi bi-arrow-up-right-square-fill"></i></a> plugin to enable the AWS CLI to interact with Lightsail services.
+                </p>
+
+                <h2 id="container-service" class="mt-5">Lightsail's Container Service</h2>
+                <p class="content">
+                    A 'Container Service' in Lightsail is simply an environment into which you launch a specific containerised application. You can scale horizontally by adding up to 20 compute nodes within a single Container Service, and vertically by changing the 'Power' (instance type of the underlying VPS).
+                </p>
+                <p class="content mb-2">
+                    We will now create a Container Service, specifying we wish to populate it with a single <code>micro</code> node:
+                </p>
+                <pre class="mb-4"><code class="hljs">aws lightsail create-container-service \<br>    --service-name <span class="text-warning">&lt;YOUR-PROJECT&gt;</span> \<br>    --power micro --scale 1</code></pre>
+                <p class="content mb-2">
+                    Check that the service has been created:
+                </p>
+                <pre class="d-block d-md-none mb-2"><code class="hljs">aws lightsail get-container-services \<br>    --service-name=<span class="text-warning">&lt;YOUR-PROJECT&gt;</span></code></pre>
+                <pre class="d-none d-md-block mb-2"><code class="hljs">aws lightsail get-container-services --service-name=<span class="text-warning">&lt;YOUR-PROJECT&gt;</span></code></pre>
+                <p class="content">
+                    Wait until this command reports that the state of the newly created Container Service is <code>ACTIVE</code> or <code>READY</code>.
+                </p>
+
+                <h2 id="create-image" class="mt-5">Create the container image</h2>
+                <p class="content">
+                    We will now add a dollop of secret sauce, courtesy of Google's excellent <a href="https://github.com/GoogleContainerTools/jib" target="_blank">Jib <i class="bi bi-arrow-up-right-square-fill"></i></a> plugin. Jib has been a Copernican revolution in my container workflow for Maven projects. It is blazing fast &mdash; doing a much better job than Docker itself at only rebuilding the layers that have changed. It prides itself on generating reproducible builds and creating images directly from Maven or Gradle, meaning you can wave goodbye to writing Dockerfiles. I was initially skeptical upon hearing all this, but to try it is to love it.
+                </p>
+                <p class="content mb-2">
+                    If using Maven include Jib by adding the following to the build plugins element of your POM:
+                </p>
+                <pre><code class="hljs"><span class="hljs-tag">&lt;<span class="hljs-name">build</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">plugins</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">plugin</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.google.cloud.tools<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>jib-maven-plugin<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.2.1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">configuration</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">from</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">image</span>&gt;</span><span class="cyan">&lt;BASE-IMAGE&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">image</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-name">from</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">to</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-name">image</span>&gt;</span><span class="lime">&lt;YOUR-IMAGE-NAME&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">image</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-name">to</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">configuration</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">plugin</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">plugins</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">build</span>&gt;</span></code></pre>
+                <p class="content">
+                    Replace <code class="inline-code"><span class="cyan">&lt;BASE-IMAGE&gt;</span></code> above with a string identifying the base image you wish to use for your container in the format <code class="inline-code text-white"><span class="cyan">image-name</span>:<span class="cyan">tag</span>@<span class="cyan">digest</span></code>. Since I wish to build upon the OpenJDK version of Java 17, that is <code class="inline-code text-white">eclipse-temurin:17-jre@sha256:8b7...</code> for me.
+                </p>
+                <p class="content mb-2">
+                    Create the image containing your application by running:
+                </p>
+                <pre class="mb-2"><code class="hljs">./mvnw compile jib:dockerBuild</code></pre>
+
+                <h2 id="spin-up-container" class="mt-5">Spin up a container</h2>
+                <p class="content mb-2">
+                    Let's push our newly minted image to the Container Service we created earlier:
+                </p>
+                <pre><code class="hljs">aws lightsail push-container-image \<br>    --region eu-west-1 \<br>    --service-name <span class="text-warning">&lt;YOUR-PROJECT&gt;</span> \<br>    --label <span class="indigo">&lt;YOUR-API-NAME&gt;</span> \<br>    --image <span class="lime">&lt;YOUR-IMAGE-NAME&gt;</span>:latest</code></pre>
+                <p class="content mt-4 mb-2">
+                    Where <code class="inline-code"><span class="indigo">&lt;YOUR-API-NAME&gt;</span></code> is simply a label to identify this application within the context of the Container Service we created earlier.
+                </p>
+                <p class="content mb-2">
+                    Once the image has been pushed to Lightsail we can actually create a container and have it run in the cloud:
+                </p>
+                <pre><code class="hljs">aws lightsail create-container-service-deployment \<br>    --service-name <span class="text-warning">&lt;YOUR-PROJECT&gt;</span> \<br>    --containers <span class="pink">&lt;CONTAINER-JSON&gt;</span> \<br>    --public-endpoint <span class="lime">&lt;ENDPOINT-JSON&gt;</span></code></pre>
+                <p class="content mb-2">
+                    Where <code class="inline-code"><span class="pink">&lt;CONTAINER-JSON&gt;</span></code> is an object with the following data:
+                </p>
+                <pre><code class="hljs">&#123;
+    <span class="hljs-string">"<span class="indigo">&lt;YOUR-API-NAME&gt;</span>"</span>: &#123;
+        <span class="hljs-string">"image"</span>: <span class="hljs-string">":<span class="text-warning">&lt;YOUR-PROJECT&gt;</span>.<span class="indigo">&lt;YOUR-API-NAME&gt;</span>.latest"</span>,
+        <span class="hljs-string">"ports"</span>: &#123; <span class="hljs-string">"8080"</span>: <span class="hljs-string">"HTTP"</span> &#125;
+    &#125;
+}</code></pre>
+                <p class="content mt-3 mb-2">
+                    And <code class="inline-code"><span class="lime">&lt;ENDPOINT-JSON&gt;</span></code> takes the form:
+                </p>
+                <pre><code class="hljs"><span class="hljs-string">'&#123;"containerName": "<span class="indigo">&lt;YOUR-API-NAME&gt;</span>", "containerPort": 8080&#125;'</span></code></pre>
+
+                <p class="content mt-4 mb-2">
+                    You may monitor the deployment with:
+                </p>
+                <pre class="mb-2"><code class="hljs">aws lightsail get-container-services \<br>    --service-name=<span class="text-warning">&lt;YOUR-PROJECT&gt;</span> | grep "\"state\":"</code></pre>
+
+                <p class="content">
+                    The deployment is done once the Container Service reports the state of the container as <code>RUNNING</code>.<br>This last command will also report a URL that is a subdomain of <code class="inline-code text-white">.&lt;AWS-REGION&gt;.cs.amazonlightsail.com</code>. Open it in a browser and you will see whatever the container is serving on port 8080 (or whichever ports you specified in the port mapping in  <code class="inline-code"><span class="pink">&lt;CONTAINER-JSON&gt;</span></code>).
+                </p>
+
+                <h2 id="custom-domain" class="mt-5">Serving from a custom domain</h2>
+                <p class="content">
+                    The container deployment is complete, but we may wish to gild the lily by serving our API from a domain that belongs to us rather than the default Lightsail one. For illustrative purposes this guide will suppose we want to expose the API on the subdomain <code>api.example.com</code>.<br>I will be using Cloudflare to do this (and benefit from their excellent DDoS protection & analytics) but the steps can be replicated with any other DNS provider.
+                </p>
+
+                <p class="content mb-2">
+                    The ergonomics of generating certificates using the AWS CLI aren't as smooth as those of previous steps, so we will instead access the Lightsail console via the browser.<br>Log in to Lightsail and navigate to the 'Containers' tab:
+                </p>
+                <p class="d-flex justify-content-center"><img src="/assets/img/post/2021/lightsail--container-service.png" height="" alt="" class="w-75"></p>
+
+                <p class="content mb-2">
+                    Click on your project and within the project's Container Service navigate to the 'Custom domains' tab:
+                </p>
+                <p class="d-flex justify-content-center"><img src="/assets/img/post/2021/lightsail--custom-domains.png" height="" alt="" class="w-75"></p>
+
+                <p class="content mt-4 mb-2">
+                    Click '<i class="bi bi-plus"></i>Create certificate' and enter <code>api.example.com</code> as the Primary Domain when prompted. Create the certificate and details for a CNAME record will appear:
+                </p>
+                <p class="d-flex justify-content-center"><img src="/assets/img/post/2021/lightsail--certificate.png" height="" alt="" class="w-75"></p>
+
+                <p class="content mt-4">
+                    Before we can use this certificate we must validate it. Switch over to Cloudflare, click on the management panel for the domain you wish to use, and access its DNS options. Here, add a CNAME record with the above information. It is unnecessary to proxy it via Cloudflare, so leave the 'orange cloud' toggle off.
+                </p>
+                <p class="content">
+                    Once this is done go back to the 'Custom domains' tab in Lightsail and confirm that its status says '<strong>Valid</strong>' (you may have to wait a bit for DNS propagation).<br>Once validated, attach the certificate to your running container by clicking '<strong>Attach certificate</strong>' and following the instructions.
+                </p>
+
+                <p class="content">
+                    Return one last time to Cloudflare's DNS control panel. Add another CNAME record with a Name of <code>api</code> (or whichever subdomain you wish to serve responses from) and a Value that is the <code class="inline-code text-white">.&lt;AWS-REGION&gt;.cs.amazonlightsail.com</code> subdomain reported by the Container Service when we spun up our container earlier. Switch the 'orange cloud' toggle for this record on, proxying requests to <code>api.example.com</code> through Cloudflare.
+                </p>
+                <p class="content">
+                    Finally, navigate to the 'SSL/TLS' console for your domain on Cloudflare and set the mode to <strong>Full</strong> or <strong>Full (strict)</strong>. This ensures our API is always served over https and helps us avoid the <code>TOO_MANY_REDIRECTS</code> misconfiguration error.
+                </p>
+                <p class="d-flex justify-content-center"><img src="/assets/img/post/2021/lightsail--cf-tls.png" height="" alt="" class="w-75"></p>
+
+
+                <p class="content mt-5 mb-2">
+                    You have now:
+                </p>
+                <ul class="content">
+                    <li>Packaged your Maven project as a Docker image without having to write a Dockerfile.</li>
+                    <li>Deployed your API as a serverless service (at a flat monthly rate and easily scaled to meet demand).</li>
+                    <li>Served it on a custom domain with full TLS.</li>
+                    <li>Protected it from DDoS attacks with Cloudflare.</li>
+                </ul>
+                <p class="content end-acorn mb-5">
+                    I hope you found this guide useful. Feel free to reach out with any feedback or comments.
+                </p>
+
+                <hr>
+                <p class="text-muted small">
+                    Main image made by remixing <a href="https://icons.getbootstrap.com/" target="_blank">Bootstrap Icons</a> (MIT license).
+                    <br>
+                    Dropcap background: <a href="https://www.rawpixel.com/image/2478162/free-illustration-image-pattern-flower-floral" target="_blank"><em>Indian pattern</em> (ca. 1868-70)</a> by William Morris, licensed under CC0.
+                </p>
+
+            </div>
+        </div>
+
+    </article>
+</div>
