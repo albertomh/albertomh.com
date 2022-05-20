@@ -14,7 +14,10 @@ Build with `npm run build`.
 
 
 ## Deploy
-Hosted by Cloudflare Pages. Deployments are triggered by pushes to the `dist` branch.  
+
+**Trigger a deployment by committing all changes to `main` and running `publish.sh`.**  
+
+The site is hosted on Cloudflare Pages. Deployments are triggered by pushes to the `dist` branch.  
 
 Cloudflare Pages uses the following build configuration:  
 - No framework preset.  
@@ -27,7 +30,6 @@ Environment variables:
 | ------------- | ----------- |
 | NODE_VERSION  | 17.8.0      |
 
-**Trigger a deployment by running `publish.sh`.**  
 
 ---
 
