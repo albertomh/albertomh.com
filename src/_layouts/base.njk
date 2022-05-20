@@ -11,10 +11,18 @@
         <link rel="canonical" href=https://www.albertomh.com{{ page.url }}>
 
         <meta property="og:title" content="Alberto MH" />
-        <meta property="og:type" content="website" />
+        {% set articleRE = r/\/[0-9]{4}\/.*/g %}
+        <meta property="og:type" content="{% if articleRE.test(page.url) %}article{% else %}website{% endif %}" />
         <meta property="og:url" content="https://www.albertomh.com{{ page.url }}" />
         <meta property="og:image" content="https://www.albertomh.com/assets/img/opengraph{{ page.url | trim('/') }}.png" />
         <meta property="og:description" content="{{ blurb or metadata.blurb }}" />
+        {% set articleRE = r/\/[0-9]{4}\/.*/g %}
+        {% if articleRE.test(page.url) %}
+        <meta property="article:author" itemprop="author" content="Alberto Morón Hernández"/>
+        <meta property="article:published_time" itemprop="datePublished" content="{{ createdAt or metadata.createdAt }}T09:00:00+00:00"/>
+        <meta property="article:modified_time " itemprop="dateModified" content="{{ updatedAt or metadata.updatedAt }}T09:00:00+00:00"/>
+        {% endif %}
+        <meta property="og:updated_time" itemprop="dateUpdated" content="{{ updatedAt or metadata.updatedAt }}T09:00:00+00:00"/>
 
         <meta name="twitter:card" content="summary">
         <meta property="twitter:domain" content="albertomh.com">
