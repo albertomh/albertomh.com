@@ -32,6 +32,14 @@ $font-size: 18px;
     font-family: 'Ubuntu', sans-serif;
 }
 
+.font-serif {
+    @include font-serif;
+}
+
+.font-sans {
+    @include font-sans;
+}
+
 
 //  Bootstrap tweaks ───────────────────────────────────────────────────────────
 //  Must be imported after font definitions in order to use font mixins.
