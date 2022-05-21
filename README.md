@@ -42,7 +42,7 @@ Environment variables:
 ### Creating a new dropcap
 1. Copy `assets/img/dropcap/_dropcap_template.svg` to the relevant 
 `assets/img/dropcap/<year>/` directory and rename.
-2. Design the new dropcap svg.
+2. Design the new dropcap svg. Remember to use 'Simplify path' (Ctrl + L) in Inkscape to reduce image size for complex designs.
 3. Use it using `<p class="content dropcap" style="--dropcap-url: url('/assets/img/dropcap/YYYY/slug.svg');">` as the first paragraph tag. 
 
 ### Creating a new headline image
