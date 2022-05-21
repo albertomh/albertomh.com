@@ -47,7 +47,8 @@ Environment variables:
 
 ### Generating code snippets
 1. Populate the `<code>` tag in `hljs.njk`.
-2. Navigate to `/hljs`.
+2. Navigate to `/hljs` and copy the resulting markup.
+3. Use in a post by wrapping in `<pre><code class="hljs"> </code></pre>`.
 
 ### Creating a new headline image
 1. Copy `assets/img/post/_post_img_template.svg` to the relevant 

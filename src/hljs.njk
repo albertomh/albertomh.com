@@ -26,7 +26,7 @@
             window.addEventListener('load', () => {
                 hljs.highlightAll();
 
-                document.getElementById('codeArea').textContent = document.querySelector('pre code').innerHTML.replace(/^\n|\n$/g, '');
+                document.getElementById('codeArea').textContent = document.querySelector('pre code').innerHTML.replace(/[\n\r]/gm, "<br>");
             });
         </script>
 </body>
