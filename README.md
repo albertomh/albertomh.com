@@ -45,6 +45,10 @@ Environment variables:
 2. Design the new dropcap svg. Remember to use 'Simplify path' (Ctrl + L) in Inkscape to reduce image size for complex designs.
 3. Use it using `<p class="content dropcap" style="--dropcap-url: url('/assets/img/dropcap/YYYY/slug.svg');">` as the first paragraph tag. 
 
+### Generating code snippets
+1. Populate the `<code>` tag in `hljs.njk`.
+2. Navigate to `/hljs`.
+
 ### Creating a new headline image
 1. Copy `assets/img/post/_post_img_template.svg` to the relevant 
 `assets/img/post/<year>/` directory and rename.

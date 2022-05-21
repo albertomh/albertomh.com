@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>hljs</title>
+    <link rel="icon" type="image/x-icon" href="/assets/img/favicon.png">
+    <link rel="stylesheet" href="/assets/css/main.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js" integrity="sha512-yUUc0qWm2rhM7X0EFe82LNnv2moqArj5nro/w1bi05A09hRVeIZbN6jlMoyu0+4I/Bu4Ck/85JQIU82T82M28w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+
+        <pre><code class="language-html">
+            &lt;pre&gt;&lt;code class="language-html"&gt;...&lt;/code&gt;&lt;/pre&gt;
+        </code></pre>
+
+        <div class="mb-3">
+            <label for="codeArea" class="form-label"></label>
+            <textarea class="form-control" id="codeArea" rows="20"></textarea>
+        </div>
+
+        <script>
+            window.addEventListener('load', () => {
+                hljs.highlightAll();
+
+                document.getElementById('codeArea').textContent = document.querySelector('pre code').innerHTML.replace(/^\n|\n$/g, '');
+            });
+        </script>
+</body>
+
+</html>
+
