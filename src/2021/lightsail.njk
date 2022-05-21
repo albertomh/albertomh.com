@@ -39,18 +39,18 @@ tags: ['post', 'project']
                 </ul>
 
                 <div class="alert alert-primary bg-white mb-3" role="alert">
-                    <p class="h5"><i class="bi bi-list-stars me-1"></i> Contents</p>
+                    <p class="h5 fw-bold"><i class="bi bi-list-stars me-1"></i> Contents</p>
                     <ul class="content no-bullet m-0">
-                        <li>Prerequisites</li>
-                        <li>Initial setup</li>
-                        <li>Lightsail's Container Service</li>
-                        <li>Create the container image</li>
-                        <li>Spin up a container</li>
-                        <li>Serving from a custom domain (optional)</li>
+                        <li><a href="#prerequisites">Prerequisites</a></li>
+                        <li><a href="#setup">Setup</a></li>
+                        <li><a href="#container-service">Lightsail's Container Service</a></li>
+                        <li><a href="#create-image">Create the container image</a></li>
+                        <li><a href="#spin-up-container">Spin up a container</a></li>
+                        <li><a href="#custom-domain">Serving from a custom domain (optional)</a></li>
                     </ul>
                 </div>
 
-                <h2 id="prerequisites" class="mt-5">Prerequisites</h2>
+                <h2 id="prerequisites" class="mt-4"><a href="{{ page.url }}#prerequisites"><i class="bi bi-paragraph"></i></a> Prerequisites</h2>
                 <p class="content mb-2">
                     The following prerequisites should be fulfilled. Walking through them is beyond the scope of this document.
                 </p>
@@ -59,12 +59,12 @@ tags: ['post', 'project']
                     <li>A basic RESTful API you wish to deploy. You may use any language or technology, but this tutorial assumes a Java project using Maven.</li>
                 </ul>
 
-                <h2 id="setup" class="mt-5">Initial setup</h2>
+                <h2 id="setup" class="mt-5"><a href="{{ page.url }}#setup"><i class="bi bi-paragraph"></i></a> Setup</h2>
                 <p class="content">
                     First, install the <a href="https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html" target="_blank">AWS CLI v2 <i class="bi bi-arrow-up-right-square-fill"></i></a>. Configure your access key ID, secret key, and region by following <a href="https://docs.aws.amazon.com/cli/latest/userguide/getting-started-quickstart.html" target="_blank">these instructions <i class="bi bi-arrow-up-right-square-fill"></i></a>. You will then want to install the <a href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-install-software#install-lightsailctl-on-linux" target="_blank">lightsailctl <i class="bi bi-arrow-up-right-square-fill"></i></a> plugin to enable the AWS CLI to interact with Lightsail services.
                 </p>
 
-                <h2 id="container-service" class="mt-5">Lightsail's Container Service</h2>
+                <h2 id="container-service" class="mt-5"><a href="{{ page.url }}#container-service"><i class="bi bi-paragraph"></i></a> Lightsail's Container Service</h2>
                 <p class="content">
                     A 'Container Service' in Lightsail is simply an environment into which you launch a specific containerised application. You can scale horizontally by adding up to 20 compute nodes within a single Container Service, and vertically by changing the 'Power' (instance type of the underlying VPS).
                 </p>
@@ -81,7 +81,7 @@ tags: ['post', 'project']
                     Wait until this command reports that the state of the newly created Container Service is <code>ACTIVE</code> or <code>READY</code>.
                 </p>
 
-                <h2 id="create-image" class="mt-5">Create the container image</h2>
+                <h2 id="create-image" class="mt-5"><a href="{{ page.url }}#create-image"><i class="bi bi-paragraph"></i></a> Create the container image</h2>
                 <p class="content">
                     We will now add a dollop of secret sauce, courtesy of Google's excellent <a href="https://github.com/GoogleContainerTools/jib" target="_blank">Jib <i class="bi bi-arrow-up-right-square-fill"></i></a> plugin. Jib has been a Copernican revolution in my container workflow for Maven projects. It is blazing fast &mdash; doing a much better job than Docker itself at only rebuilding the layers that have changed. It prides itself on generating reproducible builds and creating images directly from Maven or Gradle, meaning you can wave goodbye to writing Dockerfiles. I was initially skeptical upon hearing all this, but to try it is to love it.
                 </p>
@@ -113,7 +113,7 @@ tags: ['post', 'project']
                 </p>
                 <pre class="mb-2"><code class="hljs">./mvnw compile jib:dockerBuild</code></pre>
 
-                <h2 id="spin-up-container" class="mt-5">Spin up a container</h2>
+                <h2 id="spin-up-container" class="mt-5"><a href="{{ page.url }}#spin-up-container"><i class="bi bi-paragraph"></i></a> Spin up a container</h2>
                 <p class="content mb-2">
                     Let's push our newly minted image to the Container Service we created earlier:
                 </p>
@@ -148,7 +148,7 @@ tags: ['post', 'project']
                     The deployment is done once the Container Service reports the state of the container as <code>RUNNING</code>.<br>This last command will also report a URL that is a subdomain of <code class="inline-code text-white">.&lt;AWS-REGION&gt;<wbr>.cs.amazonlightsail.com</code>. Open it in a browser and you will see whatever the container is serving on port 8080 (or whichever ports you specified in the port mapping in  <code class="inline-code"><span class="pink">&lt;CONTAINER-JSON&gt;</span></code>).
                 </p>
 
-                <h2 id="custom-domain" class="mt-5">Serving from a custom domain</h2>
+                <h2 id="custom-domain" class="mt-5"><a href="{{ page.url }}#custom-domain"><i class="bi bi-paragraph"></i></a> Serving from a custom domain</h2>
                 <p class="content">
                     The container deployment is complete, but we may wish to gild the lily by serving our API from a domain that belongs to us rather than the default Lightsail one. For illustrative purposes this guide will suppose we want to expose the API on the subdomain <code>api.example.com</code>.<br>I will be using Cloudflare to do this (and benefit from their excellent DDoS protection & analytics) but the steps can be replicated with any other DNS provider.
                 </p>
