@@ -17,5 +17,139 @@ tags: ['post', 'project']
             </div>
         </div>
 
+        <div class="row">
+            <div class="col-lg-8">
+
+                <div class="alert alert-primary bg-white mb-4" role="alert">
+                    <p class="h4"><i class="bi bi-stars me-1"></i> Summary</p>
+                    <p class="content">The pursuit of test coverage must not detract from the Developer Experience. This guide shows how to speed up JUnit test suites by using the in-memory H2 database instead of brawnier options like PostgreSQL that are better suited for production.  </p>
+                </div>
+
+                <p class="content dropcap" style="--dropcap-url: url('/assets/img/dropcap/2022/mocking-datasources.svg');">
+                    I have yet to come across anyone who creates software for fun or profit salivating at the thought of writing tests. Perhaps some prudently heeded the wisdom of their elders and took to Test-Driven Development like ducks to water, but the benefits of testing early & often had to be beaten into my workflow by the vicissitudes of botched deployments and after-hours rollbacks. That said, test coverage &mdash; which should remain a measure and never a goal &mdash; must not come at the expense of ergonomics. Long setup and teardown times are the first domino in a chain reaction that leads to impatience being distilled into cut corners, pipelines where tests are run selectively, and frustration in the long term.
+                </p>
+                <p class="content">
+                    One of the most effective ways of reducing the reluctance to writing tests and having suites run quickly is to prevent database operations from becoming a bottleneck. It is here that in-memory solutions such as the H2 database truly shine. The present guide will walk you through integrating H2 with your JUnit suite and harnessing it to speed up tests.
+                </p>
+
+                <div class="alert alert-primary bg-white mb-3" role="alert">
+                    <p class="h5 fw-bold"><i class="bi bi-list-stars me-1"></i> Contents</p>
+                    <ul class="content no-bullet m-0">
+                        <li><a href="#prerequisites">Prerequisites</a></li>
+                        <li><a href="#setup">Setup</a></li>
+                        <li><a href="#create">Create an in-memory database</a></li>
+                        <li><a href="#lifecycle">Managing the test life cycle</a></li>
+                        <li><a href="#populating">Populating the test database</a></li>
+                        <li><a href="#using">Using the database in tests</a></li>
+                        <li><a href="#logging">Capturing & testing log output</a></li>
+                    </ul>
+                </div>
+
+                <h2 id="prerequisites" class="mt-5"><a href="{{ page.url }}#prerequisites"><i class="bi bi-paragraph"></i></a> Prerequisites</h2>
+                <p class="content">
+                    You will need a Java application tested with JUnit, such as a web backend that uses the Spring framework. The real-life use case I will base this guide off is adding H2 to the test suite for <a href="https://github.com/albertomh/Exodus" target="_blank" class="alert-link">Exodus <i class="bi bi-arrow-up-right-square-fill"></i></a>, an open-source migration runner I created to manage database changes in Spring applications.
+                </p>
+
+                <h2 id="setup" class="mt-5"><a href="{{ page.url }}#setup"><i class="bi bi-paragraph"></i></a> Setup</h2>
+                <p class="content mb-2">
+                    Add H2 as a dependency in your POM as shown below. Get the latest version number from <a href="https://mvnrepository.com/artifact/com.h2database/h2" target="_blank" class="alert-link">H2 on MavenRepository <i class="bi bi-arrow-up-right-square-fill"></i></a> and set the <code class="inline-code"><span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span></code> property accordingly.
+                </p>
+                <pre class="mb-4"><code class="hljs">    <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.h2database<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>h2<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.1.212<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">scope</span>&gt;</span>test<span class="hljs-tag">&lt;/<span class="hljs-name">scope</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span></code></pre>
+
+                <h2 id="create" class="mt-5"><a href="{{ page.url }}#create"><i class="bi bi-paragraph"></i></a> Create an in-memory database</h2>
+                <p class="content mb-2">
+                    We will create a fresh in-memory database for each test suite we run, allowing it to be garbage collected at the end of each suite. First, let's declare the objects we will inject into our tests in order to mock the database:
+                </p>
+                <pre class="mb-4"><code class="hljs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MyTestSuite</span> {<br>    DataSource dataSource;<br>    Connection conn;<br>    Statement statement;</code></pre>
+                <p class="content mb-2">
+                    Secondly, create a constructor for your <code class="inline-code"><span class="hljs-title class_">MyTestSuite</span></code> (or modify the existing one) as such:
+                </p>
+                <pre class="mb-4"><code class="hljs"><span class="hljs-keyword">public</span> <span class="hljs-title function_">MigrationRunnerTest</span><span class="hljs-params">()</span> {<br>    dataSource = <span class="hljs-keyword">new</span> <span class="hljs-title class_">EmbeddedDatabaseBuilder</span>().setType(EmbeddedDatabaseType.H2).build();<br>    <span class="hljs-keyword">try</span> {<br>        conn = dataSource.getConnection();<br>        statement = conn.createStatement();<br>    } <span class="hljs-keyword">catch</span> (SQLException e) {<br>        e.printStackTrace();<br>    }<br>}</code></pre>
+                <p class="content">
+                    We have assigned the embedded database to <code class="inline-code text-white">dataSource</code> and derived the <code class="inline-code text-white">conn</code> & <code class="inline-code text-white">statement</code> objects from it. The latter two will be passed to methods that run SQL code on our database as a string or using a Spring Resource.
+                </p>
+
+                <h2 id="lifecycle" class="mt-5"><a href="{{ page.url }}#lifecycle"><i class="bi bi-paragraph"></i></a> Managing the test life cycle</h2>
+                <p class="content">
+                    Next, decorate the test suite class with <code class="inline-code text-white">@TestInstance(Lifecycle.PER_CLASS)</code>. This will ensure that JUnit runs all test methods against the same instance, avoiding the overhead of creating a dataSource and related objects anew for each test method.
+                </p>
+                <p class="content mb-2">
+                    In order to reset the database between test method runs we will create a method annotated with JUnit's <code class="inline-code"><span class="hljs-meta">@BeforeEach</span></code> decorator:
+                </p>
+                <pre class="mb-4"><code class="hljs"><span class="hljs-meta">@BeforeEach</span><br><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">beforeEach</span><span class="hljs-params">()</span> {<br>    <span class="hljs-keyword">try</span> {<br>        statement.execute(<span class="hljs-string">"DROP ALL OBJECTS;"</span>);<br>    } <span class="hljs-keyword">catch</span> (SQLException e) {<br>        e.printStackTrace();<br>    }<br>}</code></pre>
+                <p class="content">
+                    H2 supports a special SQL statement <code class="inline-code"><span class="hljs-string">DROP ALL OBJECTS</span></code> that will delete all existing tables, views, and schemas. An advantage of using this statement as opposed to <code class="inline-code"><span class="hljs-string">TRUNCATE TABLE</span></code> is that the former will also take care of resetting sequences (such as those of <code class="inline-code text-white">SERIAL</code> fields) with a negligible difference in performance.
+                </p>
+                <p class="content">
+                    At the end of this guide we will revisit the <code class="inline-code"><span class="hljs-title function_">beforeEach()</span></code> method to see how we can capture and test log output.
+                </p>
+
+                <h2 id="populating" class="mt-5"><a href="{{ page.url }}#populating"><i class="bi bi-paragraph"></i></a> Populating the test database</h2>
+                <p class="content">
+                    There are two ways of interacting with the H2 database: by building a string containing SQL statements or, if using Spring, by applying a script stored as a Spring Resource. The first approach consists of calling <code class="inline-code text-white">statement.execute("...")</code>, which we have already seen in <code class="inline-code"><span class="hljs-title function_">beforeEach()</span></code> above. Arbitrary SQL can be run in this way in order to construct schemas and populate them.
+                <p class="content mb-2">
+                    If using the Spring framework we may wish to move away from building SQL statements in our test code to storing more complex database scripts as separate files in order to avoid cluttering our JUnit suites. SQL scripts can be applied to the database as such:
+                </p>
+                <pre class="mb-4"><code class="hljs"><span class="hljs-keyword">import</span> org.springframework.jdbc.datasource.init.ScriptUtils;<br>[...]<br><span class="hljs-type">Resource</span> <span class="hljs-variable">sqlScript</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ClassPathResource</span>(<span class="hljs-string">"db/create_schema.sql"</span>);<br>ScriptUtils.executeSqlScript(conn, sqlScript);</code></pre>
+                <p class="content">
+                    The path passed to <code class="inline-code text-white">ClassPathResource</code> is relative to <code class="inline-code text-white">src/test/resources/</code>. By applying <span class="font-monospace">.sql</span> files in this manner we can quickly set up a test database's schema and fill it with data while keeping the resources to do so organised in a logical structure.
+                </p>
+
+                <div class="alert alert-primary bg-white mb-5">
+                    <p class="h5 fw-bold"><i class="bi bi-info-circle-fill me-1"></i><em>Caveat emptor</em></p>
+                    <p class="m-0">Before using H2 familiarise yourself with the <a href="http://www.h2database.com/html/datatyes.html" target="_blank" class="alert-link">data types <i class="bi bi-arrow-up-right-square-fill"></i></a> it supports. While it is standards-compliant, watch out for discrepancies between types that may exist in the database engine your application uses but not so in H2. For instance, PostgreSQL's <strong>TEXT</strong> is not a H2 type, so an alternative schema that uses <strong>VARCHAR</strong> (equivalent under the hood) is necessary.</p>
+                </div>
+
+                <h2 id="using" class="mt-5"><a href="{{ page.url }}#using"><i class="bi bi-paragraph"></i></a> Using the database in tests</h2>
+                <p class="content mb-2">
+                    We may also query the database and use the results in our tests. For instance, let's look at retrieving a list of names:
+                <pre class="mb-4"><code class="hljs">ArrayList&lt;String&gt; names = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br><span class="hljs-type">ResultSet</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> statement.executeQuery(<span class="hljs-string">"SELECT u.first_name FROM users u;"</span>);<br><span class="hljs-keyword">while</span> (result.next()) {<br>    names.add(result.getString(<span class="hljs-string">"first_name"</span>));<br>}</code></pre>
+                <p class="content">
+                    We create an empty ArrayList, execute our query, and loop through the results, adding any data to the ArrayList. The <code class="inline-code text-white">result.next()</code> instruction moves the cursor through the ResultSet until all rows have been exhausted (this is similar to looping through a generator in Python, if that is something you are familiar with).
+                </p>
+
+                <h2 id="logging" class="mt-5"><a href="{{ page.url }}#logging"><i class="bi bi-paragraph"></i></a> Capturing & testing log output</h2>
+                <p class="content">
+                    The following is not directly related to H2 or mocking databases, but rather a nugget you may find useful in order to test log output in your with JUnit. If using the Spring Boot starter the <code class="inline-code text-white">Logback</code> & <code class="inline-code text-white">SLF4J</code> dependencies will already be satisfied. Otherwise, add them to your POM.
+                </p>
+                <p class="content mb-2">
+                    First, create a logger and a container to hold logging events as members of your test class:
+                </p>
+                <pre class="mb-4"><code class="hljs"><span class="hljs-type">Logger</span> <span class="hljs-variable">logger</span> <span class="hljs-operator">=</span> (Logger) LoggerFactory.getLogger(MigrationRunner.class);<br>List&lt;ILoggingEvent&gt; logList;</code></pre>
+                <p class="content mb-2">
+                    Now, we turn our attention back to the <code class="inline-code"><span class="hljs-title function_">beforeEach()</span></code> method:
+                </p>
+                <pre class="mb-4"><code class="hljs"><span class="hljs-meta">@BeforeEach</span><br><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">beforeEach</span><span class="hljs-params">()</span> {<br>    [...]<br>    logger.detachAndStopAllAppenders();<br>    ListAppender&lt;ILoggingEvent&gt; listAppender = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ListAppender</span>&lt;&gt;();<br>    logger.addAppender(listAppender);<br>    listAppender.start();<br>    logList = listAppender.list;<br>}</code></pre>
+                <p class="content">
+                    Before each test method we instantiate a <code class="inline-code text-white">ListAppender</code>, remove any existing appender from the logger and attach the new one, connecting the <code class="inline-code text-white">logList</code> to this appender's output.
+                </p>
+                <p class="content mb-2">
+                    In our test cases we can invoke application code as usual and the instrumentation we have just created will intercept it on the fly. We may test any log output as such:
+                </p>
+                <pre class="mb-4"><code class="hljs">assertEquals(<span class="hljs-number">2</span>, logList.size());<br>assertEquals(<span class="hljs-string">"This is the first log message."</span>, logList.get(<span class="hljs-number">0</span>).getMessage());</code></pre>
+
+
+                <p class="content mt-5 mb-2">
+                    You have now:
+                </p>
+                <ul class="content">
+                    <li>Sped up your JUnit tests by using an in-memory database.</li>
+                    <li>Integrated H2 into your test life cycle.</li>
+                    <li>Captured logs and tested them.</li>
+                </ul>
+                <p class="content end-acorn mb-5">
+                    I hope this guide has been of service and will help you reduce overhead in your test suites. If you are looking for a light (~7 kb) and simple migrations runner for your next Spring project maybe consider taking <a href="https://github.com/albertomh/Exodus" target="_blank" class="alert-link">Exodus <i class="bi bi-arrow-up-right-square-fill"></i></a> for a spin.
+                </p>
+
+                <hr>
+                <p class="text-muted small">
+                    Main image made using Inkscape.
+                    <br>
+                    Dropcap background: <a href="https://www.rawpixel.com/image/496068/free-illustration-image-william-morris-pattern-flower" target="_blank"><em>Violet and Columbine</em> (1883)</a> by William Morris, licensed under CC0.
+                </p>
+
+            </div>
+        </div>
+
     </article>
 </div>
