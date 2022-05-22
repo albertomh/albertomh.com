@@ -7,7 +7,7 @@ eleventyExcludeFromCollections: true
     {% for page in collections.all %}
         {% if page.url not in ['/assets/html/_template/', '/hljs/'] %}
             <url>
-                <loc>{{ site.url }}{{ page.url | url }}</loc>
+                <loc>https://www.albertomh.com{{ page.url | url }}</loc>
                 <lastmod>{{ page.data.updatedAt if page.data.updatedAt else page.date.toISOString().slice(0, 10) }}</lastmod>
             </url>
         {% endif %}
