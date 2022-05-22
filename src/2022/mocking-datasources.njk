@@ -33,7 +33,7 @@ tags: ['post', 'project']
                 </p>
 
                 <div class="alert alert-primary bg-white mb-3" role="alert">
-                    <p class="h5 fw-bold"><i class="bi bi-list-stars me-1"></i> Contents</p>
+                    <p class="h4"><i class="bi bi-list-stars me-1"></i> Contents</p>
                     <ul class="content no-bullet m-0">
                         <li><a href="#prerequisites">Prerequisites</a></li>
                         <li><a href="#setup">Setup</a></li>
@@ -86,7 +86,7 @@ tags: ['post', 'project']
 
                 <h2 id="populating" class="mt-5"><a href="{{ page.url }}#populating"><i class="bi bi-paragraph"></i></a> Populating the test database</h2>
                 <p class="content">
-                    There are two ways of interacting with the H2 database: by building a string containing SQL statements or, if using Spring, by applying a script stored as a Spring Resource. The first approach consists of calling <code class="inline-code text-white">statement.execute("...")</code>, which we have already seen in <code class="inline-code"><span class="hljs-title function_">beforeEach()</span></code> above. Arbitrary SQL can be run in this way in order to construct schemas and populate them.
+                    There are two ways of interacting with the H2 database: by building a string containing SQL statements or, if using Spring, by applying a script stored as a Spring Resource. The first approach is to call <code class="inline-code text-white">statement.execute("...")</code>, which we have already seen in <code class="inline-code"><span class="hljs-title function_">beforeEach()</span></code> above. Arbitrary SQL can be run in this way in order to construct schemas and populate them.
                 <p class="content mb-2">
                     If using the Spring framework we may wish to move away from manually constructing SQL statements in our test code to storing more complex database scripts as separate files in order to avoid cluttering our JUnit suites. SQL scripts can be applied to the database in a test context as such:
                 </p>
@@ -96,8 +96,8 @@ tags: ['post', 'project']
                 </p>
 
                 <div class="alert alert-primary bg-white mb-5">
-                    <p class="h5 fw-bold"><i class="bi bi-info-circle-fill me-1"></i><em>Caveat emptor</em></p>
-                    <p class="m-0">Before using H2 familiarise yourself with the <a href="http://www.h2database.com/html/datatypes.html" target="_blank" class="alert-link">data types <i class="bi bi-arrow-up-right-square-fill"></i></a> it supports. While it is standards-compliant, watch out for discrepancies between types that may exist in the database engine used by your application but not so in H2. For instance, PostgreSQL's <strong>TEXT</strong> is not a type in H2, so an alternative schema that uses <strong>VARCHAR</strong> (equivalent under the hood) is necessary.</p>
+                    <p class="h4"><i class="bi bi-info-circle-fill me-1"></i><em>Caveat emptor</em></p>
+                    <p class="content m-0">Before using H2 familiarise yourself with the <a href="http://www.h2database.com/html/datatypes.html" target="_blank" class="alert-link">data types <i class="bi bi-arrow-up-right-square-fill"></i></a> it supports. While it is standards-compliant, watch out for discrepancies between types that may exist in the database engine used by your application but not so in H2. For instance, PostgreSQL's <strong>TEXT</strong> is not a type in H2, so an alternative schema that uses <strong>VARCHAR</strong> (equivalent under the hood) is necessary.</p>
                 </div>
 
                 <h2 id="using" class="mt-5"><a href="{{ page.url }}#using"><i class="bi bi-paragraph"></i></a> Using the database in tests</h2>
