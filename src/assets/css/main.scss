@@ -47,6 +47,10 @@ $font-size: 18px;
 
 
 //  Utilities ──────────────────────────────────────────────────────────────────
+.nowrap {
+    white-space: nowrap;
+}
+
 .noselect {
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
@@ -190,7 +194,7 @@ article {
     }
 }
 
-p code.inline-code {
+code.inline-code {
     background: #23241F;
     padding: 4px 2px 2px 2px;
 }
