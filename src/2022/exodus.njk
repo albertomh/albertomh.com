@@ -1,0 +1,105 @@
+---
+layout: post
+title: Making migrations a breeze with Exodus
+blurb: Exodus is a database migration runner I have created for use with Spring web applications. It shines where incumbents do not by offering simplicity and removing bloat.
+createdAt: '2022-05-22'
+updatedAt: '2022-05-22'
+path: /2022/exodus
+tags: ['post', 'project']
+---
+<div class="row pb-4">
+    <article class="col ms-2 ms-lg-0 pt-1 pt-md-3 ps-md-4 ps-lg-5">
+
+        <div class="row">
+            <div class="col-12 col-lg-10 mt-2 mt-md-0">
+                <h1 class="display-2 mb-2">{{ title }}</h1>
+                <p class="text-muted">Published on <span class="font-monospace">{{ updatedAt }}</span></p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8">
+
+                <div class="alert alert-primary bg-white mb-4" role="alert">
+                    <p class="h4"><i class="bi bi-lightning-fill me-1"></i> Summary</p>
+                    <p class="content">Exodus is a database migration runner I have created for use with Spring web applications. It is light <span class="nowrap">(~7 kb)</span> and simple to use. <a href="https://github.com/albertomh/Exodus" class="alert-link nowrap">Check Exodus out on GitHub <i class="bi bi-arrow-up-right-square-fill"></i></a></p>
+                </div>
+
+                <p class="content dropcap" style="--dropcap-url: url('/assets/img/dropcap/2022/exodus.svg');">
+                    Behold! A disc-shaped device skewered on an axle that facilitates motion by rotation. I call it... the wheel! Allow this pinch of sarcasm to serve as acknowledgement that Exodus, the open-source tool introduced in this article, does not solve a new problem. While mature solutions to managing database schema changes in Java exist, I wanted to scratch my own itch and see how the sausage is made. Partly to ensure the tool would be as lean as possible, and also as a learning exercise to enhance my familiarity with Spring under the hood &mdash; namely its application lifecycle, extensibility via plugins, and how it interacts with datasources.
+                </p>
+                <p class="content mb-2">
+                    It was in starting a new web backend with Spring recently that I was put off by the bloat, proprietary schemas, and premium plans being pushed in my face when considering tools to manage migrations. As I turned my nose up at different options I compiled a feature wishlist which boiled down to a handful of commandments:
+                </p>
+                <ul class="content mb-2">
+                    <li>Thou shalt have a minimal footprint.</li>
+                    <li>Thou shalt manage migrations as plain SQL files.</li>
+                    <li>Thou shalt avoid vendor lock-in that could hold your data hostage.</li>
+                </ul>
+                <p class="content">
+                    While the existing tools do the job just fine, once the possibility to build a migration runner of my own took hold I knew I had to give it a go. Surely it couldn't be that difficult, right?
+                </p>
+                <p class="content">
+                    Well, no, thankfully it was not. While there was the occasional moment that made me want to see if I could instead run migrations by bashing my head against the keyboard, the overall experience has been one of achievement in drawing the curtain back on some of Spring's internals & realising the desired functionality in an exceptionally lightweight package.
+                </p>
+
+                <h2 id="structure" class="mt-5"><a href="{{ page.url }}#structure"><i class="bi bi-paragraph"></i></a> Project structure</h2>
+                <p class="content">
+                    The source code consists of database utilities and the migration runner's main loop. The former is made up of a number of raw SQL statements invoked by the latter. It also deals with bridging the gap between Spring and your project's database engine of choice. The main loop consists of a listener that hooks into Spring's event life cycle in order to trigger migrations at the appropriate moment.
+                </p>
+                <p class="content">
+                    Exodus relies on dependency injection to know which database to run migrations on: the <code class="inline-code text-white">DatabaseUtils</code> module will run code on the DataSource provided by the Spring application it is attached to. This is provided by injection via the <code class="inline-code text-white">MigrationRunner</code>'s constructor, which is responsible for setting up a connection & statement for use throughout the Exodus instance's lifetime. Exodus concerns itself solely with the management of migrations, and as such the DataSource to use is an implementation detail. <code class="inline-code text-white">DatabaseUtils</code> provides ways to inspect the tables in the database, list applied migrations, and apply a pending migration.
+                </p>
+                <p class="content">
+                    The <code class="inline-code text-white">MigrationRunner</code> implements Spring's <code class="inline-code text-white">ApplicationListener</code>. As such, Exodus' main loop starts by overriding the ApplicationListener's <code class="inline-code text-white"><span class="hljs-title function_">onApplicationEvent</span>(ContextStartedEvent event)</code> method. In your web application's <code class="inline-code text-white"><span class="hljs-title function_">main</span>()</code> method it is necessary to emit a ContextStartedEvent that will trigger the routine to look for & apply migrations on start-up. Migrations should be written as plain <span class="font-monospace">.sql</span> files stored in your Spring project's resources directory (see section on writing migrations below).
+                </p>
+                <p class="content">
+                    Version 1.0.0 is an MVP and fulfils the basic functionality I wanted to achieve while keeping true to the requirements listed above, coming in at just over 7 kilobytes total once compiled into a JAR. Future versions will add some code generation features, such as to automatically create rollback scripts for any processed migrations.
+                </p>
+
+                <h2 id="add" class="mt-5"><a href="{{ page.url }}#add"><i class="bi bi-paragraph"></i></a> Add Exodus to a Spring project</h2>
+                <ol class="content mb-2">
+                    <li class="mb-2">Download the latest <a href="https://github.com/albertomh/Exodus/tree/main/dist" target="_blank">exodus.jar from GitHub  <i class="bi bi-arrow-up-right-square-fill"></i></a> and place this JAR in your Spring project's <code class="inline-code text-white">src/main/resources/lib/</code> directory.</li>
+                    <li>Add Exodus as a dependency in your POM, taking care to set the version property as appropriate:</li>
+                </ol>
+                <pre class="mb-4"><code class="hljs"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.albertomh<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>exodus<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.0.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">scope</span>&gt;</span>system<span class="hljs-tag">&lt;/<span class="hljs-name">scope</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">systemPath</span>&gt;</span>${basedir}/src/main/resources/lib/exodus-1.0.0.jar<span class="hljs-tag">&lt;/<span class="hljs-name">systemPath</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span></code></pre>
+                <ol class="content mb-2">
+                    <li value="3">Using the <a href="https://github.com/albertomh/Exodus/blob/main/docs/SampleApplicationEntrypoint.java" target="_blank">sample application entrypoint <i class="bi bi-arrow-up-right-square-fill"></i></a> as a guide, do the following:        <ul>
+                            <li>Pass <code class="inline-code text-white">scanBasePackages = {<span class="hljs-string">"com.albertomh.exodus"</span>}</code> as a parameter to the <code class="inline-code text-white">@SpringBootApplication</code> decorator.</li>
+                            <li>Instantiate an application context with <code class="inline-code text-white">SpringApplication.run(YourApplication.class, args)</code>.</li>
+                            <li>Call <code class="inline-code text-white">applicationContext.<span class="hljs-title function_">start</span>()</code> inside <code class="inline-code text-white"><span class="hljs-title function_">main</span>()</code> to emit a <code class="inline-code text-white">ContextStartedEvent</code>. This is the cue for Exodus to run any pending migrations.</li>
+                        </ul>
+                    </li>
+                </ol>
+                <p class="content">
+                    These three steps are all that is needed to add Exodus to a project — you can now start writing migrations.
+                </p>
+
+                <h2 id="migrations" class="mt-5"><a href="{{ page.url }}#migrations"><i class="bi bi-paragraph"></i></a> Writing migrations</h2>
+                <p class="content mb-2">
+                    Exodus will pick up any <span class="font-monospace">.sql</span> files you place under <code class="inline-code text-white">src/main/resources/db/migration/</code> in your Spring application. The following two best practices are recommended (but not enforced by Exodus):
+                </p>
+                <ul class="content">
+                    <li>Subdivide <code class="inline-code text-white">db/migration/</code> into directories named after the year the migrations they hold were written in.</li>
+                    <li>Have migrations follow the naming convention <code class="inline-code text-white">YYYY-MM-DD_HH.MM__&lt;MODULE&gt;__&lt;CHANGE&gt;.sql</code> where &lt;MODULE&gt; is a subdivision of your app's functionality and <code class="inline-code text-white">&lt;CHANGE&gt;</code> is a concise summary of the change enacted by the migration. For instance: <code class="inline-code text-white">1970-01-01_09.00__auth__create-user.sql.</code></li>
+                </ul>
+                <p class="content">
+                    On its first run Exodus will create a <code class="inline-code text-white">_schema_migration</code> table to keep track of the migrations that have been applied. On subsequent runs, if a valid migration is found at any depth within <code class="inline-code text-white">db/migration/</code>, the table will be queried and the migration applied if it is not listed therein.
+                </p>
+
+                <p class="content end-acorn mb-5">
+                    Hopefully you have found this a worthwhile read about Spring internals and creating plugins for the framework. If you wish to contribute to or fork Exodus check out <a href="https://github.com/albertomh/Exodus" target="_blank">the project on GitHub <i class="bi bi-arrow-up-right-square-fill"></i></a> and consult the documentation on building, testing, and cutting a release.
+                </p>
+
+                <hr>
+                <p class="text-muted small">
+                    Main image made by remixing <a href="https://icons.getbootstrap.com/" target="_blank">Bootstrap Icons</a> (MIT license).
+                    <br>
+                    Dropcap background: <a href="https://www.rawpixel.com/image/2455277/free-illustration-image-flower-william-morris-pattern" target="_blank"><em>Watercolour for Printed Fabric: Wey</em> (1882-1883)</a> by William Morris, licensed under CC0.
+                </p>
+
+            </div>
+        </div>
+
+    </article>
+</div>
