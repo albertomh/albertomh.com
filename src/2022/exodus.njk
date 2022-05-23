@@ -54,7 +54,7 @@ tags: ['post', 'project']
                     The <code class="inline-code text-white">MigrationRunner</code> implements Spring's <code class="inline-code text-white">ApplicationListener</code>. As such, Exodus' main loop starts by overriding the ApplicationListener's <code class="inline-code text-white"><span class="hljs-title function_">onApplicationEvent</span>(ContextStartedEvent event)</code> method. In your web application's <code class="inline-code text-white"><span class="hljs-title function_">main</span>()</code> method it is necessary to emit a ContextStartedEvent that will trigger the routine to look for & apply migrations on start-up. Migrations should be written as plain <span class="font-monospace">.sql</span> files stored in your Spring project's resources directory (see section on writing migrations below).
                 </p>
                 <p class="content">
-                    Version 1.0.0 is an MVP and fulfils the basic functionality I wanted to achieve while keeping true to the requirements listed above, coming in at just over 7 kilobytes total once compiled into a JAR. Future versions will add some code generation features, such as to automatically create rollback scripts for any processed migrations.
+                    Version 1.0.0 is an MVP and fulfils the basic functionality I wanted to achieve while keeping true to the requirements listed above, coming in at just over 7 kilobytes once compiled into a JAR. Future versions will add code generation features, such as automatically creating rollback scripts for any processed migrations.
                 </p>
 
                 <h2 id="add" class="mt-5"><a href="{{ page.url }}#add"><i class="bi bi-paragraph"></i></a> Add Exodus to a Spring project</h2>
@@ -81,7 +81,7 @@ tags: ['post', 'project']
                 </p>
                 <ul class="content">
                     <li>Subdivide <code class="inline-code text-white">db/migration/</code> into directories named after the year the migrations they hold were written in.</li>
-                    <li>Have migrations follow the naming convention <code class="inline-code text-white">YYYY-MM-DD_HH.MM__&lt;MODULE&gt;__&lt;CHANGE&gt;.sql</code> where &lt;MODULE&gt; is a subdivision of your app's functionality and <code class="inline-code text-white">&lt;CHANGE&gt;</code> is a concise summary of the change enacted by the migration. For instance: <code class="inline-code text-white">1970-01-01_09.00__auth__create-user.sql.</code></li>
+                    <li>Have migrations follow the naming convention <code class="inline-code text-white">YYYY-MM-DD_HH.MM__&lt;MODULE&gt;__&lt;CHANGE&gt;.sql</code> where <code class="inline-code text-white">&lt;MODULE&gt;</code> is a subdivision of your app's functionality and <code class="inline-code text-white">&lt;CHANGE&gt;</code> is a concise summary of the change enacted by the migration. For instance: <code class="inline-code text-white">1970-01-01_09.00__auth__create-user.sql.</code></li>
                 </ul>
                 <p class="content">
                     On its first run Exodus will create a <code class="inline-code text-white">_schema_migration</code> table to keep track of the migrations that have been applied. On subsequent runs, if a valid migration is found at any depth within <code class="inline-code text-white">db/migration/</code>, the table will be queried and the migration applied if it is not listed therein.
