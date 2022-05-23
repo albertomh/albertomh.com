@@ -38,10 +38,10 @@ tags: ['post', 'project']
                         <li><a href="#prerequisites">Prerequisites</a></li>
                         <li><a href="#setup">Setup</a></li>
                         <li><a href="#create">Create an in-memory database</a></li>
-                        <li><a href="#lifecycle">Managing the test life cycle</a></li>
-                        <li><a href="#populating">Populating the test database</a></li>
-                        <li><a href="#using">Using the database in tests</a></li>
-                        <li><a href="#logging">Capturing & testing log output</a></li>
+                        <li><a href="#lifecycle">Manage the test life cycle</a></li>
+                        <li><a href="#populate">Populate the test database</a></li>
+                        <li><a href="#query">Query the database in tests</a></li>
+                        <li><a href="#logging">Capture & test log output</a></li>
                     </ul>
                 </div>
 
@@ -58,20 +58,20 @@ tags: ['post', 'project']
 
                 <h2 id="create" class="mt-5"><a href="{{ page.url }}#create"><i class="bi bi-paragraph"></i></a> Create an in-memory database</h2>
                 <p class="content mb-2">
-                    You will create a fresh in-memory database for each test suite to run, allowing it to be garbage collected at the end of each suite. First, let's declare the objects you will inject into tests in order to mock the database:
+                    You will create a fresh in-memory database for each test suite, allowing it to be garbage collected at the end of each run. First, let's declare the objects you will inject into tests in order to mock the database:
                 </p>
                 <pre class="mb-4"><code class="hljs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MyTestSuite</span> {<br>    DataSource dataSource;<br>    Connection conn;<br>    Statement statement;</code></pre>
                 <p class="content mb-2">
-                    Secondly, create a constructor for your test suite (or modify the existing one) as such:
+                    Next, create a constructor for your test suite (or modify the existing one) as such:
                 </p>
                 <pre class="mb-4"><code class="hljs"><span class="hljs-keyword">public</span> <span class="hljs-title function_">MyTestSuite</span><span class="hljs-params">()</span> {<br>    dataSource = <span class="hljs-keyword">new</span> <span class="hljs-title class_">EmbeddedDatabaseBuilder</span>().setType(EmbeddedDatabaseType.H2).build();<br>    <span class="hljs-keyword">try</span> {<br>        conn = dataSource.getConnection();<br>        statement = conn.createStatement();<br>    } <span class="hljs-keyword">catch</span> (SQLException e) {<br>        e.printStackTrace();<br>    }<br>}</code></pre>
                 <p class="content">
-                    The embedded database is instantiated and assigned to <code class="inline-code text-white">dataSource</code>, deriving the <code class="inline-code text-white">conn</code> & <code class="inline-code text-white">statement</code> objects from it. The latter two will be passed to methods that run SQL statements on the database from your tests. This guide will later look at running arbitrary SQL as a string or from a file handled as a Spring Resource.
+                    The embedded database is instantiated and assigned to <code class="inline-code text-white">dataSource</code> and the <code class="inline-code text-white">conn</code> & <code class="inline-code text-white">statement</code> objects are derived from it. The latter two will be passed to methods that run SQL statements on the database from your tests. This guide will later look at running arbitrary SQL as a string or from a file handled as a Spring Resource.
                 </p>
 
-                <h2 id="lifecycle" class="mt-5"><a href="{{ page.url }}#lifecycle"><i class="bi bi-paragraph"></i></a> Managing the test life cycle</h2>
+                <h2 id="lifecycle" class="mt-5"><a href="{{ page.url }}#lifecycle"><i class="bi bi-paragraph"></i></a> Manage the test life cycle</h2>
                 <p class="content">
-                    Next, decorate the test suite class with <code class="inline-code text-white">@TestInstance(Lifecycle.PER_CLASS)</code>. This will ensure that JUnit runs all test methods within a suite against the same instance, avoiding the overhead of creating a dataSource and related objects anew for each test method.
+                    Next, decorate the test suite class with <code class="inline-code text-white">@TestInstance(Lifecycle.PER_CLASS)</code>. This will ensure that JUnit runs all test methods within a suite against the same instance, avoiding the overhead of creating a datasource and related objects anew for each test method.
                 </p>
                 <p class="content mb-2">
                     However, this means that state is carried over between tests in the in-memory database, which would muddy the waters and stop tests from being independent from each other. In order to reset the database between test method runs you can create a method annotated with JUnit's <code class="inline-code"><span class="hljs-meta">@BeforeEach</span></code> decorator:
@@ -84,15 +84,15 @@ tags: ['post', 'project']
                     This guide will revisit the <code class="inline-code"><span class="hljs-title function_">beforeEach()</span></code> method later in order to capture and test log output.
                 </p>
 
-                <h2 id="populating" class="mt-5"><a href="{{ page.url }}#populating"><i class="bi bi-paragraph"></i></a> Populating the test database</h2>
+                <h2 id="populate" class="mt-5"><a href="{{ page.url }}#populate"><i class="bi bi-paragraph"></i></a> Populate the test database</h2>
                 <p class="content">
-                    There are two ways of interacting with the H2 database: by building a string containing SQL statements or, if using Spring, by applying a script stored as a Spring Resource. The first approach is to call <code class="inline-code text-white">statement.execute("...")</code> as you have already seen in <code class="inline-code"><span class="hljs-title function_">beforeEach()</span></code> above. Arbitrary SQL can be run in this way in order to construct schemas and populate them.
+                    There are two ways of interacting with the H2 database: by building a string containing SQL statements or, if using Spring, by applying a script stored as a Spring Resource. The first approach is to call <code class="inline-code text-white">statement.execute("...")</code> as you have already seen in <code class="inline-code text-white"><span class="hljs-title function_">beforeEach</span>()</code> above. Arbitrary SQL can be run in this way in order to construct schemas and populate them.
                 <p class="content mb-2">
                     If using the Spring framework you may wish to move away from manually constructing SQL statements in your test code to storing more complex database scripts as separate files in order to avoid cluttering the JUnit suites. SQL scripts can be applied to the database in a test context as such:
                 </p>
                 <pre class="mb-4"><code class="hljs"><span class="hljs-keyword">import</span> org.springframework.jdbc.datasource.init.ScriptUtils;<br>[...]<br><span class="hljs-type">Resource</span> <span class="hljs-variable">sqlScript</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ClassPathResource</span>(<span class="hljs-string">"db/create_schema.sql"</span>);<br>ScriptUtils.executeSqlScript(conn, sqlScript);</code></pre>
                 <p class="content">
-                    The path passed to <code class="inline-code text-white">ClassPathResource</code> is relative to <code class="inline-code text-white">src/test/resources/</code>. By applying <span class="font-monospace">.sql</span> files in this manner you can quickly set up a test database's schema and fill it with data while keeping the resources to do so organised in a logical structure.
+                    The path passed to <code class="inline-code text-white">ClassPathResource()</code> is relative to <code class="inline-code text-white">src/test/resources/</code>. By applying <span class="font-monospace">.sql</span> files in this manner you can quickly set up a test database's schema and fill it with data while keeping the resources to do so organised in a logical structure.
                 </p>
 
                 <div class="alert alert-primary bg-white mb-5">
@@ -100,7 +100,7 @@ tags: ['post', 'project']
                     <p class="content m-0">Before using H2 familiarise yourself with the <a href="http://www.h2database.com/html/datatypes.html" target="_blank" class="alert-link">data types <i class="bi bi-arrow-up-right-square-fill"></i></a> it supports. While it is standards-compliant, watch out for discrepancies between types that may exist in the database engine used by your application but not so in H2. For instance, PostgreSQL's <strong>TEXT</strong> is not a type in H2, so an alternative schema that uses <strong>VARCHAR</strong> (equivalent under the hood) is necessary.</p>
                 </div>
 
-                <h2 id="using" class="mt-5"><a href="{{ page.url }}#using"><i class="bi bi-paragraph"></i></a> Using the database in tests</h2>
+                <h2 id="query" class="mt-5"><a href="{{ page.url }}#query"><i class="bi bi-paragraph"></i></a> Query the database in tests</h2>
                 <p class="content mb-2">
                     It is also possible to query the database and use the results in your tests. For instance, let's look at retrieving a list of names:
                 <pre class="mb-4"><code class="hljs">ArrayList&lt;String&gt; names = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br><span class="hljs-type">ResultSet</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> statement.executeQuery(<span class="hljs-string">"SELECT u.first_name FROM users u;"</span>);<br><span class="hljs-keyword">while</span> (result.next()) {<br>    names.add(result.getString(<span class="hljs-string">"first_name"</span>));<br>}</code></pre>
@@ -108,7 +108,7 @@ tags: ['post', 'project']
                     By creating a collection such as an empty ArrayList, executing a query, and looping through the results, you can add any data to the collection. The <code class="inline-code text-white">result.next()</code> instruction moves the cursor through the ResultSet until all rows have been exhausted (this is similar to looping through a generator in Python, if that is something you are familiar with). You can now use JUnit assertions against the <code class="inline-code text-white">names</code> ArrayList to test the result of this query.
                 </p>
 
-                <h2 id="logging" class="mt-5"><a href="{{ page.url }}#logging"><i class="bi bi-paragraph"></i></a> Capturing & testing log output</h2>
+                <h2 id="logging" class="mt-5"><a href="{{ page.url }}#logging"><i class="bi bi-paragraph"></i></a> Capture & test log output</h2>
                 <p class="content">
                     The following is not directly related to H2 or mocking databases, but rather a nugget you may find useful in order to test log output with JUnit. If using the Spring Boot starter the <code class="inline-code text-white">Logback</code> & <code class="inline-code text-white">SLF4J</code> dependencies will already be satisfied. Otherwise, add them to your POM.
                 </p>
