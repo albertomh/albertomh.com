@@ -43,6 +43,11 @@
 
         <!-- Preload assets. -->
         <link rel="preload" href="/assets/img/2021-12_profile.jpg" as="image">
+        <link rel="preload" href="/assets/img/dropcap/about.svg" as="image" type="image/svg+xml">
+        <!-- Prefetch assets. -->
+        {% for post in collections.post | byCreatedAt %}
+            <link rel="prefetch" href="/assets/img/dropcap{{ post.data.path }}.svg" as="image" type="image/svg+xml">
+        {% endfor %}
     </head>
 
     <body>
