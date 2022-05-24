@@ -26,14 +26,14 @@ tags: ['post', 'project']
                 </div>
 
                 <p class="content dropcap" style="--dropcap-url: url('/assets/img/dropcap/2022/exodus.svg');">
-                    Behold! A disc-shaped device skewered on an axle that facilitates motion by rotation. I call it... the wheel! Allow this pinch of sarcasm to serve as acknowledgement that Exodus, the open-source tool introduced in this article, does not solve a new problem. While mature solutions to managing database schema changes in Java exist, I wanted to scratch my own itch and see how the sausage is made. Thus, I created my own partly to ensure the tool would be as lean as possible, and also as a learning exercise to enhance my familiarity with Spring under the hood &mdash; namely its application lifecycle, extensibility via plugins, and how it interacts with datasources.
+                    Behold! A disc-shaped device skewered on an axle that facilitates motion by rotation. I call it... the wheel! Allow this pinch of sarcasm to serve as acknowledgement that Exodus, the open-source tool introduced in this article, does not solve a new problem. While mature solutions to manage database schema changes in Java exist, I wanted to scratch my own itch and see how the sausage is made. Thus, I created my own partly to ensure the tool would be as lean as possible, and also as a learning exercise to enhance my familiarity with Spring under the hood &mdash; namely its application lifecycle, extensibility via plugins, and how it interacts with datasources.
                 </p>
                 <p class="content mb-2">
-                    It was in starting a new web backend with Spring recently that I was put off by the bloat, proprietary schemas, and premium plans being pushed in my face when considering tools to manage migrations. As I turned my nose up at different options I compiled a feature wishlist which boiled down to a handful of commandments:
+                    It was in starting a new web backend with Spring recently that I was put off by the bloat, proprietary schemas, and premium plans being pushed in my face when considering tools to handle migrations. As I turned my nose up at different options I compiled a feature wishlist which boiled down to a handful of commandments:
                 </p>
                 <ul class="content mb-2">
                     <li>Thou shalt have a minimal footprint.</li>
-                    <li>Thou shalt manage migrations as plain SQL files.</li>
+                    <li>Thou shalt store migrations as plain SQL files.</li>
                     <li>Thou shalt avoid vendor lock-in that could hold your data hostage.</li>
                 </ul>
                 <p class="content">
