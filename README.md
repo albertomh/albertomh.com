@@ -7,6 +7,9 @@ My personal site - an 11ty static site deployed on Cloudflare Pages. Uses Bootst
 Uses Parcel as its bundler. Parcel is also responsible for transpiling SCSS to CSS.  
 Serve locally with `npm run dev`.
 
+Enable debug mode with `DEBUG=Eleventy* npx @11ty/eleventy`.
+
+
 ### Build
 Build with `npm run build`.
 
@@ -35,13 +38,14 @@ Environment variables:
 
 ### Add a new post
 1. Copy `assets/html/_template.njk` to the relevant position in the src tree and rename.
-2. Create a dropcap and a headline image to accompany the post (see below).
+2. Uncomment the `layout` and `tags` properties in the front matter.
+3. Create a dropcap and a headline image to accompany the post (see below).
 
 ### Create a new dropcap
 1. Copy `assets/img/dropcap/_dropcap_template.svg` to the relevant 
 `assets/img/dropcap/<year>/` directory and rename.
 2. Design the new dropcap svg. Remember to use 'Simplify path' (Ctrl + L) in Inkscape to reduce image size for complex designs.
-3. Use it using `<p class="content dropcap" style="--dropcap-url: url('/assets/img/dropcap/YYYY/slug.svg');">` as the first paragraph tag. 
+3. Use it with `<p class="content dropcap" style="--dropcap-url: url('/assets/img/dropcap/YYYY/slug.svg');">` as the first paragraph tag. 
 
 ### Generate code snippets
 1. Populate the `<code>` tag in `hljs.njk`.

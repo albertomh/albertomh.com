@@ -62,7 +62,7 @@ $font-size: 18px;
 
 //  HTML elements ──────────────────────────────────────────────────────────────
 html {
-    font-size: 14px;
+    font-size: calc(#{$font-size} - 4);
 
     @include media-breakpoint-up(md) {
         font-size: 18px;

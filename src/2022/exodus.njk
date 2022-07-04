@@ -87,7 +87,16 @@ tags: ['post', 'project']
                     On its first run Exodus will create a <code class="inline-code text-white">_schema_migration</code> table to keep track of the migrations that have been applied. On subsequent runs, if a valid migration is found at any depth within <code class="inline-code text-white">db/migration/</code>, the table will be queried and the migration applied if it is not listed therein.
                 </p>
 
-                <p class="content end-acorn mb-5">
+                <h2 id="listen" class="mt-5"><a href="{{ page.url }}#listen"><i class="bi bi-paragraph"></i></a> Listen for migrations to finish</h2>
+                <p class="content mb-2">
+                    After every run Exodus will publish a custom Spring event, the <code class="inline-code text-white">MigrationCompleteEvent</code>. You can listen for this event in order to execute code after all migrations have been applied. Have your class implement Spring's <code class="inline-code text-white">ApplicationListener</code>, overriding the default <code class="inline-code text-white">onApplicationEvent</code> method:
+                </p>
+                <pre><code class="hljs"><span class="hljs-keyword">import</span> org.springframework.context.ApplicationListener;<br><span class="hljs-keyword">import</span> com.albertomh.exodus.event.MigrationCompleteEvent;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MyComponent</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">ApplicationListener</span>&lt;MigrationCompleteEvent&gt; {<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onApplicationEvent</span><span class="hljs-params">(MigrationCompleteEvent event)</span> {<br>        <span class="hljs-comment">// Your logic here.</span><br>    }<br>}</code></pre>
+                <p class="content mb-2">
+                    This is the best way to run logic that depends on all migrations being applied first.
+                </p>
+
+                <p class="content end-acorn my-5">
                     Hopefully you have found this a worthwhile read about Spring internals and creating plugins for the framework. If you wish to contribute to or fork Exodus check out <a href="https://github.com/albertomh/Exodus" target="_blank">the project on GitHub <i class="bi bi-arrow-up-right-square-fill"></i></a> and consult the documentation on building, testing, and cutting a release.
                 </p>
 
