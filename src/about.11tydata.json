@@ -1,11 +1,11 @@
 {
     "lifeEvents": [
         {
-            "startYear": 2019,
-            "endYear": 2022,
-            "yearLine": "<span class=\"fw-bold\">Feb 2019 - Apr 2022</span>",
-            "content": "Software engineer at <strong>Wealth Club</strong>, Bristol<br>In my last year here I was one half of a two-person team running all technology for a venture capital broker with £800M AUM.",
-            "icon": "bi-graph-up-arrow"
+            "startYear": 2022,
+            "endYear": "present",
+            "yearLine": "<span class=\"fw-bold\">Sep 2022 - present</span>",
+            "content": "Sr. Software Engineer at<br>the <strong>University of Cambridge</strong><br>",
+            "icon": "bi-bank2"
         },
         {
             "startYear": 2017,
