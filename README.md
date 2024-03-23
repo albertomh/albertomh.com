@@ -1,35 +1,46 @@
 # <a href="https://www.albertomh.com" target="_blank">albertomh.com</a>
 
-My personal site - an 11ty static site deployed on Cloudflare Pages. Uses Bootstrap 5.
+[![11ty](https://img.shields.io/badge/static-ffffff?logo=eleventy&logoColor=222222)](https://github.com/11ty/eleventy/)
+[![bootstrap](https://img.shields.io/badge/5-7952B3?logo=bootstrap&logoColor=white)](https://github.com/twbs/bootstrap)
+[![cfpages](https://img.shields.io/badge/pages-ffffff?logo=cloudflare&logoColor=#F38020)](https://pages.cloudflare.com/)
+
+Personal site.
 
 
 ## Develop
 Uses Parcel as its bundler. Parcel is also responsible for transpiling SCSS to CSS.  
-Serve locally with `npm run dev`.
 
-Enable debug mode with `DEBUG=Eleventy* npx @11ty/eleventy`.
+```sh
+# serve on localhost:8000
+npm run dev
 
+# enable debug mode
+DEBUG=Eleventy* npx @11ty/eleventy
 
-### Build
-Build with `npm run build`.
+# build minified static assets
+npm run build
+
+# bump dependency versions
+npm update
+```
 
 
 ## Deploy
 
-**Trigger a deployment by committing all changes to `main` and running `publish.sh`.**  
+**Trigger a deployment by merging changes into `main` and running `publish.sh`.**  
 
 The site is hosted on Cloudflare Pages. Deployments are triggered by pushes to the `dist` branch.  
 
 Cloudflare Pages uses the following build configuration:  
-- No framework preset.  
-- Build command: `npm run build`.  
-- Build output directory: `/dist`.  
+- No framework preset.
+- Build command: `npm run build`.
+- Build output directory: `/dist`.
 
 Environment variables:  
 
 | Variable name | Value       |
 | ------------- | ----------- |
-| NODE_VERSION  | 17.8.0      |
+| NODE_VERSION  | 18          |
 
 
 ---
