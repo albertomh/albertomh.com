@@ -1,8 +1,8 @@
 #!/bin/bash
 
 git stash
-git checkout dist
+git switch dist
 git merge main
 git push origin dist
-git checkout main
+git switch main
 git stash pop
