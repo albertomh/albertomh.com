@@ -3,8 +3,8 @@
     "version": "0.0.1",
     "description": "",
     "scripts": {
-        "build": "rm -rf ./dist/ && npm run prod:eleventy && rm -rf ./dist/hljs/ && npm run prod:parcel && npm run minifyHTML",
-        "devBuild": "rm -rf ./dist/ && npm run prod:eleventy && npm run prod:parcel && npm run minifyHTML",
+        "build": "rm -rf ./dist/ .parcel-cache/ && npm run prod:eleventy && rm -rf ./dist/hljs/ && npm run prod:parcel && npm run minifyHTML",
+        "devBuild": "rm -rf ./dist/ .parcel-cache/ && npm run prod:eleventy && npm run prod:parcel && npm run minifyHTML",
         "dev": "npm run devBuild && python3 -m http.server --directory dist/",
         "minifyHTML": "html-minifier --input-dir ./dist --output-dir ./dist --collapse-whitespace --file-ext html",
         "prod:eleventy": "npx @11ty/eleventy --quiet",
@@ -15,15 +15,15 @@
     "author": "Alberto Morón Hernández",
     "license": "MIT",
     "dependencies": {
-        "@popperjs/core": "^2.11.5",
-        "bootstrap": "^5.1.3",
-        "bootstrap-icons": "^1.8.1",
-        "highlight.js": "^11.5.1"
+        "@popperjs/core": "^2.11.8",
+        "bootstrap": "^5.3.3",
+        "bootstrap-icons": "^1.11.3",
+        "highlight.js": "^11.9.0"
     },
     "devDependencies": {
         "@11ty/eleventy": "^1.0.1",
         "@parcel/transformer-sass": "^2.5.0",
         "html-minifier": "^4.0.0",
-        "parcel": "^2.5.0"
+        "parcel": "^2.12.0"
     }
 }
