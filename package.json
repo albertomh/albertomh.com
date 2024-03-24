@@ -9,7 +9,7 @@
         "minifyHTML": "html-minifier --input-dir ./dist --output-dir ./dist --collapse-whitespace --file-ext html",
         "prod:eleventy": "npx @11ty/eleventy --quiet",
         "prod:parcel": "npx parcel build src/assets/js/main.js --dist-dir ./dist/tmp/assets --no-content-hash && npm run prod:css && npm run prod:js && cp -r ./dist/tmp/assets/. ./dist/assets && rm -rf ./dist/tmp",
-        "prod:css": "mkdir -p ./dist/assets/css && cp ./dist/tmp/assets/main.css ./dist/assets/css/",
+        "prod:css": "mkdir -p ./dist/assets/css && mv ./dist/tmp/assets/*.css ./dist/tmp/assets/*.woff ./dist/tmp/assets/*.woff2 ./dist/assets/css/",
         "prod:js": "mkdir -p ./dist/assets/js && cp ./dist/tmp/assets/main.js ./dist/assets/js/"
     },
     "author": "Alberto Morón Hernández",
@@ -25,5 +25,11 @@
         "@parcel/transformer-sass": "^2.5.0",
         "html-minifier": "^4.0.0",
         "parcel": "^2.12.0"
+    },
+    "parcel-plugin-static-files-copy": {
+        "staticPath": [
+            "./node_modules/bootstrap-icons/font"
+        ],
+        "staticOutDir": "assets/css/"
     }
 }

@@ -4,14 +4,21 @@
             "startYear": 2022,
             "endYear": "present",
             "yearLine": "<span class=\"fw-bold\">Sep 2022 - present</span>",
-            "content": "Sr. Software Engineer at<br>the <strong>University of Cambridge</strong><br>",
+            "content": "Sr. Software Engineer at<br>the <strong>University of Cambridge</strong><br>Part of a cross-functional team delivering Cambridge's Digital Admissions portfolio.",
             "icon": "bi-bank2"
+        },
+        {
+            "startYear": 2019,
+            "endYear": 2022,
+            "yearLine": "<span class=\"fw-bold\">Feb 2019 - April 2022</span>",
+            "content": "Software Engineer at <strong>Wealth Club</strong>, Bristol<br>Wrote software using Python (Django), TypeScript (Angular) and Java (Spring).",
+            "icon": "bi-piggy-bank"
         },
         {
             "startYear": 2017,
             "endYear": 2019,
             "yearLine": "<span class=\"fw-bold\">May 2017 - Feb 2019</span>",
-            "content": "Developer at <strong>Nomensa</strong>, Bristol<br>Built an eLearning platform for the NHS & maintained solutions for the energy, healthcare, and charity sectors.",
+            "content": "Developer at <strong>Nomensa</strong>, Bristol<br>Built an eLearning platform for the NHS & maintained solutions for the energy, healthcare and charity sectors.",
             "icon": "bi-columns"
         },
         {
