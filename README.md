@@ -6,10 +6,9 @@
 
 Personal site.
 
-Personal site.
-
 ## Develop
-Uses Parcel as its bundler. Parcel is also responsible for transpiling SCSS to CSS.  
+
+Built with `11ty` and Bootstrap 5. Using Parcel as the bundler and to transpile SCSS to CSS.  
 
 ```sh
 # serve on localhost:8000
@@ -25,16 +24,15 @@ npm run build
 npm update
 ```
 
-# build minified static assets
-npm run build
-
-# bump dependency versions
-npm update
-```
-
 ## Deploy
 
 **Trigger a deployment by merging changes into `main` and running `publish.sh`.**  
+
+```sh
+# deploy to Cloudflare Pages
+# ensure all changes have been merged into `main`, then run:
+./publish.sh
+```
 
 The site is hosted on Cloudflare Pages. Deployments are triggered by pushes to the `dist` branch.  
 
@@ -45,9 +43,10 @@ Cloudflare Pages uses the following build configuration:
 
 Environment variables:  
 
-| Variable name | Value       |
-| ------------- | ----------- |
-| NODE_VERSION  | 18          |
+| Variable name  | Value       |
+| -------------- | ----------- |
+| NODE_VERSION   | 18          |
+| PYTHON_VERSION | 3.7         |
 
 ---
 
