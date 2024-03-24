@@ -1,0 +1,99 @@
+---
+layout: post
+title: Computed fields in frozen Pydantic models
+blurb: Preserving the hashability and pseudo-immutability of frozen Pydantic models while deriving the value of fields from other settings. Cachable for performance, dynamic for flexibility.
+createdAt: '2024-03-24'
+updatedAt: '2024-03-24'
+path: /2024/pydantic-popsicles
+tags: ['post', 'project']
+---
+<div class="row pb-4">
+    <article class="col ms-2 ms-lg-0 pt-1 pt-md-3 ps-md-4 ps-lg-5">
+
+        <div class="row">
+            <div class="col-12 col-lg-10 mt-2 mt-md-0">
+                <h1 class="display-3 mb-2">{{ title }}</h1>
+                <p class="text-muted">Published on <span class="font-monospace">{{ updatedAt }}</span></p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8">
+
+                <p class="content dropcap" style="--dropcap-url: url('/assets/img/dropcap/2024/pydantic-popsicles.svg');">
+                    A conflict may arise when using Pydantic settings: deriving the value of a field in a frozen model from another field when, by definition, the value of frozen fields is immutable. Here I present a solution that toggles the Settings class' 'frozen' config to allow derivation while preserving the object's hashability and pseudo-immutability.
+                </p>
+
+                <h2 id="problem" class="mt-5"><a href="{{ page.url }}#problem"><i class="bi bi-paragraph"></i></a> The problem</h2>
+                <p class="content mb-2">
+                    We must reconcile two clashing aims:
+                    <ul class="content">
+                        <li>Using a Pydantic model (BaseSettings) in a FastAPI dependable with <code class="inline-code text-white">@cache</code> for improved performance.<br>This decorator requires we configure the settings object with <code class="inline-code text-white">frozen=<span class="hljs-literal">True</span></code>. 'Freezing' the model makes it pseudo-immutable and has the desirable side-effect of making instances hashable, allowing us to cache it.</li>
+                        <li>Deriving the value of a field in our Settings object from a different field in the same model.</li>
+                    </ul>
+                </p>
+
+                <p class="content mb-0">
+                    Consider our starting point &ndash; a dotenv file where we'll store values to pass to our application following Twelve-Factor best practice, and a Settings class:
+                </p>
+
+                <pre class="mb-0">
+                    <div class="code-filename">.env</div><code class="hljs"><span class="hljs-literal">SPECIFIED_SETTING</span>=some_value</code>
+                    <div class="code-filename">settings.py</div><code class="hljs"><span class="hljs-keyword">from</span> pydantic_settings <span class="hljs-keyword">import</span> BaseSettings<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Settings</span>(<span class="hljs-title class_ inherited__">BaseSettings</span>):<br>    specified_setting: <span class="hljs-built_in">str</span><br>    <span class="hljs-comment"># not in dotenv, computed from `specified_setting`</span><br>    derived_setting: <span class="hljs-built_in">int</span> | <span class="hljs-literal">None</span> = <span class="hljs-literal">None</span><br><br>    model_config = ConfigDict(frozen=<span class="hljs-literal">True</span>)</code>
+                </pre>
+
+                <p class="content">
+                    For the purpose of this demonstration we seek to set <code class="inline-code text-white">derived_setting</code> to the length of the value of <code class="inline-code text-white">specified_setting</code>.
+                </p>
+                <p class="content">
+                    A first attempt might try: <code class="inline-code text-white">derived_setting = <span class="hljs-built_in">len</span>(specified_setting)</code>, which disappointingly results in <code class="inline-code text-white"><span class="hljs-name">NameError:</span> name 'specified_setting' is not defined</code> when the Settings object is instantiated.
+                </p>
+
+                <h2 id="solution" class="mt-5"><a href="{{ page.url }}#solution"><i class="bi bi-paragraph"></i></a> A solution</h2>
+                <p class="content mb-2">
+                    A simple solution uses a <code class="inline-code text-white">@model_validator</code> (Pydantic v2) to 'unfreeze' (thaw?) the Settings object, generate the desired value from the supplied setting, set the derived field and re-freeze the model in order to maintain the desired pseudo-immutability and hash method:
+                </p>
+                <pre class="mb-0">
+                    <div class="code-filename">settings.py</div><code class="hljs"><span class="hljs-keyword">from</span> pydantic_settings <span class="hljs-keyword">import</span> BaseSettings<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Settings</span>(<span class="hljs-title class_ inherited__">BaseSettings</span>):<br>    specified_setting: <span class="hljs-built_in">str</span><br>    <span class="hljs-comment"># not in dotenv, computed from `specified_setting`</span><br>    derived_setting: <span class="hljs-built_in">int</span> | <span class="hljs-literal">None</span> = <span class="hljs-literal">None</span><br><br><span class="hljs-meta">    @model_validator(<span class="hljs-params">mode=<span class="hljs-string">"after"</span></span>)</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">derived_setting</span>(<span class="hljs-params">self</span>) -&gt; <span class="hljs-built_in">int</span>:<br>        self.model_config[<span class="hljs-string">"frozen"</span>] = <span class="hljs-literal">False</span><br><br>        provided_value = <span class="hljs-built_in">getattr</span>(self, <span class="hljs-string">"specified_setting"</span>)<br>        self.derived_setting = <span class="hljs-built_in">len</span>(provided_value)<br><br>        self.model_config[<span class="hljs-string">"frozen"</span>] = <span class="hljs-literal">True</span><br>        <span class="hljs-keyword">return</span> self<br><br>    model_config = ConfigDict(frozen=<span class="hljs-literal">True</span>)</code>
+                </pre>
+                <p class="content mb-2">
+                    The rationale for using an 'after' validator (<code class="inline-code text-white">mode=<span class="hljs-string">"after"</span></code>) is that they are more type safe given that they run once Pydantic has carried out its own parsing of the model. Unlike 'before' &amp; 'wrap' validators, 'after' validators are instance methods, meaning the Settings object is available for modification, and the values of the specified setting(s) we wish to use for derived fields are readily accessible.
+                </p>
+
+                <h2 id="snag" class="mt-5"><a href="{{ page.url }}#snag"><i class="bi bi-paragraph"></i></a> A snag</h2>
+                <p class="content mb-2">
+                    A word of caution regarding the behaviour of ConfigDict's <code class="inline-code text-white">frozen</code> parameter with regards to the conflict described above.
+                </p>
+
+                <p class="content mb-2">
+                    Since this parameter is what prevents us from modifying the Settings object after instantiation, it is tempting to set this to False. When used with a cached dependable:
+                </p>
+
+                <pre class="mb-0">
+                    <div class="code-filename">dependables.py</div><code class="hljs"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Settings</span>(<span class="hljs-title class_ inherited__">BaseSettings</span>):<br>    ...<br>    model_config = ConfigDict(frozen=<span class="hljs-literal">False</span>)<br></code>
+                    <div class="code-filename">settings.py</div><code class="hljs"><span class="hljs-keyword">from</span> functools <span class="hljs-keyword">import</span> cache<br><br><span class="hljs-meta">@cache</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_settings</span>() -&gt; Settings:<br>    <span class="hljs-keyword">return</span> Settings()</code>
+                </pre>
+
+                <p class="content">
+                    a not-frozen Settings object results in a <code class="inline-code text-white"><span class="hljs-name">TypeError:</span> unhashable type: 'Settings'</code>. This happens because Pydantic does not know to generate a <code class="inline-code text-white">__hash__</code> method for it. Caching works by storing the arguments in a dict, which requires hashability.
+                </p>
+                <p class="content mb-5">
+                    If you wish to manipulate a Pydantic model's 'frozen' state in a way beyond the one described here it should prove useful to know where in Pydantic's internals a frozen class is given a hash function: <a href="https://github.com/pydantic/pydantic/blob/6214a4bc472bfc4cd72232ab5d407dc640dc64aa/pydantic/_internal/_model_construction.py#L181" target="_blank">_model_construction.py#L181 <i class="bi bi-arrow-up-right-square-fill"></i></a> (v2.6.4).
+                </p>
+
+                <p class="content end-acorn mb-5">
+                    I hope this guide has been of service and helps you resolve the apparent conflict between cached Pydantic settings and derived fields.
+                </p>
+
+                <hr>
+                <p class="text-muted small">
+                    Lorem impsum
+                    <br>
+                    Dropcap background: <a href="https://www.rawpixel.com/image/2473216/free-illustration-image-william-morris-pattern-fruit" target="_blank"><em>Four fruits</em> (1862)</a> by William Morris, licensed under CC0.
+                </p>
+
+            </div>
+        </div>
+
+    </article>
+</div>

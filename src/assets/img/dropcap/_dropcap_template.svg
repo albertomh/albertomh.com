@@ -7,7 +7,7 @@
    viewBox="0 0 9.5249998 14.2875"
    version="1.1"
    id="svg5"
-   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25)"
    sodipodi:docname="_dropcap_template.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -25,16 +25,18 @@
      showgrid="false"
      units="px"
      width="36px"
-     inkscape:zoom="5.6568543"
-     inkscape:cx="-12.551145"
-     inkscape:cy="39.156038"
-     inkscape:window-width="1920"
-     inkscape:window-height="954"
+     inkscape:zoom="8.6008669"
+     inkscape:cx="13.545146"
+     inkscape:cy="6.5109716"
+     inkscape:window-width="1392"
+     inkscape:window-height="1027"
      inkscape:window-x="0"
-     inkscape:window-y="0"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="layer2"
-     inkscape:snap-global="true" />
+     inkscape:window-y="325"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer4"
+     inkscape:snap-global="true"
+     inkscape:showpageshadow="2"
+     inkscape:deskcolor="#d1d1d1" />
   <defs
      id="defs2" />
   <g
@@ -75,6 +77,10 @@
          x="1.339445"
          y="10.795303"
          rotate="0 0">A</tspan></text>
+    <path
+       id="rect3"
+       style="display:inline;fill:#000000;fill-opacity:1;stroke-width:0.264583"
+       d="M 2.0612268e-7,0.08067779 V 14.368178 H 9.5249996 V 0.08067779 Z M 0.49092621,0.57108719 H 9.0345903 V 13.877252 H 0.49092621 Z" />
   </g>
   <g
      inkscape:groupmode="layer"
@@ -105,7 +111,7 @@
        id="rect1289-6-6"
        width="9.03405"
        height="13.79655"
-       x="0.24547499"
+       x="0.24547502"
        y="0.24547499" />
   </g>
 </svg>
