@@ -26,27 +26,18 @@ npm update
 
 ## Deploy
 
-**Trigger a deployment by merging changes into `main` and running `publish.sh`.**  
+The site is hosted on Cloudflare Pages, using Version 2 of their build system. To deploy:  
 
-```sh
-# deploy to Cloudflare Pages
-# ensure all changes have been merged into `main`, then run:
-./publish.sh
-```
+1. Raise a PR against the `main` branch.
+1. Merge the PR into `main` and wait for Cloudflare to automatically deploy. 
 
-The site is hosted on Cloudflare Pages. Deployments are triggered by pushes to the `dist` branch.  
 
 Cloudflare Pages uses the following build configuration:  
-- No framework preset.
-- Build command: `npm run build`.
-- Build output directory: `/dist`.
-
-Environment variables:  
-
-| Variable name  | Value       |
-| -------------- | ----------- |
-| NODE_VERSION   | 18          |
-| PYTHON_VERSION | 3.7         |
+|                         |               |
+|-------------------------|---------------|
+| Build command:          | npm run build |
+| Build output directory: | /dist         |
+| Root directory:         | /             |
 
 ---
 
