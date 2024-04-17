@@ -68,3 +68,15 @@ Cloudflare Pages uses the following build configuration:
 1. Create a 1200x630 image.
 1. Place the post's svg at a size of 567x567 in the middle.
 1. Save as a png and save at `assets/img/opengraph/<YYYY>/`.
+
+### Update CV
+```sh
+# 1. edit `cv/cv.tex` LaTeX
+open -a TeXshop
+
+# 2. typeset to PDF, producting `cv/cv.pdf`
+⌘ T
+
+# 3. Copy to web assets dir
+cp cv/cv.pdf src/assets/pdf/AlbertoMH_CV.pdf
+```
