@@ -1,5 +1,6 @@
 # <a href="https://www.albertomh.com" target="_blank">albertomh.com</a>
 
+[![justfile](https://img.shields.io/badge/🤖_justfile-EFF1F3)](https://github.com/casey/just)
 [![11ty](https://img.shields.io/badge/static-ffffff?logo=eleventy&logoColor=222222)](https://github.com/11ty/eleventy/)
 [![bootstrap](https://img.shields.io/badge/5-7952B3?logo=bootstrap&logoColor=white)](https://github.com/twbs/bootstrap)
 [![cfpages](https://img.shields.io/badge/pages-ffffff?logo=cloudflare&logoColor=#F38020)](https://pages.cloudflare.com/)
@@ -9,6 +10,17 @@ Personal site.
 ## Develop
 
 Built with `11ty` and Bootstrap 5. Using Parcel as the bundler and to transpile SCSS to CSS.  
+
+### Prerequisites
+
+To develop DepositDuck the following must be available locally:
+
+- [just](https://github.com/casey/just)
+
+### Quickstart: run locally
+
+TODO: convert to `pnpm`  
+TODO: convert to `just` recipes
 
 ```sh
 # serve on localhost:8000
@@ -77,6 +89,6 @@ open -a TeXshop
 # 2. typeset to PDF, producting `cv/cv.pdf`
 ⌘ T
 
-# 3. Copy to web assets dir
-cp cv/cv.pdf src/assets/pdf/AlbertoMH_CV.pdf
+# 3. copy to web assets dir
+just cv
 ```
