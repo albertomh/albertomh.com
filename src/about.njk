@@ -1,5 +1,7 @@
 ---
 layout: base
+
+date: Last Modified
 ---
 <div class="row pb-4">
     <article class="col ms-2 ms-lg-0 pt-3 ps-md-4 ps-lg-5">
@@ -8,7 +10,7 @@ layout: base
             <div class="col-12 col-md-6 order-2 order-md-1 d-flex align-items-center">
                 <div class="mt-2 mt-md-4">
                     <h1 class="display-2 mb-2">About</h1>
-                    <p class="text-muted mb-0">Last updated March 2024</p>
+                    <p class="text-muted mb-0">Last updated {{ page.date.toLocaleString('en-GB', { month: 'short', year: 'numeric' }) }}</p>
                 </div>
             </div>
 
