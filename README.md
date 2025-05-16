@@ -1,6 +1,7 @@
 # <a href="https://www.albertomh.com" target="_blank">albertomh.com</a>
 
 [![justfile](https://img.shields.io/badge/🤖_justfile-EFF1F3)](https://github.com/casey/just)
+[![deno](https://img.shields.io/badge/deno-ffffff?logo=deno&logoColor=222222)](https://github.com/denoland/deno/)
 [![11ty](https://img.shields.io/badge/static-ffffff?logo=eleventy&logoColor=222222)](https://github.com/11ty/eleventy/)
 [![bootstrap](https://img.shields.io/badge/5-7952B3?logo=bootstrap&logoColor=white)](https://github.com/twbs/bootstrap)
 [![cfpages](https://img.shields.io/badge/pages-ffffff?logo=cloudflare&logoColor=#F38020)](https://pages.cloudflare.com/)
@@ -13,27 +14,27 @@ Built with `11ty` and Bootstrap 5. Using Parcel as the bundler and to transpile 
 
 ### Prerequisites
 
-To develop DepositDuck the following must be available locally:
+To develop `albertomh.com` the following must be available locally:
 
+- [deno](https://github.com/denoland/deno)
 - [just](https://github.com/casey/just)
 
 ### Quickstart: run locally
 
-TODO: convert to `pnpm`  
 TODO: convert to `just` recipes
 
 ```sh
 # serve on localhost:8000
-npm run dev
+deno run dev
 
 # enable debug mode
-DEBUG=Eleventy* npx @11ty/eleventy
+DEBUG=Eleventy* dpx @11ty/eleventy
 
 # build minified static assets
-npm run build
+deno run build
 
 # bump dependency versions
-npm update
+deno update
 ```
 
 ## Deploy
@@ -47,7 +48,7 @@ The site is hosted on Cloudflare Pages, using Version 2 of their build system. T
 Cloudflare Pages uses the following build configuration:  
 |                         |               |
 |-------------------------|---------------|
-| Build command:          | npm run build |
+| Build command:          | deno run build |
 | Build output directory: | /dist         |
 | Root directory:         | /             |
 
