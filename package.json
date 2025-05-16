@@ -15,13 +15,13 @@
     "author": "Alberto Morón Hernández",
     "license": "MIT",
     "dependencies": {
+        "@11ty/eleventy": "^3.1.0",
         "@popperjs/core": "^2.11.8",
         "bootstrap": "^5.3.3",
         "bootstrap-icons": "^1.11.3",
         "highlight.js": "^11.9.0"
     },
     "devDependencies": {
-        "@11ty/eleventy": "^2.0.1",
         "@parcel/transformer-sass": "^2.5.0",
         "html-minifier": "^4.0.0",
         "parcel": "^2.12.0"
