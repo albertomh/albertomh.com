@@ -9,6 +9,10 @@ module.exports = function(eleventyConfig) {
     });
 
     eleventyConfig.addFilter('byCreatedAt', function sortByOrder(values) {
+        if (!values || values.length === 0) {
+            return [];
+        }
+
         let vals = [...values];
         return vals.sort((a, b) => new Date(b.data.createdAt) - new Date(a.data.createdAt));
     });
@@ -16,8 +20,9 @@ module.exports = function(eleventyConfig) {
     return {
         dir: {
             input: "src",
-            includes: "_includes",  // Relative to input directory.
-            layouts: "_layouts",    // Relative to input directory.
+            // Relative to input directory
+            includes: "_includes",
+            layouts: "_layouts",
             output: "dist",
         },
 
