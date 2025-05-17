@@ -1,6 +1,7 @@
 {
   "version": "4",
   "specifiers": {
+    "npm:@11ty/eleventy-plugin-syntaxhighlight@^5.0.1": "5.0.1",
     "npm:@11ty/eleventy@^3.1.0": "3.1.0_chokidar@3.6.0_posthtml@0.16.6",
     "npm:@parcel/transformer-sass@^2.5.0": "2.15.1",
     "npm:@popperjs/core@^2.11.8": "2.11.8",
@@ -49,6 +50,12 @@
         "@11ty/eleventy-utils",
         "debug@4.4.1",
         "posthtml-match-helper"
+      ]
+    },
+    "@11ty/eleventy-plugin-syntaxhighlight@5.0.1": {
+      "integrity": "sha512-xDPF3Ay38XlmWZe9ER0SLtMmNah7olUBlGORhUiCUkPh3jYGVCDTDayi4tbFI9Dxha8NwKlfBZ2FXM/s3aZzAg==",
+      "dependencies": [
+        "prismjs"
       ]
     },
     "@11ty/eleventy-utils@2.0.7": {
@@ -1867,6 +1874,9 @@
         "posthtml-render"
       ]
     },
+    "prismjs@1.30.0": {
+      "integrity": "sha512-DEvV2ZF2r2/63V+tK8hQvrR2ZGn10srHbXviTlcv7Kpzw8jWiNTqbVgjO3IY8RxrrOUF8VPMQQFysYYYv0YZxw=="
+    },
     "prr@1.0.1": {
       "integrity": "sha512-yPw4Sng1gWghHQWj0B3ZggWUm4qVbPwPFcRG8KyxiU7J2OHFSoEHKS+EZ3fv5l1t9CyCiop6l/ZYeWbrgoQejw=="
     },
@@ -2032,6 +2042,7 @@
   "workspace": {
     "packageJson": {
       "dependencies": [
+        "npm:@11ty/eleventy-plugin-syntaxhighlight@^5.0.1",
         "npm:@11ty/eleventy@^3.1.0",
         "npm:@parcel/transformer-sass@^2.5.0",
         "npm:@popperjs/core@^2.11.8",
