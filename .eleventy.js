@@ -1,20 +1,22 @@
-module.exports = function(eleventyConfig) {
+module.exports = (eleventyConfig) => {
     eleventyConfig.addPassthroughCopy("src/assets/img");
     eleventyConfig.addPassthroughCopy("src/assets/video");
     eleventyConfig.addPassthroughCopy("src/assets/pdf");
 
     //  Filters ────────────────────────────────────────────────────────────────
-    eleventyConfig.addNunjucksFilter('trim', function trimFilter(text, char) {
+    eleventyConfig.addNunjucksFilter("trim", function trimFilter(text, char) {
         return text.endsWith(char) ? text.slice(0, -1) : text;
     });
 
-    eleventyConfig.addFilter('byCreatedAt', function sortByOrder(values) {
+    eleventyConfig.addFilter("byCreatedAt", function sortByOrder(values) {
         if (!values || values.length === 0) {
             return [];
         }
 
-        let vals = [...values];
-        return vals.sort((a, b) => new Date(b.data.createdAt) - new Date(a.data.createdAt));
+        const vals = [...values];
+        return vals.sort(
+            (a, b) => new Date(b.data.createdAt) - new Date(a.data.createdAt),
+        );
     });
 
     return {
@@ -29,7 +31,6 @@ module.exports = function(eleventyConfig) {
         templateFormats: ["html", "njk", "md", "11ty.js"],
         htmlTemplateEngine: "njk",
         markdownTemplateEngine: "njk",
-        dataTemplateEngine: "njk"
-
-    }
+        dataTemplateEngine: "njk",
+    };
 };

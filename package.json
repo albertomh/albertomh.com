@@ -27,9 +27,7 @@
         "parcel": "^2.12.0"
     },
     "parcel-plugin-static-files-copy": {
-        "staticPath": [
-            "./node_modules/bootstrap-icons/font"
-        ],
+        "staticPath": ["./node_modules/bootstrap-icons/font"],
         "staticOutDir": "assets/css/"
     }
 }

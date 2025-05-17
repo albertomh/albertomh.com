@@ -1,7 +1,7 @@
 default:
   @just --list
 
-# 
+#
 cv:
   @cp cv/cv.pdf src/assets/pdf/AlbertoMH_CV.pdf
   @rm cv/cv.aux \
@@ -9,4 +9,3 @@ cv:
      cv/cv.out \
      cv/cv.synctex.gz \
      || true
-

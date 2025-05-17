@@ -1,4 +1,6 @@
+<!-- markdownlint-disable MD033 no-inline-html -->
 # <a href="https://www.albertomh.com" target="_blank">albertomh.com</a>
+<!-- markdownlint-enable MD033 no-inline-html -->
 
 [![justfile](https://img.shields.io/badge/🤖_justfile-EFF1F3)](https://github.com/casey/just)
 [![deno](https://img.shields.io/badge/deno-ffffff?logo=deno&logoColor=222222)](https://github.com/denoland/deno/)
@@ -42,10 +44,10 @@ deno update
 The site is hosted on Cloudflare Pages, using Version 2 of their build system. To deploy:  
 
 1. Raise a PR against the `main` branch.
-1. Merge the PR into `main` and wait for Cloudflare to automatically deploy. 
-
+1. Merge the PR into `main` and wait for Cloudflare to automatically deploy.
 
 Cloudflare Pages uses the following build configuration:  
+
 |                         |               |
 |-------------------------|---------------|
 | Build command:          | deno run build |
@@ -57,32 +59,40 @@ Cloudflare Pages uses the following build configuration:
 ## Content structure & management
 
 ### Add a new post
+
 1. Copy `assets/html/_template.njk` to the relevant position in the src tree and rename.
 1. Uncomment the `layout` and `tags` properties in the front matter.
 1. Create a dropcap and a headline image to accompany the post (see below).
 
 ### Create a new dropcap
-1. Copy `assets/img/dropcap/_dropcap_template.svg` to the relevant 
+
+1. Copy `assets/img/dropcap/_dropcap_template.svg` to the relevant
 `assets/img/dropcap/<year>/` directory and rename.
-1. Design the new dropcap svg. Remember to use 'Simplify path' (Ctrl + L) in Inkscape to reduce image size for complex designs.
-1. Use it with `<p class="content dropcap" style="--dropcap-url: url('/assets/img/dropcap/YYYY/slug.svg');">` as the first paragraph tag. 
+1. Design the new dropcap svg. Remember to use 'Simplify path' (Ctrl + L) in Inkscape to
+   reduce image size for complex designs.
+1. Use it with `<p class="content dropcap" style="--dropcap-url: url('/assets/img/dropcap/YYYY/slug.svg');">`
+   as the first paragraph tag.
 
 ### Generate code snippets
+
 1. Populate the `<code>` tag in `hljs.njk`.
 1. Navigate to `/hljs` and copy the resulting markup.
 1. Use in a post by wrapping in `<pre><code class="hljs"> </code></pre>`.
 
 ### Create a new headline image
-1. Copy `assets/img/post/_post_img_template.svg` to the relevant 
+
+1. Copy `assets/img/post/_post_img_template.svg` to the relevant
 `assets/img/post/<year>/` directory and rename.
 1. Design the new headline image.
 
 ### Create a new OpenGraph image
+
 1. Create a 1200x630 image.
 1. Place the post's svg at a size of 567x567 in the middle.
 1. Save as a png and save at `assets/img/opengraph/<YYYY>/`.
 
 ### Update CV
+
 ```sh
 # 1. edit `cv/cv.tex` LaTeX
 open -a TeXshop
