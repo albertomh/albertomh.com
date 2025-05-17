@@ -73,12 +73,6 @@ Cloudflare Pages uses the following build configuration:
 1. Use it with `<p class="content dropcap" style="--dropcap-url: url('/assets/img/dropcap/YYYY/slug.svg');">`
    as the first paragraph tag.
 
-### Generate code snippets
-
-1. Populate the `<code>` tag in `hljs.njk`.
-1. Navigate to `/hljs` and copy the resulting markup.
-1. Use in a post by wrapping in `<pre><code class="hljs"> </code></pre>`.
-
 ### Create a new headline image
 
 1. Copy `assets/img/post/_post_img_template.svg` to the relevant

@@ -1,7 +1,12 @@
+const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
+
 module.exports = (eleventyConfig) => {
     eleventyConfig.addPassthroughCopy("src/assets/img");
     eleventyConfig.addPassthroughCopy("src/assets/video");
     eleventyConfig.addPassthroughCopy("src/assets/pdf");
+
+    //  Plugins ────────────────────────────────────────────────────────────────
+    eleventyConfig.addPlugin(syntaxHighlight);
 
     //  Filters ────────────────────────────────────────────────────────────────
     eleventyConfig.addNunjucksFilter("trim", function trimFilter(text, char) {
