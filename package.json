@@ -3,13 +3,13 @@
     "version": "0.0.1",
     "description": "",
     "scripts": {
-        "build": "rm -rf ./dist/ .parcel-cache/ && npm run prod:eleventy && rm -rf ./dist/hljs/ && npm run prod:parcel && npm run minifyHTML",
+        "build": "rm -rf ./dist/ .parcel-cache/ && npm run prod:eleventy && npm run prod:parcel && npm run minifyHTML",
         "devBuild": "rm -rf ./dist/ .parcel-cache/ && npm run prod:eleventy && npm run prod:parcel && npm run minifyHTML",
         "dev": "npm run devBuild && python3 -m http.server --directory dist/",
         "minifyHTML": "html-minifier --input-dir ./dist --output-dir ./dist --collapse-whitespace --file-ext html",
         "prod:eleventy": "npx @11ty/eleventy --quiet",
         "prod:parcel": "npx parcel build src/assets/js/main.js --dist-dir ./dist/tmp/assets --no-content-hash && npm run prod:css && npm run prod:js && cp -r ./dist/tmp/assets/. ./dist/assets && rm -rf ./dist/tmp",
-        "prod:css": "mkdir -p ./dist/assets/css && mv ./dist/tmp/assets/*.css ./dist/tmp/assets/*.woff ./dist/tmp/assets/*.woff2 ./dist/assets/css/",
+        "prod:css": "mkdir -p ./dist/assets/css && mv ./dist/tmp/assets/*.css ./dist/tmp/assets/*.woff ./dist/tmp/assets/*.woff2 ./dist/assets/css/ && cp ./src/assets/css/okaidia.css ./dist/assets/css",
         "prod:js": "mkdir -p ./dist/assets/js && cp ./dist/tmp/assets/main.js ./dist/assets/js/"
     },
     "author": "Alberto Morón Hernández",
