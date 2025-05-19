@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Multi-workspace mode in Structurizr Lite
-blurb: foo
+blurb: Visualizing multiple software systems using the free Structurizr Lite tool.
 createdAt: '2025-05-16'
 path: /2025/structurizr-lite-multi-workspace-mode
 attribution: 'Image: Herzog August Bibliothek <a href="https://diglib.hab.de/wdb.php?dir=mss/74-1-aug-2f" target="_blank">https://diglib.hab.de/wdb.php?dir=mss/74-1-aug-2f</a>, licensed under CC BY-SA.'
@@ -27,19 +27,19 @@ Our aim is to go from the following directory structure:
 
 ```text
 project/
-    ┣ workspace.dsl
-    ┗ workspace.json (auto-generated)
+    ┣━ workspace.dsl
+    ┗━ workspace.json (auto-generated)
 ```
 
 to:
 
 ```text
 project/
-    ┣ structurizr.properties
-    ┣ 1/
-    ┣━━━ workspace.dsl
-    ┣ 2/
-    ┗━━━ workspace.dsl
+    ┣━ structurizr.properties
+    ┣━ 1/
+    ┃  ┗━ workspace.dsl
+    ┗━ 2/
+       ┗━ workspace.dsl
 ```
 
 And in so doing support more than one workspace in a single instance of structurizr. To do so:
