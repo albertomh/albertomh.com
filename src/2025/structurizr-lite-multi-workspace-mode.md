@@ -1,12 +1,14 @@
 ---
 layout: post
 title: Multi-workspace mode in Structurizr Lite
-blurb: foo
+blurb: Visualizing multiple software systems using the free Structurizr Lite tool.
 createdAt: '2025-05-16'
 path: /2025/structurizr-lite-multi-workspace-mode
 attribution: 'Image: Herzog August Bibliothek <a href="https://diglib.hab.de/wdb.php?dir=mss/74-1-aug-2f" target="_blank">https://diglib.hab.de/wdb.php?dir=mss/74-1-aug-2f</a>, licensed under CC BY-SA.'
 tags: ['post', 'til']
 ---
+
+<!-- markdownlint-disable MD033 no-inline-html -->
 
 Structurizr is a tool to produce software architecture diagrams following the C4 model.
 'Workspaces' are how Structurizr isolates models, views, and documentation for a single system.  
@@ -27,19 +29,19 @@ Our aim is to go from the following directory structure:
 
 ```text
 project/
-    ┣ workspace.dsl
-    ┗ workspace.json (auto-generated)
+    ┣━ workspace.dsl
+    ┗━ workspace.json (auto-generated)
 ```
 
 to:
 
 ```text
 project/
-    ┣ structurizr.properties
-    ┣ 1/
-    ┣━━━ workspace.dsl
-    ┣ 2/
-    ┗━━━ workspace.dsl
+    ┣━ structurizr.properties
+    ┣━ 1/
+    ┃  ┗━ workspace.dsl
+    ┗━ 2/
+       ┗━ workspace.dsl
 ```
 
 And in so doing support more than one workspace in a single instance of structurizr. To do so:
@@ -50,8 +52,11 @@ And in so doing support more than one workspace in a single instance of structur
     structurizr.workspaces=2
     ```
 
-    (structurizr will only check the number is larger than 1 - it doesn't have to match how many workspaces you have).
+    (structurizr will only check the number is larger than 1 - it doesn't have to match
+    how many workspaces you have).
 2. Create workspace directories following the regex `\d*` <sup><a href="">1</a></sup> <sup><a href="">2</a></sup>
+
+<!-- markdownlint-disable MD013 line-length -->
 
 I figured out the above by looking at <a href="https://github.com/structurizr/lite/blob/main/src/main/java/com/structurizr/lite/Configuration.java" target="_blank">Configuration.java</a>
 and following the breadcrumb trail starting at `STRUCTURIZR_PROPERTIES_FILENAME`.
