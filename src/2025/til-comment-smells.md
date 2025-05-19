@@ -8,15 +8,30 @@ attribution: 'Image: Fig. 113 from <a href="https://archive.org/details/plainhom
 tags: ['post', 'til']
 ---
 
-Do you know that feeling of revelation when someone labels a concept you haven't quite put your finger on yet?
+<!-- markdownlint-disable MD033 no-inline-html -->
 
-I recently experienced it when Matt Godbolt introduced me to the idea of 'comment smells'. This was in his talk titled 'Correct by Construction: APIs That Are Easy to Use and Hard to Misuse', which is worth a listen in its entirety.
+Do you know that feeling of revelation when someone labels a concept you haven't quite put
+your finger on yet?
 
-Matt brings up comments in code that instruct callers of an API to invoke additional setup or teardown tasks for said API to work.
-Rather than burdening callers with reading & acting on instructions held in comments, he urges programmers to surface these constraints in the API itself, i.e. via code, contracts and function signatures.  
-Turn messages for humans into messages for the compiler (preferably ones that raise compile-time errors!).
+I recently experienced it when Matt Godbolt introduced me to the idea of 'comment smells'.
+This was in his talk titled 'Correct by Construction: APIs That Are Easy to Use and Hard
+to Misuse', which is worth a listen in its entirety.
 
-Matt identifies 'apologetic comments' as an anti-pattern, and as prime candidates for elimination and encoding into the API itself.
+Matt brings up comments in code that instruct callers of an API to invoke additional setup
+or teardown tasks for said API to work.
+Rather than burdening callers with reading & acting on instructions held in comments, he
+urges programmers to surface these constraints in the API itself, i.e. via code, contracts
+and function signatures.  
+Turn messages for humans into messages for the compiler (preferably ones that raise
+compile-time errors!).
 
-The whole talk is worth watching, even for someone who's never written a line of C++ in their life.  
-The talk is <a href="https://youtu.be/nLSm3Haxz0I" target="_blank">available on YouTube</a>, and it is <a href="https://youtu.be/nLSm3Haxz0I?feature=shared&t=1870" target="_blank">at 31:10</a> that 'comment smells' are tackled.
+Matt identifies 'apologetic comments' as an anti-pattern, and as prime candidates for
+elimination and encoding into the API itself.
+
+<!-- markdownlint-disable MD013 line-length -->
+
+The whole talk is worth watching, even for someone who's never written a line of C++ in
+their life.  
+The talk is <a href="https://youtu.be/nLSm3Haxz0I" target="_blank">available on YouTube</a>,
+and it is <a href="https://youtu.be/nLSm3Haxz0I?feature=shared&t=1870" target="_blank">at 31:10</a>
+that 'comment smells' are tackled.

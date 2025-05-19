@@ -8,6 +8,8 @@ attribution: 'Image: Herzog August Bibliothek <a href="https://diglib.hab.de/wdb
 tags: ['post', 'til']
 ---
 
+<!-- markdownlint-disable MD033 no-inline-html -->
+
 Structurizr is a tool to produce software architecture diagrams following the C4 model.
 'Workspaces' are how Structurizr isolates models, views, and documentation for a single system.  
 
@@ -50,8 +52,11 @@ And in so doing support more than one workspace in a single instance of structur
     structurizr.workspaces=2
     ```
 
-    (structurizr will only check the number is larger than 1 - it doesn't have to match how many workspaces you have).
+    (structurizr will only check the number is larger than 1 - it doesn't have to match
+    how many workspaces you have).
 2. Create workspace directories following the regex `\d*` <sup><a href="">1</a></sup> <sup><a href="">2</a></sup>
+
+<!-- markdownlint-disable MD013 line-length -->
 
 I figured out the above by looking at <a href="https://github.com/structurizr/lite/blob/main/src/main/java/com/structurizr/lite/Configuration.java" target="_blank">Configuration.java</a>
 and following the breadcrumb trail starting at `STRUCTURIZR_PROPERTIES_FILENAME`.
