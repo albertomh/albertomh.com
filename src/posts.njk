@@ -1,24 +1,5 @@
 ---
 layout: base
 ---
-<div class="row">
-    <section class="col mx-2 mx-lg-0 pt-1 pt-md-3 ps-0 ps-md-4 ps-lg-5">
 
-        <!--div class="row mb-2 mb-md-3">
-            <div class="col-12 col-md-6">
-                <div class="mt-2 mt-md-0">
-                    <h1 class="display-3 mb-2"></h1>
-                </div>
-            </div>
-        </div-->
-
-        {% for post in collections.post %}
-            <div class="row post">
-                <div class="col-lg-10 col-xxl-8">
-                    {% include 'post-link.njk' %}
-                </div>
-            </div>
-        {% endfor %}
-
-    </section>
-</div>
+{% include 'post-listing.njk' %}
