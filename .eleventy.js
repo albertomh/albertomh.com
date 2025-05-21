@@ -1,12 +1,21 @@
-const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
+import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
+import mermaid from "@kevingimbel/eleventy-plugin-mermaid";
 
-module.exports = (eleventyConfig) => {
+export default function (eleventyConfig) {
     eleventyConfig.addPassthroughCopy("src/assets/img");
     eleventyConfig.addPassthroughCopy("src/assets/video");
     eleventyConfig.addPassthroughCopy("src/assets/pdf");
 
     //  Plugins ────────────────────────────────────────────────────────────────
     eleventyConfig.addPlugin(syntaxHighlight);
+    eleventyConfig.addPlugin(mermaid, {
+        mermaid_js_src: "https://unpkg.com/mermaid@11/dist/mermaid.esm.min.mjs",
+        mermaid_config: {
+            startOnLoad: true,
+            theme: "base",
+            gitGraph: { parallelCommits: false, mainBranchName: "date" },
+        },
+    });
 
     //  Filters ────────────────────────────────────────────────────────────────
     eleventyConfig.addNunjucksFilter("trim", function trimFilter(text, char) {
@@ -28,8 +37,8 @@ module.exports = (eleventyConfig) => {
         dir: {
             input: "src",
             // Relative to input directory
-            includes: "_includes",
             layouts: "_layouts",
+            includes: "_includes",
             output: "dist",
         },
 
@@ -38,4 +47,4 @@ module.exports = (eleventyConfig) => {
         markdownTemplateEngine: "njk",
         dataTemplateEngine: "njk",
     };
-};
+}

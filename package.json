@@ -14,9 +14,11 @@
     },
     "author": "Alberto Morón Hernández",
     "license": "MIT",
+    "type": "module",
     "dependencies": {
         "@11ty/eleventy": "^3.1.0",
         "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.1",
+        "@kevingimbel/eleventy-plugin-mermaid": "^3.0.0",
         "@popperjs/core": "^2.11.8",
         "bootstrap": "^5.3.3",
         "bootstrap-icons": "^1.11.3",
