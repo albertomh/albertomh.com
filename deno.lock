@@ -3,6 +3,7 @@
   "specifiers": {
     "npm:@11ty/eleventy-plugin-syntaxhighlight@^5.0.1": "5.0.1",
     "npm:@11ty/eleventy@^3.1.0": "3.1.0_chokidar@3.6.0_posthtml@0.16.6",
+    "npm:@kevingimbel/eleventy-plugin-mermaid@3": "3.0.0",
     "npm:@parcel/transformer-sass@^2.5.0": "2.15.1",
     "npm:@popperjs/core@^2.11.8": "2.11.8",
     "npm:bootstrap-icons@^1.11.3": "1.13.1",
@@ -118,6 +119,12 @@
         "junk",
         "maximatch",
         "slash"
+      ]
+    },
+    "@kevingimbel/eleventy-plugin-mermaid@3.0.0": {
+      "integrity": "sha512-RDt+TvNfoNUq9GYch3xjRcdXv/nKrpRgZurp2BZCEpRLneXtBVvSjqZ7oQ3w9ktwH322X0L9TMbLDJcaOwEipw==",
+      "dependencies": [
+        "he"
       ]
     },
     "@lezer/common@1.2.3": {
@@ -2044,6 +2051,7 @@
       "dependencies": [
         "npm:@11ty/eleventy-plugin-syntaxhighlight@^5.0.1",
         "npm:@11ty/eleventy@^3.1.0",
+        "npm:@kevingimbel/eleventy-plugin-mermaid@3",
         "npm:@parcel/transformer-sass@^2.5.0",
         "npm:@popperjs/core@^2.11.8",
         "npm:bootstrap-icons@^1.11.3",
