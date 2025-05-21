@@ -1,6 +1,6 @@
-const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
+import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
 
-module.exports = (eleventyConfig) => {
+export default function (eleventyConfig) {
     eleventyConfig.addPassthroughCopy("src/assets/img");
     eleventyConfig.addPassthroughCopy("src/assets/video");
     eleventyConfig.addPassthroughCopy("src/assets/pdf");
@@ -28,8 +28,8 @@ module.exports = (eleventyConfig) => {
         dir: {
             input: "src",
             // Relative to input directory
-            includes: "_includes",
             layouts: "_layouts",
+            includes: "_includes",
             output: "dist",
         },
 
