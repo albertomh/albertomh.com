@@ -60,9 +60,9 @@ Cloudflare Pages uses the following build configuration:
 
 ### Add a new post
 
-1. Copy `assets/html/_template.njk` to the relevant position in the src tree and rename.
-1. Uncomment the `layout` and `tags` properties in the front matter.
+1. Copy `src/_post_template.md` to the relevant position in the src tree and rename.
 1. Create a dropcap and a headline image to accompany the post (see below).
+1. When ready to publish, remove `eleventyExcludeFromCollections` from the front matter.
 
 ### Create a new dropcap
 
