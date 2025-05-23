@@ -5,7 +5,8 @@ blurb: TBC
 createdAt: '2025-05-21'
 path: /2025/tracking-learning-rust-gitgraph
 attribution: 'TBC'
-tags: ['wip']
+tags: ['post']
+eleventyExcludeFromCollections: true
 ---
 
 ```mermaid
