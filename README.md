@@ -77,7 +77,8 @@ Cloudflare Pages uses the following build configuration:
 
 1. Copy `assets/img/post/_post_img_template.svg` to the relevant
 `assets/img/post/<year>/` directory and rename.
-1. Design the new headline image.
+1. Design the new headline image. Since 2025, using
+<https://publicdomainreview.org/> as a source of public domain works.
 
 ### Create a new OpenGraph image
 
