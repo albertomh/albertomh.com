@@ -16,5 +16,15 @@ module.exports = () => {
                 },
             },
         },
+        urls: {
+            index: {
+                en: "/",
+                es: "/es/",
+            },
+            about: {
+                en: "/about/",
+                es: "/es/sobre/",
+            },
+        },
     };
 };

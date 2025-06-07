@@ -3,7 +3,7 @@
 
         <div class="d-flex align-items-center me-sm-3 position-relative" style="cursor: pointer;">
             <img src="/assets/img/favicon.svg" alt="" width="32">
-            <a class="navbar-brand ms-2 stretched-link" href="/">Alberto MH</a>
+            <a class="navbar-brand ms-2 stretched-link" href="{{ 'urls.index' | translate(page.lang) }}">Alberto MH</a>
         </div>
 
         <button class="navbar-toggler" type="button"
@@ -15,12 +15,18 @@
         <div class="collapse navbar-collapse justify-content-between ps-2 ps-lg-0" id="navbarContent">
             <ul class="navbar-nav mt-2 mt-sm-0">
                 <li class="nav-item me-sm-2">
-                    <a class="nav-link {% if page.url == '/' or page.url =='/posts/' %}active{% endif %}" href="/">
+                    <a
+                        class="nav-link {% if page.url in ['/', '/posts/', '/es/'] %}active{% endif %}"
+                        href="{{ 'urls.index' | translate(page.lang) }}"
+                    >
                         <i class="bi bi-square me-2 me-lg-1 d-lg-none text-white"></i>{{ "_includes.navbar.posts" | translate(page.lang) }}
                     </a>
                 </li>
                 <li class="nav-item me-sm-2">
-                    <a class="nav-link {% if '/about' in page.url %}active{% endif %}" href="/about">
+                    <a
+                        class="nav-link {% if page.url in ['/about/', '/es/sobre/'] %}active{% endif %}"
+                        href="{{ 'urls.about' | translate(page.lang) }}"
+                    >
                         <i class="bi bi-square me-2 me-lg-1 d-lg-none text-white"></i>{{ "_includes.navbar.about" | translate(page.lang) }}
                     </a>
                 </li>
