@@ -4,6 +4,7 @@ title: 'TIL: comment smells'
 blurb: On moving expectations out of comments and surfacing them as code.
 createdAt: '2025-05-14'
 path: /2025/til-comment-smells
+permalink: 2025/til-comment-smells/
 attribution: 'Image: Fig. 113 from <a href="https://archive.org/details/plainhometalkabo00foot/page/n11/mode/2up" target="_blank"><em>Plain Home Talk</em> (1896)</a> by Edward B. Foote, out of copyright.'
 tags: ['post', 'til']
 ---
