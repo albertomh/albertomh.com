@@ -7,6 +7,9 @@ export default function (eleventyConfig) {
     eleventyConfig.addPassthroughCopy("src/assets/pdf");
 
     //  Plugins ────────────────────────────────────────────────────────────────
+    eleventyConfig.addPlugin(I18nPlugin, {
+        defaultLanguage: "en",
+    });
     eleventyConfig.addPlugin(syntaxHighlight);
     eleventyConfig.addPlugin(mermaid, {
         mermaid_js_src: "https://unpkg.com/mermaid@11/dist/mermaid.esm.min.mjs",
