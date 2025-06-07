@@ -36,6 +36,15 @@ export default function (eleventyConfig) {
         },
     );
 
+    eleventyConfig.addFilter("filterByLang", (collection, lang = "en") =>
+        collection.filter((item) => {
+            return (
+                item.data &&
+                (item.data.lang === lang || (!item.data.lang && lang === "en"))
+            );
+        }),
+    );
+
     eleventyConfig.addNunjucksFilter("trim", function trimFilter(text, char) {
         return text.endsWith(char) ? text.slice(0, -1) : text;
     });

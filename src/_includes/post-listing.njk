@@ -1,13 +1,17 @@
+{% set currentLang = page.lang or "en" %}
+{% set postsSorted = collections.post | byCreatedAt %}
+{% set postsByLanguage = postsSorted | filterByLang(currentLang) %}
+
 <div class="row">
-    <section class="col mx-2 mx-lg-0 pt-1 pt-md-3 ps-0 ps-md-4 ps-lg-5">
+  <section class="col mx-2 mx-lg-0 pt-1 pt-md-3 ps-0 ps-md-4 ps-lg-5">
 
-        {% for post in collections.post | byCreatedAt %}
-            <div class="row post">
-                <div class="col-lg-10 col-xxl-8">
-                    {% include 'post-link.njk' %}
-                </div>
-            </div>
-        {% endfor %}
+    {% for post in postsByLanguage %}
+      <div class="row post">
+        <div class="col-lg-10 col-xxl-8">
+          {% include 'post-link.njk' %}
+        </div>
+      </div>
+    {% endfor %}
 
-    </section>
+  </section>
 </div>
