@@ -41,6 +41,39 @@
                         <i class="bi bi-linkedin linkedin me-2 me-lg-1"></i>LinkedIn
                     </a>
                 </li>
+
+            {% if page.lang == "en" %}
+            <div class="dropdown">
+                <a class="btn btn-sm bg-white border-white dropdown-toggle pt-2 pb-0" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-translate"></i> English
+                </a>
+
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/">
+                        <i class="bi bi-check2"></i> English</a>
+                    </li>
+                    <li><a class="dropdown-item" href="/es/">
+                        <i class="bi bi-check2 text-white"></i> Español</a>
+                    </li>
+                </ul>
+            </div>
+            {% else %}
+            <div class="dropdown">
+                <a class="btn btn-sm bg-white border-white dropdown-toggle pt-2 pb-0" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-translate"></i> Español
+                </a>
+
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/">
+                        <i class="bi bi-check2 text-white"></i> English</a>
+                    </li>
+                    <li><a class="dropdown-item" href="/es/">
+                        <i class="bi bi-check2"></i> Español</a>
+                    </li>
+                </ul>
+            </div>
+            {% endif %}
+
             </ul>
         </div>
 
