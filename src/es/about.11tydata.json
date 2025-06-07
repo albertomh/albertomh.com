@@ -1,0 +1,46 @@
+{
+    "lifeEvents": [
+        {
+            "startYear": 2022,
+            "endYear": "present",
+            "yearLine": "<span class=\"fw-bold\">Sep 2022 - present</span>",
+            "content": "Sr. Software Engineer at<br>the <strong>University of Cambridge</strong><br>Part of a cross-functional team delivering Cambridge's Digital Admissions portfolio.",
+            "icon": "bi-bank2"
+        },
+        {
+            "startYear": 2019,
+            "endYear": 2022,
+            "yearLine": "<span class=\"fw-bold\">Feb 2019 - April 2022</span>",
+            "content": "Software Engineer at <strong>Wealth Club</strong>, Bristol<br>Wrote software using Python (Django), TypeScript (Angular) and Java (Spring).",
+            "icon": "bi-piggy-bank"
+        },
+        {
+            "startYear": 2017,
+            "endYear": 2019,
+            "yearLine": "<span class=\"fw-bold\">May 2017 - Feb 2019</span>",
+            "content": "Developer at <strong>Nomensa</strong>, Bristol<br>Built an eLearning platform for the NHS & maintained solutions for the energy, healthcare and charity sectors.",
+            "icon": "bi-columns"
+        },
+        {
+            "startYear": 2014,
+            "endYear": 2017,
+            "yearLine": "<span class=\"fw-bold\">2014 - 2017</span>",
+            "content": "BA (Hons) Linguistics & English Lit. (1st)<br>University of <strong>Manchester</strong><br>Wrote my <a href=\"https://arxiv.org/abs/1709.06162\" target=\"blank\">dissertation on paraphrasing verbal metonymy</a> through computational methods, supported by an AWS Educate grant.",
+            "icon": "bi-mortarboard-fill"
+        },
+        {
+            "startYear": 2016,
+            "endYear": 2016,
+            "yearLine": "<span class=\"fw-bold\">2016</span> (Year Abroad)",
+            "content": "Computational Linguistics <wbr>(Dean's&nbsp;List)<br>University of <strong>Massachusetts, Amherst</strong> (USA)<br>Upskilled in Natural Language Processing, attended hackathons, took in American culture.",
+            "icon": "bi-book"
+        },
+        {
+            "startYear": 1996,
+            "endYear": 1996,
+            "yearLine": "<span class=\"fw-bold\">1996</span>",
+            "content": "Born in Madrid, Spain",
+            "icon": "bi-brightness-alt-high-fill"
+        }
+    ]
+}

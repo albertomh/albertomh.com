@@ -1,9 +1,10 @@
 ---
 layout: post
-title: Multi-workspace mode in Structurizr Lite
+title: Usando Structurizr Lite con varios espacios de trabajo
 blurb: Visualizing multiple software systems using the free Structurizr Lite tool.
 createdAt: '2025-05-16'
 path: /2025/structurizr-lite-multi-workspace-mode
+permalink: es/2025/structurizr-lite-multi-workspace-mode/
 attribution: 'Image: Herzog August Bibliothek <a href="https://diglib.hab.de/wdb.php?dir=mss/74-1-aug-2f" target="_blank">https://diglib.hab.de/wdb.php?dir=mss/74-1-aug-2f</a>, licensed under CC BY-SA.'
 tags: ['post', 'til']
 ---

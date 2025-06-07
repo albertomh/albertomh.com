@@ -16,19 +16,19 @@
             <ul class="navbar-nav mt-2 mt-sm-0">
                 <li class="nav-item me-sm-2">
                     <a class="nav-link {% if page.url == '/' or page.url =='/posts/' %}active{% endif %}" href="/">
-                        <i class="bi bi-square me-2 me-lg-1 d-lg-none text-white"></i>Posts
+                        <i class="bi bi-square me-2 me-lg-1 d-lg-none text-white"></i>{{ "_includes.navbar.posts" | translate(page.lang) }}
                     </a>
                 </li>
                 <li class="nav-item me-sm-2">
                     <a class="nav-link {% if '/about' in page.url %}active{% endif %}" href="/about">
-                        <i class="bi bi-square me-2 me-lg-1 d-lg-none text-white"></i>About
+                        <i class="bi bi-square me-2 me-lg-1 d-lg-none text-white"></i>{{ "_includes.navbar.about" | translate(page.lang) }}
                     </a>
                 </li>
             </ul>
             <ul class="navbar-nav mt-2 mt-sm-0">
                 <li class="nav-item me-sm-2">
                     <a class="nav-link" href="/assets/pdf/AlbertoMH_CV.pdf" target="_blank">
-                        <i class="bi bi-file-earmark-pdf-fill me-2 me-lg-1"></i>My CV
+                        <i class="bi bi-file-earmark-pdf-fill me-2 me-lg-1"></i>{{ "_includes.navbar.cv" | translate(page.lang) }}
                     </a>
                 </li>
                 <li class="nav-item me-sm-2">

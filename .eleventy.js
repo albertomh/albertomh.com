@@ -1,5 +1,11 @@
+import { I18nPlugin } from "@11ty/eleventy";
 import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
 import mermaid from "@kevingimbel/eleventy-plugin-mermaid";
+import translations from "./src/_data/translations.cjs";
+
+function getNestedValue(obj, path) {
+    return path.split(".").reduce((acc, key) => acc?.[key], obj);
+}
 
 export default function (eleventyConfig) {
     eleventyConfig.addPassthroughCopy("src/assets/img");
@@ -7,6 +13,9 @@ export default function (eleventyConfig) {
     eleventyConfig.addPassthroughCopy("src/assets/pdf");
 
     //  Plugins ────────────────────────────────────────────────────────────────
+    eleventyConfig.addPlugin(I18nPlugin, {
+        defaultLanguage: "en",
+    });
     eleventyConfig.addPlugin(syntaxHighlight);
     eleventyConfig.addPlugin(mermaid, {
         mermaid_js_src: "https://unpkg.com/mermaid@11/dist/mermaid.esm.min.mjs",
@@ -18,6 +27,24 @@ export default function (eleventyConfig) {
     });
 
     //  Filters ────────────────────────────────────────────────────────────────
+    eleventyConfig.addFilter(
+        "translate",
+        (keyPath, locale, fallback = "en") => {
+            const translationData = translations();
+            const entry = getNestedValue(translationData, keyPath);
+            return entry?.[locale] || entry?.[fallback] || keyPath;
+        },
+    );
+
+    eleventyConfig.addFilter("filterByLang", (collection, lang = "en") =>
+        collection.filter((item) => {
+            return (
+                item.data &&
+                (item.data.lang === lang || (!item.data.lang && lang === "en"))
+            );
+        }),
+    );
+
     eleventyConfig.addNunjucksFilter("trim", function trimFilter(text, char) {
         return text.endsWith(char) ? text.slice(0, -1) : text;
     });
