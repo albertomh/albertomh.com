@@ -1,0 +1,79 @@
+---
+layout: base
+permalink: es/sobre/
+
+date: Last Modified
+---
+<div class="row pb-4">
+    <article class="col ms-2 ms-lg-0 pt-3 ps-md-4 ps-lg-5">
+
+        <div class="row mb-3 mb-md-2">
+            <div class="col-12 col-md-6 order-2 order-md-1 d-flex align-items-center">
+                <div class="mt-2 mt-md-4">
+                    <h1 class="display-2 mb-2">Acerca de mí</h1>
+                    <p class="text-muted mb-0">Última actualización {{ page.date.toLocaleString('en-GB', { month: 'short', year: 'numeric' }) }}</p>
+                </div>
+            </div>
+
+            <div class="col col-md-6 col-lg-5 order-1 order-md-2 d-flex justify-content-center justify-content-md-end">
+                <img src="/assets/img/2022-09_profile.jpg" class="rounded-circle about__profile-picture" alt="Alberto MH">
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-12 offset-md-6 col-md-6 col-lg-5 d-flex justify-content-md-end">
+                <p class="mb-2 mb-lg-0 me-md-3 fs-5">
+                    <a href="/assets/pdf/AlbertoMH_CV.pdf" target="_blank"><i class="bi bi-file-earmark-pdf-fill me-2"></i>View my CV</a>
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8">
+                <p class="content dropcap" style="--dropcap-url: url('/assets/img/dropcap/about.svg');">
+                    Hello! I'm Alberto, a software engineer living in Somerset, UK.
+                    <br>
+                    Professionally I'm at my best in cross-functional teams focussed on delivering brilliant customer experiences underpinned by a solid technical architecture.
+                    <br>
+                    I enjoy automating away hurdles to enable teams to find the best ways to work together and deliver software. Always learning, interests include improving the Dev Experience, giving back via open source and exploring DevOps practices.
+                </p>
+            </div>
+        </div>
+
+
+        <!-- Timeline -->
+        <div class="row timeline px-2 mt-5 ms-1 ms-md-0 pt-1">
+            <div class="col-lg-8">
+
+                {% for event in lifeEvents %}
+                    <div class="row">
+                        <div class="col-12 col-md-6 timeline__time d-none d-md-block {% if loop.index % 2 == 0 %}invisible{% endif %}">
+                                <p class="fs-5 text-end pe-3 mb-0">{{ event.yearLine | safe }}</p>
+                                <i class="bi fs-5 {{ event.icon }}"></i>
+                        </div>
+                        <div class="col-12 col-md-6 timeline__time {% if loop.index % 2 != 0 %}d-md-none{% endif %}">
+                                <i class="bi fs-5 {{ event.icon }}"></i>
+                                <p class="fs-5 text-start ps-3 mb-0">{{ event.yearLine | safe }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-md-6 timeline__content border-end border-2 pe-4 d-none d-md-block {% if loop.last %}border-white{% endif %}">
+                            <p class="text-end py-1 {% if loop.index % 2 == 0 %}invisible{% endif %} {% if loop.last %}mb-0{% endif %}">{{ event.content | safe }}</p>
+                        </div>
+                        <div class="col-12 col-md-6 timeline__content border-start border-2 ps-4 {% if loop.last %}border-white{% endif %}">
+                            <p class="text-start py-1 {% if loop.index % 2 != 0 %}d-md-none{% endif %} {% if loop.last %}mb-0{% endif %}">{{ event.content | safe }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+
+                <hr>
+                <p class="text-muted small">
+                    Dropcap background: <a href="https://www.rawpixel.com/image/2476058/free-illustration-image-william-morris-art-nouveau-lavender" target="_blank"><em>Vine</em> (1873)</a> by William Morris, licensed under CC0.
+                </p>
+
+            </div>
+        </div>
+
+
+    </article>
+</div>
