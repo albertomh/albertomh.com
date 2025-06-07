@@ -1,5 +1,11 @@
+import { I18nPlugin } from "@11ty/eleventy";
 import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
 import mermaid from "@kevingimbel/eleventy-plugin-mermaid";
+import translations from "./src/_data/translations.cjs";
+
+function getNestedValue(obj, path) {
+    return path.split(".").reduce((acc, key) => acc?.[key], obj);
+}
 
 export default function (eleventyConfig) {
     eleventyConfig.addPassthroughCopy("src/assets/img");
@@ -21,6 +27,15 @@ export default function (eleventyConfig) {
     });
 
     //  Filters ────────────────────────────────────────────────────────────────
+    eleventyConfig.addFilter(
+        "translate",
+        (keyPath, locale, fallback = "en") => {
+            const translationData = translations();
+            const entry = getNestedValue(translationData, keyPath);
+            return entry?.[locale] || entry?.[fallback] || keyPath;
+        },
+    );
+
     eleventyConfig.addNunjucksFilter("trim", function trimFilter(text, char) {
         return text.endsWith(char) ? text.slice(0, -1) : text;
     });
