@@ -2,7 +2,7 @@
 
     <!-- Mobile title. -->
     <div class="col-12 mt-1 d-md-none">
-        <span class="font-monospace text-muted small">{{ post.data.updatedAt }}</span>
+        <span class="font-monospace text-muted small">{{ post.data.createdAt }}</span>
     </div>
     <div class="col-12 mb-2 d-md-none">
         <a href="{{ post.data.permalink }}" class="h1 stretched-link">{{ post.data.title }}</a>
@@ -22,9 +22,8 @@
             <!-- > sm title & blurb. -->
             <div class="col-12 col-md ms-md-3 d-none d-md-block">
                 <div class="row">
-                    <div class="col-12"><span class="font-monospace text-muted small">{{ post.data.updatedAt }}</span></div>
-                    <div class="col-12 mb-1"><a href="{{ post.data.path }}" class="h2 stretched-link">{{ post.data.title }}</a></div>
-                    <div class="col-12 pb-1"><p class="m-0">{{ post.data.createdAt }}</p></div>
+                    <div class="col-12"><span class="font-monospace text-muted small">{{ post.data.createdAt }}</span></div>
+                    <div class="col-12 mb-1"><a href="/{{ post.data.permalink }}" class="h2 stretched-link">{{ post.data.title }}</a></div>
                     <div class="col-12 pb-2"><p>{{ post.data.blurb }}</p></div>
                 </div>
             </div>

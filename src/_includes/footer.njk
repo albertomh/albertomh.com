@@ -4,10 +4,17 @@
         <div class="row">
             <div class="col-12 col-md-auto order-3 order-md-1"><p class="m-0">&copy; {{ metadata.footerDate }} Alberto MH</p></div>
             <div class="col-12 col-md-auto mb-2 mb-md-0 order-1 order-md-2">
-                <a class="{% if page.url == '/' or page.url =='/posts/' %}nav-link active{% endif %}" href="/posts/">Posts</a>
+                <a
+                    class="{% if page.url in ['/', '/posts/', '/es/'] %}nav-link active{% endif %}"
+                    href="{{ 'urls.index' | translate(page.lang) }}"
+                >
+                    {{ "_includes.navbar.posts" | translate(page.lang) }}
+                </a>
             </div>
             <div class="col-12 col-md-auto mb-2 mb-md-0 order-2 order-md-3">
-                <a class="{% if page.url == '/about/' %}nav-link active{% endif %}" href="/about">About</a>
+                <a class="{% if page.url in ['/about/', '/es/sobre/'] %}nav-link active{% endif %}" href="/about">
+                    {{ "_includes.navbar.about" | translate(page.lang) }}
+                </a>
             </div>
         </div>
     </div>
