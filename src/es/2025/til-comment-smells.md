@@ -1,38 +1,44 @@
 ---
 layout: post
 title: 'Comentarios que huelen'
-blurb: On moving expectations out of comments and surfacing them as code.
+blurb: Extrayendo condiciones de comentarios y aflorándolas mediante código.
 createdAt: '2025-05-14'
 path: /2025/til-comment-smells
-permalink: es/2025/til-comment-smells/
-attribution: 'Image: Fig. 113 from <a href="https://archive.org/details/plainhometalkabo00foot/page/n11/mode/2up" target="_blank"><em>Plain Home Talk</em> (1896)</a> by Edward B. Foote, out of copyright.'
+permalink: es/2025/comentarios-que-huelen/
+attribution: 'Imagen: Fig. 113 de <a href="https://archive.org/details/plainhometalkabo00foot/page/n11/mode/2up" target="_blank"><em>Plain Home Talk</em> (1896)</a> por Edward B. Foote, fuera de copyright.'
 tags: ['post', 'til']
 ---
 
 <!-- markdownlint-disable MD033 no-inline-html -->
 
-Do you know that feeling of revelation when someone labels a concept you haven't quite put
-your finger on yet?
+¿Conoces esa sensación de revelación cuando alguien te descubre el nombre de un concepto
+que sólo intuyes?
 
-I recently experienced it when Matt Godbolt introduced me to the idea of 'comment smells'.
-This was in his talk titled 'Correct by Construction: APIs That Are Easy to Use and Hard
-to Misuse', which is worth a listen in its entirety.
+A mí me pasó recientemente al oír a Matt Godbolt hablar sobre 'comentarios que huelen'
+('comment smells' en el inglés original). Es un concepto que menciona en su charla
+"Correct by Construction: APIs That Are Easy to Use and Hard to Misuse"
+<sup><a href="#footnote-1">1</a></sup>, la cual recomiendo escuchar en su totalidad.
 
-Matt brings up comments in code that instruct callers of an API to invoke additional setup
-or teardown tasks for said API to work.
-Rather than burdening callers with reading & acting on instructions held in comments, he
-urges programmers to surface these constraints in the API itself, i.e. via code, contracts
-and function signatures.  
-Turn messages for humans into messages for the compiler (preferably ones that raise
-compile-time errors!).
+Matt ofrece como ejemplo una API cuyos comentarios en código fuente indican al usuario que
+debe llevar a cabo pasos adicionales de montaje o desmantelamiento. En vez de endosarle al
+usuario la responsabilidad de leer comentarios y actuar según dichas instrucciones, Matt
+nos urge a los programadores a que afloremos estos requisitos en la API mediante código,
+contratos y firmas de funciones.
+De este modo ¡convierte mensajes para humanos en mensajes para el compilador!
+(Preferiblemente del tipo que llevan a errores en tiempo de compilación.)
 
-Matt identifies 'apologetic comments' as an anti-pattern, and as prime candidates for
-elimination and encoding into the API itself.
+En concreto Matt menciona los ‘comentarios disculpa’ como una mala práctica, y son estos
+los que deben eliminarse y codificarse en la API misma.
 
 <!-- markdownlint-disable MD013 line-length -->
 
-The whole talk is worth watching, even for someone who's never written a line of C++ in
-their life.  
-The talk is <a href="https://youtu.be/nLSm3Haxz0I" target="_blank">available on YouTube</a>,
-and it is <a href="https://youtu.be/nLSm3Haxz0I?feature=shared&t=1870" target="_blank">at 31:10</a>
-that 'comment smells' are tackled.
+Toda la charla merece la pena, incluso para alguien que jamás haya escrito una línea de
+C++ en la vida.
+La charla está <a href="https://youtu.be/nLSm3Haxz0I" target="_blank"> disponible en YouTube</a>,
+y es  <a href="https://youtu.be/nLSm3Haxz0I?feature=shared&t=1870" target="_blank">en el minuto 31:10</a>
+cuando habla sobre 'comentarios que huelen'.
+
+---
+<div id="footnote-1">
+    <sup>1</sup> Mi traducción: "Exactitud mediante construcción: APIs fáciles de emplear y difíciles de usar mal".
+</div>
