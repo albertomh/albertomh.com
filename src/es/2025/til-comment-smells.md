@@ -39,6 +39,6 @@ y es  <a href="https://youtu.be/nLSm3Haxz0I?feature=shared&t=1870" target="_blan
 cuando habla sobre 'comentarios que huelen'.
 
 ---
-<div id="footnote-1">
+<div id="footnote-1" class="pb-2">
     <sup>1</sup> Mi traducción: "Exactitud mediante construcción: APIs fáciles de emplear y difíciles de usar mal".
 </div>
