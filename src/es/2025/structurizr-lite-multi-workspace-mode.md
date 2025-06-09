@@ -89,3 +89,4 @@ Structurizr Lite.
     Este parche fue integrado el 2025-04-11 pero la última imagen de Docker
     `structurizr/lite` fue etiquetada el 2025-03-28.
 </div>
+---

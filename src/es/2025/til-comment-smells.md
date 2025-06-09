@@ -42,3 +42,4 @@ cuando habla sobre 'comentarios que huelen'.
 <div id="footnote-1" class="pb-2">
     <sup>1</sup> Mi traducción: "Exactitud mediante construcción: APIs fáciles de emplear y difíciles de usar mal".
 </div>
+---
