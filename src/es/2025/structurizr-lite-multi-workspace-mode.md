@@ -34,7 +34,7 @@ estas afirman: "[la versión] añade compatibilidad para el modo multiespacios d
 Nuestro objetivo es pasar de la siguiente estructura de directorios:
 
 ```text
-project/
+proyecto/
     ┣━ workspace.dsl
     ┗━ workspace.json (auto-generated)
 ```
@@ -42,7 +42,7 @@ project/
 a:
 
 ```text
-project/
+proyecto/
     ┣━ structurizr.properties
     ┣━ 1/
     ┃  ┣━ workspace.dsl
