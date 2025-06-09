@@ -76,3 +76,4 @@ and following the breadcrumb trail starting at `STRUCTURIZR_PROPERTIES_FILENAME`
     workspace directory names (i.e. not just integers) has been merged - see <a href="https://github.com/structurizr/lite/issues/189" target="_blank">structurizr/lite#189</a>.
     This fix was merged on 2025-04-11, but the latest `structurizr/lite` Docker image was tagged on 2025-03-28.
 </div>
+---
