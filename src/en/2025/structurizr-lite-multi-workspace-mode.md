@@ -68,6 +68,7 @@ and following the breadcrumb trail starting at `STRUCTURIZR_PROPERTIES_FILENAME`
 `Configuration.java` is a good starting point if you're curious about the internals of Structurizr Lite.
 
 ---
+
 <div id="footnote-1" class="pb-2">
     <sup>1</sup> The source for this is the `WORKSPACE_ID_REGEX` const in <a href="https://github.com/structurizr/lite/blob/main/src/main/java/com/structurizr/lite/component/workspace/WorkspaceDirectory.java" target="_blank">WorkspaceDirectory.java</a>.
 </div>
@@ -76,4 +77,5 @@ and following the breadcrumb trail starting at `STRUCTURIZR_PROPERTIES_FILENAME`
     workspace directory names (i.e. not just integers) has been merged - see <a href="https://github.com/structurizr/lite/issues/189" target="_blank">structurizr/lite#189</a>.
     This fix was merged on 2025-04-11, but the latest `structurizr/lite` Docker image was tagged on 2025-03-28.
 </div>
+
 ---
