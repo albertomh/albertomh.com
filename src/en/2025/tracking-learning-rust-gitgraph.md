@@ -4,6 +4,7 @@ title: 'Tracking learning Rust with gitgraph'
 blurb: TBC
 createdAt: '2025-05-21'
 path: /2025/tracking-learning-rust-gitgraph
+permalink: 2025/tracking-learning-rust-gitgraph/
 attribution: 'TBC'
 tags: ['post']
 eleventyExcludeFromCollections: true

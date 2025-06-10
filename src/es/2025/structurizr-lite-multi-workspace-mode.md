@@ -75,6 +75,7 @@ trata de un buen punto de partida si sientes curiosidad por conocer los entresij
 Structurizr Lite.
 
 ---
+
 <div id="footnote-1" class="pb-2">
     <sup>1</sup> En el original: "Adds support for multi-workspace mode (not yet documented)".
 </div>
@@ -89,4 +90,5 @@ Structurizr Lite.
     Este parche fue integrado el 2025-04-11 pero la última imagen de Docker
     `structurizr/lite` fue etiquetada el 2025-03-28.
 </div>
+
 ---
