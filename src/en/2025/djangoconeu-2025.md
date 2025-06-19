@@ -2,7 +2,8 @@
 layout: post
 title: DjangoConEU 2025
 blurb: Five days in Dublin at the heart of the Django community.
-createdAt: '2025-04-30'
+createdAt: '2025-04-22'
+updatedAt: '2025-04-28'
 path: /2025/djangoconeu-2025
 permalink: 2025/djangoconeu-2025/
 attribution: 'W. A. Hofstetter, cover of ''Country Gentleman'' (9th March 1912 issue), out of copyright.'
@@ -11,15 +12,15 @@ tags: ['post']
 
 <!-- markdownlint-disable MD033 no-inline-html -->
 
-Dublin's reputation precedes it: live music, a welcoming people and spirited environment
-ringed by canals and studded with ornate Georgian architecture. At the end of April 2025
-three hundred members of the global Django community shut themselves away from all this in
- a hotel in Dublin's suburbs and kicked off that year's DjangoCon EU! This is a synopsis
- of my time there.
+Dublin's reputation precedes it: live music, a welcoming people and spirited environment.
+A city of ornate Georgian architecture bisected by canals. At the end of April 2025 three
+hundred members of the global Django community shut ourselves away from all this in a
+hotel in Dublin's suburbs and kicked off that year's DjangoCon EU! This is a synopsis of
+my time there.
 
 <h2 class="mt-5">Day 0</h2>
 
-The soundtrack to yesterday's breakfast was, as on many days, an episode of the Django
+The soundtrack to today's breakfast was, as on many days, an episode of the Django
 Chat podcast. The airport setting, however, was less routine - I was on my way to
 DjangoCon Europe!
 
@@ -29,11 +30,11 @@ the future of the framework and its community. A framework that is at the core o
 carried out by DevOps @ Cambridge.
 
 The flight was spent picking up tips from Adam Johnson's 'Speed Up Your Django Tests'
-(browse his catalogue of invaluable e-books at [https://adamchainz.gumroad.com](https://adamchainz.gumroad.com))
+(browse his catalogue of invaluable e-books at <a href="https://adamchainz.gumroad.com" target="_blank">https://adamchainz.gumroad.com</a>)
 and poring over the conference schedule. I am excited to meet people I otherwise only
 know through the Internet. Carlton Gibson & Will Vincent, hosts of the aforementioned
-Django Chat ([https://djangochat.com](https://djangochat.com)) have talks, as does Sarah
-Boyce, the latest Django Fellow.
+Django Chat (<a href="https://djangochat.com/" target="_blank">https://djangochat.com</a>)
+have talks, as does Sarah Boyce, the latest Django Fellow.
 
 Stay tuned for digests from the next few days of talks - from Data-Oriented Design,
 workshops on measuring quality in Software Engineering, or a Q&A with Django's board.
@@ -42,15 +43,15 @@ workshops on measuring quality in Software Engineering, or a Q&A with Django's b
 
 <h2 class="mt-5">Day 1</h2>
 
-A brilliant Day 1 of DjangoCon Europe!
+A brilliant Day 1 of DjangoCon Europe! The day included:
 
 - Sarah Boyce's keynote on contributing to Django, and how attention is a vital resource
-in open-source projects (pictured, code added to Django over time).
+in open-source projects.
 - Jacob Rief's top tips on using Playwright as a less-flaky alternative to Selenium.
 - Tim Bell's masterclass on migrating data fields at scale at Kraken.
 - Adam Johnson's talk on Data-Oriented Django and how to speed up database queries.
 - Daniele Procida (creator of Diátaxis) on how to define, measure and elevate quality at
-scale (pictured, a quality dashboard like those used at Canonical).
+scale.
 
 And a shout-out to the MercadonaIT delegation who took the time to chat about the tech
 landscape in Spain, with an emphasis on Django & Python.
@@ -65,6 +66,9 @@ indeed!
 
 <img src="/assets/img/post/2025/2025-04_djangoconEU-1.jpg" alt="TODO" class="img-fluid">
 
+📸: with Harinder; Daniele & a quality dashboard like those used at Canonical; code added
+to Django over time, from Sarah's talk.
+
 <h2 class="mt-5">Day 2</h2>
 
 My Day 2 of DjangoCon Europe had two distinct yet complementary flavours: a focus on
@@ -77,20 +81,20 @@ At the annual meeting of members of the Django Software Foundation it was enligh
 hear concerns & suggestions regarding the framework's trajectory.
 
 - Emma Dellescolle's introduction to the Steering Council for the 6.x release cycle pulled
-back the curtain on the project's governance and keeping decision-making nimble.
+  back the curtain on the project's governance and keeping decision-making nimble.
 - Carlton Gibson had the best take on 'consensus' I've heard - one of building trust.
-Framing Django as 'a community first, a web framework second' cemented why it is one of
-the best tools to build with.
+  Framing Django as "a community first, a web framework second" cemented why it is one of
+  the best tools to build with.
 
 The technical deep-dives I attended were excellent, and left me eager to share insights
 with colleagues:
 
 - Haki Benita's lively tour of best practices for foreign keys & indexes, with plenty of
-actionable advice for writing robust migrations.
+  actionable advice for writing robust migrations.
 - Jacob Walls' talk on dynamic models threatened to go completely over my head, but he
-made the subject accessible and pragmatic.
+  made the subject accessible and pragmatic.
 - Tom Carrick brought securing the Django Admin into the 21st century with his demo of
-adding passkeys to an app, sharing many lessons from doing so.
+  adding passkeys to an app, sharing many lessons from doing so.
 
 <img src="/assets/img/post/2025/2025-04_djangoconEU-2.jpg" alt="TODO" class="img-fluid">
 
