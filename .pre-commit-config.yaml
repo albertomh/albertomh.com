@@ -9,6 +9,11 @@ repos:
     rev: v5.0.0
     hooks:
       - id: check-added-large-files
+        exclude: |
+          (?x)^(
+              src/assets/img/post/2025/djangoconeu-2025.svg|
+              src/assets/img/post/2025/2025-04_djangoconEU-3.jpg
+          )$
       - id: check-docstring-first
       - id: check-merge-conflict
       - id: check-json

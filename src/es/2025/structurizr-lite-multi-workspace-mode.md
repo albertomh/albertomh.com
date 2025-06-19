@@ -5,7 +5,7 @@ blurb: Visualizando múltiples sistemas de software con la herramienta gratuita 
 createdAt: '2025-05-16'
 path: /2025/structurizr-lite-multi-workspace-mode
 permalink: es/2025/structurizr-lite-multi-espacios-de-trabajo/
-attribution: 'Imagen: Herzog August Bibliothek <a href="https://diglib.hab.de/wdb.php?dir=mss/74-1-aug-2f" target="_blank">https://diglib.hab.de/wdb.php?dir=mss/74-1-aug-2f</a>, usado bajo licencia CC BY-SA.'
+attribution: 'Herzog August Bibliothek <a href="https://diglib.hab.de/wdb.php?dir=mss/74-1-aug-2f" target="_blank">https://diglib.hab.de/wdb.php?dir=mss/74-1-aug-2f</a>, usado bajo licencia CC BY-SA.'
 tags: ['post', 'til']
 ---
 
