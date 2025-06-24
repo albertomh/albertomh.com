@@ -3,7 +3,7 @@
     "version": "0.0.1",
     "description": "",
     "scripts": {
-        "build": "rm -rf ./dist/ .parcel-cache/ && npm run prod:eleventy && npm run prod:parcel && npm run minifyHTML",
+        "build": "rm -rf ./dist/ .parcel-cache/ && npm run prod:eleventy && npm run prod:parcel && npm run minifyHTML && cp ./src/_redirects ./dist/",
         "dev": "npm run build && python3 -m http.server 9000 --directory dist/",
         "minifyHTML": "html-minifier --input-dir ./dist --output-dir ./dist --collapse-whitespace --file-ext html",
         "prod:eleventy": "npx @11ty/eleventy --quiet",
