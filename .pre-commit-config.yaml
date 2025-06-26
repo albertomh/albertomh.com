@@ -11,6 +11,8 @@ repos:
       - id: check-added-large-files
         exclude: |
           (?x)^(
+              src/assets/img/post/2025/pycliche-and-djereo.svg|
+              src/assets/img/post/2025/2025-06_pycliche&djereo.png|
               src/assets/img/post/2025/djangoconeu-2025.svg|
               src/assets/img/post/2025/2025-04_djangoconEU-3.jpg
           )$
