@@ -3,6 +3,7 @@ layout: post
 title: Usando Structurizr Lite con más de un espacio de trabajo
 blurb: Visualizando múltiples sistemas de software con la herramienta gratuita Structurizr Lite.
 createdAt: '2025-05-16'
+updatedAt: '2025-06-29'
 path: /2025/structurizr-lite-multi-workspace-mode
 permalink: es/2025/structurizr-lite-multi-espacios-de-trabajo/
 attribution: 'Herzog August Bibliothek <a href="https://diglib.hab.de/wdb.php?dir=mss/74-1-aug-2f" target="_blank">https://diglib.hab.de/wdb.php?dir=mss/74-1-aug-2f</a>, usado bajo licencia CC BY-SA.'
@@ -64,7 +65,7 @@ Structurizr. Para lograrlo:
     (Structurizr sólo comprueba si el número es superior a 1; el valor no tiene por qué
     coincidir con el número de espacios de trabajo).
 2. Crea directorios para cada espacio de trabajo. El nombre de los directorios debe
-   ajustarse a la expresión regular `\d*` <sup><a href="#footnote-2">2</a></sup>
+   ajustarse a la expresión regular `\d*-[a-zA-Z0-9_-]*` <sup><a href="#footnote-2">2</a></sup>
    <sup><a href="#footnote-3">3</a></sup>
 
 <!-- markdownlint-disable MD013 line-length -->
@@ -80,15 +81,14 @@ Structurizr Lite.
     <sup>1</sup> En el original: "Adds support for multi-workspace mode (not yet documented)".
 </div>
 <div id="footnote-2" class="pb-2">
-    <sup>2</sup> Esta expresión regular la define la constante `WORKSPACE_ID_REGEX` en
+    <sup>2</sup> Esta expresión regular la define la constante <code>WORKSPACE_ID_AND_NAME_REGEX</code> en
     <a href="https://github.com/structurizr/lite/blob/main/src/main/java/com/structurizr/lite/component/workspace/WorkspaceDirectory.java" target="_blank">WorkspaceDirectory.java</a>.
 </div>
 <div id="footnote-3" class="pb-2">
-    <sup>3</sup> Advertencia: en el momento de redactar esta nota existe un parche que
-    permite directorios con nombres alfanuméricos. Este ha sido integrado - véase
-    <a href="https://github.com/structurizr/lite/issues/189" target="_blank">structurizr/lite#189</a>.
-    Este parche fue integrado el 2025-04-11 pero la última imagen de Docker
-    `structurizr/lite` fue etiquetada el 2025-03-28.
+    <sup>3</sup>El parche que permite directorios con nombres alfanuméricos (<a href="https://github.com/structurizr/lite/issues/189" target="_blank">structurizr/lite#189</a>)
+    está disponible en imágenes de Docker <code>structurizr/lite</code> con la etiqueta '2025.05.28' o posterior.
+    Si utilizas una versión anterior los nombres de los directorios para cada espacio de trabajo deben
+    ajustarse a la expresión regular <code>\d*</code>, es decir, sólo pueden contenter números.
 </div>
 
 ---
