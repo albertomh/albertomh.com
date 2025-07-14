@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Pycliché & Djereo
-blurb: Opinionated, batteries-included project templates for Python & Django.
+blurb: My opinionated, batteries-included project templates for Python & Django.
 createdAt: '2025-06-26'
 path: /2025/pycliche-and-djereo
 permalink: 2025/pycliche-and-djereo/

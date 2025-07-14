@@ -5,7 +5,7 @@ blurb: Extrayendo condiciones de comentarios y aflorándolas mediante código.
 createdAt: '2025-05-14'
 path: /2025/til-comment-smells
 permalink: es/2025/comentarios-que-huelen/
-attribution: 'Imagen: Fig. 113 de <a href="https://archive.org/details/plainhometalkabo00foot/page/n11/mode/2up" target="_blank"><em>Plain Home Talk</em> (1896)</a> por Edward B. Foote, fuera de copyright.'
+attribution: 'Fig. 113 de <a href="https://archive.org/details/plainhometalkabo00foot/page/n11/mode/2up" target="_blank"><em>Plain Home Talk</em> (1896)</a> por Edward B. Foote, fuera de copyright.'
 tags: ['post', 'til']
 ---
 

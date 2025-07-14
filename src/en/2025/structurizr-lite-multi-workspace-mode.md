@@ -6,7 +6,7 @@ createdAt: '2025-05-16'
 updatedAt: '2025-06-29'
 path: /2025/structurizr-lite-multi-workspace-mode
 permalink: 2025/structurizr-lite-multi-workspace-mode/
-attribution: 'Image: Herzog August Bibliothek <a href="https://diglib.hab.de/wdb.php?dir=mss/74-1-aug-2f" target="_blank">https://diglib.hab.de/wdb.php?dir=mss/74-1-aug-2f</a>, licensed under CC BY-SA.'
+attribution: 'Herzog August Bibliothek <a href="https://diglib.hab.de/wdb.php?dir=mss/74-1-aug-2f" target="_blank">https://diglib.hab.de/wdb.php?dir=mss/74-1-aug-2f</a>, licensed under CC BY-SA.'
 tags: ['post', 'til']
 ---
 

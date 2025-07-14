@@ -14,7 +14,8 @@ repos:
               src/assets/img/post/2025/pycliche-and-djereo.svg|
               src/assets/img/post/2025/2025-06_pycliche&djereo.png|
               src/assets/img/post/2025/djangoconeu-2025.svg|
-              src/assets/img/post/2025/2025-04_djangoconEU-3.jpg
+              src/assets/img/post/2025/2025-04_djangoconEU-3.jpg|
+              src/assets/img/post/2025/temporal-corollary-conways-law.svg
           )$
       - id: check-docstring-first
       - id: check-merge-conflict

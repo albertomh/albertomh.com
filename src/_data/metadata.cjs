@@ -1,7 +1,7 @@
 module.exports = () => {
     const today8601 = new Date().toISOString().slice(0, 10);
 
-    let footerDate = "2021";
+    let footerDate = "2025";
     const curYear = Number.parseInt(today8601.slice(0, 4));
     if (curYear > Number.parseInt(footerDate)) {
         footerDate = `${footerDate}-${curYear}`;
