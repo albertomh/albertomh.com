@@ -14,9 +14,9 @@ tags: ['post']
 
 Conway's Law is almost invariably quoted from:
 
-- the conclusion to <a href="https://www.melconway.com/Home/pdf/committees.pdf" target="_blank">"How Do Committees Invent?"</a>, the 1968 paper where Melvin Conway introduced his idea
-- the preface published 42 years later on <a href="https://www.melconway.com/Home/Committees_Paper.html" target="_blank"> the author's website</a>  
-- Chapter 10 of 'The Mythical Man-Month', where Fred Brooks dubs it 'Conway's Law'<sup><a href="#footnote-1">1</a></sup>
+- the conclusion to <a href="https://www.melconway.com/Home/pdf/committees.pdf" target="_blank">"How Do Committees Invent?"</a>, the 1968 paper where Melvin Conway introduced the idea behind the 'Law'
+- the preface published 42 years later on <a href="https://www.melconway.com/Home/Committees_Paper.html" target="_blank">the author's website</a>  
+- Chapter 10 of 'The Mythical Man-Month', where Fred Brooks first dubbed it 'Conway's Law'<sup><a href="#footnote-1">1</a></sup>
 
 I returned to these three sources and found my favourite way of stating the Law in a
 section heading of Conway's paper. Its succinctness is unparalleled:
@@ -26,7 +26,7 @@ section heading of Conway's paper. Its succinctness is unparalleled:
     <p>“Systems image their design groups”</p>
   </blockquote>
   <figcaption class="blockquote-footer">
-    Melvin Conway, <cite title="Source Title">"How Do Committees Invent?"</cite> (1968)
+    Melvin Conway, <cite>"How Do Committees Invent?"</cite> (1968)
   </figcaption>
 </figure>
 
@@ -47,7 +47,7 @@ mortarboards. They are bound to a relentless procession of deadlines: submitting
 applications, choosing course options, sitting exams, attending graduations... indices on
 an ivy-clad clock face.
 
-The calendar that dictates when and how our systems are used casts a long shadow.
+The calendar that dictates when and how my team's systems are used casts a long shadow.
 Development roadmaps and milestones form a carbon copy of the academic calendar,
 a failure to avoid the Unconscionable Maps that Borges cautioned us about<sup><a href="#footnote-2">2</a></sup>.
 
