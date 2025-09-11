@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Un corolario temporal de la ley de Conway
-blurb: Cuando un calendario rígido guía las decisiones en el diseño del software
+blurb: Cuando un calendario rígido guía las decisiones en el diseño del software.
 createdAt: '2025-07-14'
 path: /2025/temporal-corollary-conways-law
 permalink: es/2025/temporal-corollary-conways-law/

@@ -88,10 +88,18 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
     @include font-serif;
+    margin-top: 2rem;
+}
+
+.card-body {
+    h1, h2, h3, h4, h5, h6 {
+        margin-top: 0;
+    }
 }
 
 h1 {
     @extend .mb-3;
+    margin-top: 0;
 }
 
 a {
