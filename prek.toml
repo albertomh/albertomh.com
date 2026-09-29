@@ -1,0 +1,75 @@
+# Configuration file for `prek`, a git hook framework written in Rust.
+# See https://prek.j178.dev for more information.
+#:schema https://www.schemastore.org/prek.json
+
+default_language_version = { node = "22.11.0" }
+default_install_hook_types = [
+  "commit-msg",
+  "pre-commit"
+  ]
+default_stages = ["pre-commit"]
+
+[[repos]]
+repo = "https://github.com/pre-commit/pre-commit-hooks"
+rev = "v6.0.0"
+hooks = [
+  {
+    id = "check-added-large-files",
+    exclude = """
+(?x)^(
+    src/assets/img/post/2025/pycliche-and-djereo.svg|
+    src/assets/img/post/2025/2025-06_pycliche&djereo.png|
+    src/assets/img/post/2025/djangoconeu-2025.svg|
+    src/assets/img/post/2025/2025-04_djangoconEU-3.jpg|
+    src/assets/img/post/2025/temporal-corollary-conways-law.svg|
+    src/assets/img/post/2025/playwright-vs-pydoll-e2e-benchmark.svg
+)$
+"""
+  },
+  { id = "check-docstring-first" },
+  { id = "check-merge-conflict" },
+  { id = "check-json" },
+  { id = "check-toml" },
+  { id = "check-yaml" },
+  { id = "end-of-file-fixer" },
+  { id = "no-commit-to-branch" },
+  {
+    id = "trailing-whitespace",
+    args = [
+      "--markdown-linebreak-ext",
+      "md"
+    ]
+  },
+  { id = "check-case-conflict" }
+]
+
+[[repos]]
+repo = "https://github.com/DavidAnson/markdownlint-cli2"
+rev = "v0.23.3"
+hooks = [
+  {
+    id = "markdownlint-cli2",
+    args = [
+      "--config",
+      ".markdownlint-cli2.yaml"
+    ]
+  }
+]
+
+[[repos]]
+repo = "https://github.com/biomejs/pre-commit"
+rev = "v2.5.14"
+hooks = [
+  { id = "biome-check" }
+]
+
+[[repos]]
+repo = "https://github.com/alessandrojcm/commitlint-pre-commit-hook"
+rev = "v9.27.0"
+hooks = [
+  {
+    id = "commitlint",
+    stages = ["commit-msg"],
+    additional_dependencies = ["@commitlint/config-conventional"]
+  }
+]

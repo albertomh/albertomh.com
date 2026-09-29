@@ -27,17 +27,17 @@ pre[class*="language-"] {
 }
 pre[class*="language-"] {
     padding: 1em;
-    margin: .5em 0;
+    margin: 0.5em 0;
     overflow: auto;
-    border-radius: .3em;
+    border-radius: 0.3em;
 }
 :not(pre) > code[class*="language-"],
 pre[class*="language-"] {
     background: #272822;
 }
 :not(pre) > code[class*="language-"] {
-    padding: .1em;
-    border-radius: .3em;
+    padding: 0.1em;
+    border-radius: 0.3em;
     white-space: normal;
 }
 .token.cdata,

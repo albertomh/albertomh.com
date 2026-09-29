@@ -50,7 +50,7 @@ Cloudflare Pages uses the following build configuration:
 
 |                         |               |
 |-------------------------|---------------|
-| Build command:          | deno run build |
+| Build command:          | deno run build|
 | Build output directory: | /dist         |
 | Root directory:         | /             |
 
