@@ -41,7 +41,7 @@ deno update
 
 ## Deploy
 
-The site is hosted on Cloudflare Pages, using Version 2 of their build system. To deploy:  
+The site is hosted on Cloudflare Pages, using Version 3 of their build system. To deploy:
 
 1. Raise a PR against the `main` branch.
 1. Merge the PR into `main` and wait for Cloudflare to automatically deploy.
@@ -53,6 +53,14 @@ Cloudflare Pages uses the following build configuration:
 | Build command:          | deno run build|
 | Build output directory: | /dist         |
 | Root directory:         | /             |
+
+### Remove old Cloudflare Pages deployments
+
+To remove old Cloudflare Pages deployments (dry-run by default):
+
+1. Set env vars `CF_API_TOKEN`, `CF_ACCOUNT_ID`, and `CF_PROJECT_NAME`.
+1. Run `uv run scripts/delete_old_cf_deployments.py --keep 10`  
+   (append `--do-delete` to delete them).
 
 ---
 
